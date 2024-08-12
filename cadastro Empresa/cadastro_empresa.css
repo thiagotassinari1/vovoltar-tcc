@@ -1,0 +1,173 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+}
+
+body {
+    display: flex;
+}
+
+/* Parte da esuqerda - login */
+
+#login {
+    background: #F6F1F1;
+    width: 40%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    gap: 5vh;
+}
+
+.msg_cadastro {
+    font-size: 20pt;
+    font-weight: 300;
+}
+
+.campos {
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    font-weight: bolder;
+    font-size: 10pt;
+}
+
+.input_campo {
+    width: 17vw;
+    height: 5vh;
+    border: 1px solid black;
+    border-radius: 14px;
+    padding-left: 1vw;
+    padding-right: 0.5vw;
+}
+
+#input_senha {
+    background-image: url('../assets/olho_fechado.jpg');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 0.5vw) center;
+    background-size: 20px 15px;
+}
+
+#input_confirmar_senha {
+    background-image: url('../assets/olho_fechado.jpg');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 0.5vw) center;
+    background-size: 20px 15px;
+}
+
+.enviar {
+    background: #9CCDDB;
+    border-radius: 13px;
+    height: 6vh;
+    width: 10vw;
+    font-size: 15pt;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.enviar:hover {
+    background: #6cb1df;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+.criar_conta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3.5vw;
+}
+
+.criar_conta > a {
+    text-decoration: underline;
+    color: black;
+}
+
+.criar_conta > a:hover {
+    transition-duration: 0.3s;
+    text-decoration: underline;
+    color: #6cb1df;
+}
+
+/* Parte da direita - foto */
+
+#logo {
+    width: 60%;
+    height: 100vh;
+    background-image: url(../assets/fundo\ login\ empresa2.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.idosotrab {
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.568);
+    width: 75%;
+}
+
+
+/* quando a tela estiver entre 320px e 480 px */
+@media screen and (min-width:320px) and (max-width:840px){
+    #logo{
+        display: none;
+    }
+
+    #login {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .campos {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .input_campo {
+        width: 45vw;
+        height: 4vh;
+        border-radius: 14px;
+        border: 1px solid black;
+        padding-left: 1vw;
+        padding-right: 0.5vw;
+    }
+
+    label {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .enviar {
+        width: 30%;
+        height: 5vh;
+        border-radius: 10px;
+
+    }
+    
+}

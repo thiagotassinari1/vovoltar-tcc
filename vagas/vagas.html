@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="vagas.css">
+    <link rel="shortcut icon" type="imagem/jpg" href="../assets/minilogo.png">
+
+    <!-- fonte -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <aside>   
+        <a href="../home/home.html" class="link_aside">Home</a>
+        <a href="../navegar/navegar.html" class="link_aside">Navegar</a>
+        <a href="../vagas/vagas.html" class="link_aside_selecionado">Vagas</a>
+        <a href="../perfil/perfil.html" class="link_aside">Perfil</a>
+    </aside>
+    <main>
+        <section class="titulo">
+            <h1 class="titulo_vaga">Vagas de emprego aqui!</h1>
+        </section>
+        <section class="post_vagas">
+            <div class="botoes">
+                <div class="botao_vaga" id="filtrar"> Filtrar </div>
+                <div class="botao_vaga" id="criar_vaga" onclick="openForm"> Criar vaga </div>
+            </div>
+            <div class="vagas">
+                <form class="formulario_vagas" id="formulario_vagas">
+
+                    <h1>Publicar Vaga:</h1>
+
+                    <label class="campo">
+                        Área de atuação  
+                        <input type="text" class="input_campo" id="area_atuacao">
+                    </label>
+        
+                    <label class="campo">
+                        Email para contato
+                        <input type="text" class="input_campo" id="email">                    
+                    </label>
+        
+                    <label class="campo">
+                        Cidade
+                        <input type="text" class="input_campo" id="cidade">                    
+                    </label>
+        
+                    <label class="campo">
+                        Estado
+                        <input type="text" class="input_campo" id="estado">                    
+                    </label>
+
+                    <label class="campo">
+                        Quantidade de vagas
+                        <input type="text" class="input_campo" id="qtd_vagas">                    
+                    </label>
+        
+                    <div class="publicar_cancelar_vaga">
+                        <div class="cancelar_vaga" id="cancelar_vaga">
+                            Cancelar
+                        </div>
+    
+                        <div class="publicar_vaga" id="publicar_vaga">
+                            Publicar vaga
+                        </div>
+
+                    </div>
+
+                </form>
+            </div>
+            
+        </section>
+
+    </main>
+
+    <script src="vagas.js"></script>
+</body>
+</html>
