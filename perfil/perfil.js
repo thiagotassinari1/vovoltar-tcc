@@ -1,4 +1,4 @@
-// home.js
+// perfil.js
 
 // Verificar se o usuário está logado
 function verificarLogin() {
@@ -17,6 +17,7 @@ function verificarLogin() {
         // Desabilitar botão de login e habilitar botão de logout
         document.getElementById('botao-login').style.display = 'none';
         document.getElementById('botao-logout').style.display = 'block';
+
       } else {
         console.error('Usuário não tem as propriedades esperadas');
         localStorage.removeItem('usuario');

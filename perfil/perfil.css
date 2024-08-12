@@ -1,0 +1,123 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+}
+
+body {
+    display: flex;
+}
+
+aside {
+    height: 100vh;
+    width: 10%;
+    background-color: #146C94;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    font-size: 15pt;
+    gap: 4vh;
+    padding-top: 7vh;
+}
+
+.link_aside {
+    text-decoration: none;
+    color: white;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+}
+
+.link_aside:hover {
+    background-color: #bde3f468;
+}
+
+.link_aside_selecionado {
+    text-decoration: none;
+    color: white;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background-color: #bde3f468;
+}
+
+.perfil {
+    /* border: 1px solid white; */
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5vw;
+}
+
+.link_img_perfil {
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img_perfil {
+    width: 100%;
+}
+
+.opções_usuario {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5vh;
+}
+
+#email-usuario {
+    font-size: 7pt;
+    font-weight: 600;
+}
+
+#botao-logout {
+    background-color: #bde3f468;
+    border: none;
+    width: 90%;
+    border-radius: 10px;
+}
+
+#botao-logout:hover {
+    cursor: pointer;
+    background-color: #6cb1df;
+    transition-duration: 0.3s;
+}
+
+main {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #F6F1F1;
+}
+
+.titulo {
+    font-weight: 400;
+    font-size: 23pt;
+    border-bottom: 2px solid #146C94;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edicao_usuario {
+
+}
+
+.foto_usuario {
+    width: 16%;
+}
