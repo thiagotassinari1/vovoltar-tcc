@@ -45,3 +45,11 @@ verificarLogin();
 
 // Evento de logout
 document.getElementById('botao-logout').addEventListener('click', logout);
+
+const usuario = JSON.parse(localStorage.getItem('usuario'));
+
+// puxar o email do usuário pra edição do perfil
+document.getElementById('email_usuario').innerHTML = usuario.email;
+document.getElementById('nome_usuario').innerHTML = usuario.nome;
+document.getElementById('telefone_usuario').innerHTML = usuario.telefone
+document.getElementById('nascimento_usuario').innerHTML = usuario.nascimento;

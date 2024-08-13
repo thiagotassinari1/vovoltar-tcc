@@ -23,30 +23,28 @@ logarButton.onclick = async function (e) {
 
         if (content.success) {
             let tipo_usuario = 'pessoa';
+            let id = content.data[0].id;
+            let nome = content.data[0].nome;
+            let telefone = content.data[0].telefone;
+            let nascimento = content.data[0].nascimento;
+            let ft_perfil = content.data[0].ft_perfil;
+
             // Salvar o usuário no local storage para ir pra home
-            let usuario = JSON.stringify({ email, tipo_usuario });
+            let usuario = JSON.stringify({ id, nome, email, telefone, nascimento, ft_perfil, tipo_usuario  });
             localStorage.setItem('usuario', usuario);
+
+            // Testar se está puxando o usuário corretamente
             console.log('Usuário armazenado no local storage:', localStorage.getItem('usuario'));
 
-
             Swal.fire({
+                icon: "success",
                 title: "Sucesso no login!",
-                text: "Clique em avançar para prosseguir.",
-                imageUrl: "../assets/check.png",
-                imageWidth: 200,
-                imageHeight: 200,
-                imageAlt: "Custom image",
-                confirmButtonColor: "green",
-                confirmButtonText: "Avançar",
-                customClass: {
-                    popup: 'box_popUp'
-                }
-                
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "../home/home.html";
-                }
+                showConfirmButton: false,
+                timer: 1300
+            }).then(() => {
+                window.location.href = '../home/home.html';
             });
+
         } else {
             alert('Erro no login, tente novamente!');
         }
