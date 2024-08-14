@@ -108,7 +108,7 @@ main {
 
 .titulo {
     font-weight: 400;
-    font-size: 23pt;
+    font-size: 2rem;
     border-bottom: 2px solid #146C94;
     width: 50%;
     display: flex;
@@ -155,7 +155,7 @@ main {
     top: 50%;
     right: 0;
     height: 85%;
-    border-right: 1px solid #146C94;
+    border-right: 2px solid #146C94;
     transform: translateY(-50%);
 }
 
@@ -164,6 +164,10 @@ main {
     justify-content: center;
     align-items: center;
     width: 100%;
+}
+
+.foto_usuario {
+    width: 30%;
 }
 
 .botoes_edicao_foto {
@@ -227,8 +231,52 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
-.foto_usuario {
-    width: 30%;
+.sobre {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid black;
+    height: 50%;
+    gap: 20%;
+}
+
+.titulo_sobre {
+    font-weight: 400;
+    font-size: 2rem;
+    border-bottom: 2px solid #146C94;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.texto_sobre_usuario {
+    text-align: justify;
+    width: 90%;
+}
+
+.anexos_perfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid blue;
+    width: 100%;
+    height: 50%;
+}
+
+.anexos_direita {
+    border: 1px solid red;
+    height: 100%;
+    width: 50%;
+}
+
+.redes_sociais {
+    border: 1px solid green;
+    height: 100%;
+    width: 50%;
 }
