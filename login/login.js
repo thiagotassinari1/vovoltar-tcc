@@ -24,17 +24,13 @@ logarButton.onclick = async function (e) {
         if (content.success) {
             let tipo_usuario = 'pessoa';
             let id = content.data[0].id;
-            let nome = content.data[0].nome;
-            let telefone = content.data[0].telefone;
-            let nascimento = content.data[0].nascimento;
-            let ft_perfil = content.data[0].ft_perfil;
 
             // Salvar o usuário no local storage para ir pra home
-            let usuario = JSON.stringify({ id, nome, email, telefone, nascimento, ft_perfil, tipo_usuario  });
+            let usuario = JSON.stringify({ id, tipo_usuario  });
             localStorage.setItem('usuario', usuario);
 
             // Testar se está puxando o usuário corretamente
-            console.log('Usuário armazenado no local storage:', localStorage.getItem('usuario'));
+            console.log('Usuário armazenado no local storage:', usuario);
 
             Swal.fire({
                 icon: "success",

@@ -75,18 +75,20 @@ aside {
     justify-content: center;
     align-items: center;
     gap: 0.5vh;
+    width: 50%;
 }
 
-#email-usuario {
+/* #email-usuario {
     font-size: 7pt;
     font-weight: 600;
-}
+} */
 
 #botao-logout {
     background-color: #bde3f468;
     border: none;
     width: 90%;
     border-radius: 10px;
+    width: 100%;
 }
 
 #botao-logout:hover {
@@ -142,6 +144,19 @@ main {
     align-items: center;
     flex-direction: column;
     gap: 10vh;
+    position: relative;
+
+}
+
+/* pedir pro black box explicar tudo isso aqui */
+.esquerda:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    height: 85%;
+    border-right: 1px solid #146C94;
+    transform: translateY(-50%);
 }
 
 .foto_perfil {

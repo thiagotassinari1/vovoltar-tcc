@@ -17,13 +17,13 @@ async function storeUsuario(request, response) {
         if (results) {
             response.status(201).json({
                 success: true,
-                message: "Sucesso!",
+                message: "Sucesso no cadastro!",
                 data: results
             });
         } else {
             response.status(400).json({
                 success: false,
-                message: "Ops, deu problema!",
+                message: "Problema no cadastro!",
                 data: err
             });
         }
@@ -36,7 +36,7 @@ async function Login(request, response) {
         request.body.senha
     ];
     
-    const query = "SELECT email, senha FROM usuariospf WHERE email = ? AND senha = ?";
+    const query = "SELECT * FROM usuariospf WHERE email = ? AND senha = ?";
 
     connection.query(query, params, (err, results) => {
         if (results && results.length > 0) {
@@ -55,7 +55,32 @@ async function Login(request, response) {
     });
 }
 
+async function Infos(request, response) {
+    const params = [
+        request.params.id
+    ];
+    
+    const query = "SELECT * FROM usuariospf WHERE id = ?";
+
+    connection.query(query, params, (err, results) => {
+        if (results) {
+            response.status(200).json({
+                success: true,
+                message: "Sucesso no Get!",
+                data: results
+            });
+        } else {
+            response.status(400).json({
+                success: false,
+                message: "Problema no Get!",
+                data: err
+            });
+        }
+    });
+}
+
 module.exports = {
     storeUsuario,
-    Login
+    Login,
+    Infos
 };

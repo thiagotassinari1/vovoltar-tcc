@@ -10,14 +10,8 @@ function verificarLogin() {
       const usuario = JSON.parse(usuarioLogado);
       console.log(usuario);
 
-      if (usuario && usuario.email && usuario.tipo_usuario) {
-        // Mostrar informações do usuário logado
-        document.getElementById('email-usuario').innerHTML = usuario.email;
-
-        // Desabilitar botão de login e habilitar botão de logout
-        document.getElementById('botao-login').style.display = 'none';
+      if (usuario && usuario.id && usuario.tipo_usuario) {
         document.getElementById('botao-logout').style.display = 'block';
-
       } else {
         console.error('Usuário não tem as propriedades esperadas');
         localStorage.removeItem('usuario');
@@ -46,10 +40,37 @@ verificarLogin();
 // Evento de logout
 document.getElementById('botao-logout').addEventListener('click', logout);
 
-const usuario = JSON.parse(localStorage.getItem('usuario'));
+document.addEventListener('DOMContentLoaded', async function(event) {
+  event.preventDefault();
 
-// puxar o email do usuário pra edição do perfil
-document.getElementById('email_usuario').innerHTML = usuario.email;
-document.getElementById('nome_usuario').innerHTML = usuario.nome;
-document.getElementById('telefone_usuario').innerHTML = usuario.telefone
-document.getElementById('nascimento_usuario').innerHTML = usuario.nascimento;
+  const usuarioLogado = JSON.parse(localStorage.getItem('usuario'));
+  const id = usuarioLogado.id;
+  console.log(id);
+
+  const response = await fetch(`http://localhost:3001/api/get/infosUser/${id}`, {
+    method: "GET",
+    headers: { "Content-type": "application/json;charset=UTF-8" },
+  });
+  
+  let content = await response.json();
+  console.log(content);
+
+  if (content.success) {
+    const nome = content.data[0].nome;
+    const email = content.data[0].email;
+    const telefone = content.data[0].telefone;
+    const nascimento = content.data[0].nascimento;
+
+    let nomeAtual = document.getElementById('nome_usuario');
+    let emailAtual = document.getElementById('email_usuario');
+    let telefoneAtual = document.getElementById('telefone_usuario');
+    let nascimentoAtual = document.getElementById('nascimento_usuario');
+
+    nomeAtual.textContent = nome;
+    emailAtual.textContent = email;
+    telefoneAtual.textContent = telefone;
+    nascimentoAtual.textContent = nascimento;
+  } else {
+    alert('Erro no login, tente novamente!');
+  }
+});
