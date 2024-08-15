@@ -49,6 +49,53 @@ aside {
     background-color: #bde3f468;
 }
 
+.perfil {
+    /* border: 1px solid white; */
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5vw;
+}
+
+.link_img_perfil {
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img_perfil {
+    width: 100%;
+}
+
+.opções_usuario {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5vh;
+    width: 50%;
+}
+
+/* #email-usuario {
+    font-size: 7pt;
+    font-weight: 600;
+} */
+
+#botao-logout {
+    background-color: #bde3f468;
+    border: none;
+    width: 90%;
+    border-radius: 10px;
+    width: 100%;
+}
+
+#botao-logout:hover {
+    cursor: pointer;
+    background-color: #6cb1df;
+    transition-duration: 0.3s;
+}
 main {
     width: 90%;
     background-color: #F6F1F1;

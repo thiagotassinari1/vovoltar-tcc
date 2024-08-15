@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Vagas de emprego</title>
     <link rel="stylesheet" href="vagas.css">
     <link rel="shortcut icon" type="imagem/jpg" href="../assets/minilogo.png">
 
@@ -18,6 +18,16 @@
         <a href="../navegar/navegar.html" class="link_aside">Navegar</a>
         <a href="../vagas/vagas.html" class="link_aside_selecionado">Vagas</a>
         <a href="../perfil/perfil.html" class="link_aside">Perfil</a>
+        <div class="perfil">
+            <a class="link_img_perfil" href="../perfil/perfil.html">
+                <img class="img_perfil" src="../assets/user.png" alt="Usuario Perfil">
+            </a>
+            <div class="opções_usuario">
+                <p id="email-usuario"></p>
+
+                <button id="botao-logout">Sair</button>
+            </div>
+        </div>
     </aside>
     <main>
         <section class="titulo">
@@ -26,7 +36,7 @@
         <section class="post_vagas">
             <div class="botoes">
                 <div class="botao_vaga" id="filtrar"> Filtrar </div>
-                <div class="botao_vaga" id="criar_vaga" onclick="openForm"> Criar vaga </div>
+                <div class="botao_vaga" id="criar_vaga"> Criar vaga </div>
             </div>
             <div class="vagas">
                 <form class="formulario_vagas" id="formulario_vagas">

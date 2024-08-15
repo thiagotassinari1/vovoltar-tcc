@@ -1,14 +1,58 @@
+// Verificar se o usuário está logado
+function verificarLogin() {
+    const usuarioLogado = localStorage.getItem('usuario');
+    console.log('Usuário recuperado do local storage:', usuarioLogado);
+
+    if (usuarioLogado !== null && usuarioLogado !== '') {
+      try {
+        const usuario = JSON.parse(usuarioLogado);
+        console.log(usuario);
+
+        if (usuario && usuario.id && usuario.tipo_usuario) {
+          document.getElementById('botao-logout').style.display = 'block';
+        } else {
+          console.error('Usuário não tem as propriedades esperadas');
+          localStorage.removeItem('usuario');
+          window.location.href = '../login/login.html';
+        }
+      } catch (error) {
+        console.error('Erro ao parsear o usuário:', error);
+        localStorage.removeItem('usuario');
+        window.location.href = '../login/login.html';
+      }
+    } else {
+      // Redirecionar para a página de login se o usuário não estiver logado
+      window.location.href = '../login/login.html';
+    }
+}
+
+// Logout do usuário
+function logout() {
+    localStorage.removeItem('usuario');
+    window.location.href = '../login/login.html';
+}
+
+// Chamada inicial
+verificarLogin();
+
+// Evento de logout
+document.getElementById('botao-logout').addEventListener('click', logout);
+
+// função dos posts de vaga
 let formularioVaga = document.getElementById('formulario_vagas');
 let botaoCriarVaga = document.getElementById('criar_vaga');
+let botaoDeletarVaga = document.querySelector('.deletar_vaga');
 
 const usuarioLogado = localStorage.getItem('usuario');
 if (usuarioLogado) {
-  const usuario = JSON.parse(usuarioLogado);
-  if (usuario && usuario.tipo_usuario === 'pessoa') {
-    botaoCriarVaga.style.display = 'none';
-  } else if (usuario && usuario.tipo_usuario === 'empresa'){
-    botaoCriarVaga.style.display = 'block';
-  }
+    const usuario = JSON.parse(usuarioLogado);
+    if (usuario && usuario.tipo_usuario === 'pessoa') {
+        botaoCriarVaga.style.display = 'none';
+        // botaoDeletarVaga.style.display = 'none';
+
+    } else if (usuario && usuario.tipo_usuario === 'empresa') {
+        botaoCriarVaga.style.display = 'block';
+    }
 }
 
 // Função para criar um card de vaga
@@ -42,26 +86,33 @@ function criarCardVaga(vaga) {
     botaoCardVaga.innerHTML = 'Mais informações';
     botoesVaga.appendChild(botaoCardVaga);
 
-    // Criando botão pra deletar a vaga
-    let botaoDeleteVaga = document.createElement('div');
-    botaoDeleteVaga.className = 'deletar_vaga';
-    botaoDeleteVaga.innerHTML = 'Deletar Vaga';
-    botoesVaga.appendChild(botaoDeleteVaga);
+    // Verificar se o usuário logado é uma empresa
+    const usuarioLogado = localStorage.getItem('usuario');
+    if (usuarioLogado) {
+        const usuario = JSON.parse(usuarioLogado);
+        if (usuario && usuario.tipo_usuario === 'empresa') {
+            // Criando botão pra deletar a vaga
+            let botaoDeleteVaga = document.createElement('div');
+            botaoDeleteVaga.className = 'deletar_vaga';
+            botaoDeleteVaga.innerHTML = 'Deletar Vaga';
+            botoesVaga.appendChild(botaoDeleteVaga);
 
-    // Adicionando evento para deletar a vaga
-    botaoDeleteVaga.addEventListener('click', async function() {
-        const deleteResponse = await fetch(`http://localhost:3001/api/vaga/${vaga.id}`, {
-            method: 'DELETE',
-            headers: { 'Content-type': 'application/json;charset=UTF-8' }
-        });
+            // Adicionando evento para deletar a vaga
+            botaoDeleteVaga.addEventListener('click', async function () {
+                const deleteResponse = await fetch(`http://localhost:3001/api/vaga/${vaga.id}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-type': 'application/json;charset=UTF-8' }
+                });
 
-        if (deleteResponse.ok) {
-            alert('Vaga deletada com sucesso!');
-            cardVaga.remove();
-        } else {
-            alert('Erro ao deletar a vaga, tente novamente.');
+                if (deleteResponse.ok) {
+                    alert('Vaga deletada com sucesso!');
+                    cardVaga.remove();
+                } else {
+                    alert('Erro ao deletar a vaga, tente novamente.');
+                }
+            });
         }
-    });
+    }
 
     // adicionando as colunas ao card
     colunasCard.appendChild(infosVaga);
@@ -88,12 +139,12 @@ async function carregarVagas() {
 }
 
 // abrir formulário
-let criarVaga = document.getElementById('criar_vaga').addEventListener('click', function(event) {
+let criarVaga = document.getElementById('criar_vaga').addEventListener('click', function (event) {
     formularioVaga.style.display = 'flex';
 });
 
 // fechar formulário
-let cancelarVaga = document.getElementById('cancelar_vaga').addEventListener('click', function(event) {
+let cancelarVaga = document.getElementById('cancelar_vaga').addEventListener('click', function (event) {
     formularioVaga.style.display = 'none';
     formularioVaga.reset();
 });
@@ -101,7 +152,7 @@ let cancelarVaga = document.getElementById('cancelar_vaga').addEventListener('cl
 // publicar vaga
 let publicarVaga = document.getElementById('publicar_vaga');
 
-publicarVaga.onclick = async function() {
+publicarVaga.onclick = async function () {
     let area = document.getElementById('area_atuacao').value;
     let email_empresa = document.getElementById('email').value;
     let cidade = document.getElementById('cidade').value;
