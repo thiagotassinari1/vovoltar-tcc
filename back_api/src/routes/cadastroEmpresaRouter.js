@@ -1,9 +1,9 @@
 const { Router } = require('express');
-const { storeUsuarioEmpresa, LoginEmpresa } = require('../controller/cadastroEmpresaController');
+const { storeUsuarioEmpresa, InfosEmpresa } = require('../controller/cadastroEmpresaController');
 
 const router = Router();
 
 router.post('/store/UsuarioEmpresa', storeUsuarioEmpresa);
-router.post('/post/loginEmpresa', LoginEmpresa);
+router.get('/get/infosUserEmpresa/:id', InfosEmpresa);
 
 module.exports = router;

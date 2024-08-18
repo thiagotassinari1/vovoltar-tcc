@@ -30,25 +30,24 @@ async function storeUsuarioEmpresa(request, response) {
     });
 }
 
-async function LoginEmpresa(request, response) {
+async function InfosEmpresa(request, response) {
     const params = [
-        request.body.email,
-        request.body.senha
+        request.params.id
     ];
     
-    const query = "SELECT email, senha FROM empresas WHERE email = ? AND senha = ?";
+    const query = "SELECT * FROM empresas WHERE id = ?";
 
     connection.query(query, params, (err, results) => {
-        if (results && results.length > 0) {
+        if (results) {
             response.status(200).json({
                 success: true,
-                message: "Sucesso no Login!",
+                message: "Sucesso no Get!",
                 data: results
             });
         } else {
             response.status(400).json({
                 success: false,
-                message: "Problema no Login!",
+                message: "Problema no Get!",
                 data: err
             });
         }
@@ -57,5 +56,5 @@ async function LoginEmpresa(request, response) {
 
 module.exports = {
     storeUsuarioEmpresa,
-    LoginEmpresa
+    InfosEmpresa
 };

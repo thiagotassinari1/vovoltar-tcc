@@ -1,59 +1,31 @@
-// Verificar se o usuário está logado
-function verificarLogin() {
-    const usuarioLogado = localStorage.getItem('usuario');
-    console.log('Usuário recuperado do local storage:', usuarioLogado);
-
-    if (usuarioLogado !== null && usuarioLogado !== '') {
-      try {
-        const usuario = JSON.parse(usuarioLogado);
-        console.log(usuario);
-
-        if (usuario && usuario.id && usuario.tipo_usuario) {
-          document.getElementById('botao-logout').style.display = 'block';
-        } else {
-          console.error('Usuário não tem as propriedades esperadas');
-          localStorage.removeItem('usuario');
-          window.location.href = '../login/login.html';
-        }
-      } catch (error) {
-        console.error('Erro ao parsear o usuário:', error);
-        localStorage.removeItem('usuario');
-        window.location.href = '../login/login.html';
-      }
-    } else {
-      // Redirecionar para a página de login se o usuário não estiver logado
-      window.location.href = '../login/login.html';
-    }
-}
-
-// Logout do usuário
-function logout() {
-    localStorage.removeItem('usuario');
-    window.location.href = '../login/login.html';
-}
-
-// Chamada inicial
-verificarLogin();
-
-// Evento de logout
-document.getElementById('botao-logout').addEventListener('click', logout);
-
-// função dos posts de vaga
+// definir variáveis uteis para as funções
 let formularioVaga = document.getElementById('formulario_vagas');
 let botaoCriarVaga = document.getElementById('criar_vaga');
 let botaoDeletarVaga = document.querySelector('.deletar_vaga');
 
-const usuarioLogado = localStorage.getItem('usuario');
-if (usuarioLogado) {
-    const usuario = JSON.parse(usuarioLogado);
-    if (usuario && usuario.tipo_usuario === 'pessoa') {
-        botaoCriarVaga.style.display = 'none';
-        // botaoDeletarVaga.style.display = 'none';
+// recuperar usuario do local storage
+const usuarioLogado = JSON.parse(localStorage.getItem('user'));
+console.log(usuarioLogado)
 
-    } else if (usuario && usuario.tipo_usuario === 'empresa') {
-        botaoCriarVaga.style.display = 'block';
-    }
+// conferir de é empresa ou pessoa para permitir criar vagas ou nao
+if (usuarioLogado.origin === 'usuariopf') {
+    botaoCriarVaga.style.display = 'none';
+
+} else if (usuarioLogado.origin === 'empresa') {
+    botaoCriarVaga.style.display = 'flex';
 }
+
+
+// puxar campos para mostrar infos do usuário no front
+let emailUser = document.getElementById('email-usuario').innerHTML = usuarioLogado.email;
+
+
+// criar função para deslogar do site e voltar para o login
+let logout = document.getElementById('botao-logout').addEventListener('click', function (){
+    localStorage.removeItem('user');
+    window.location.href = '../login/login.html'
+});
+
 
 // Função para criar um card de vaga
 function criarCardVaga(vaga) {
@@ -87,31 +59,28 @@ function criarCardVaga(vaga) {
     botoesVaga.appendChild(botaoCardVaga);
 
     // Verificar se o usuário logado é uma empresa
-    const usuarioLogado = localStorage.getItem('usuario');
-    if (usuarioLogado) {
-        const usuario = JSON.parse(usuarioLogado);
-        if (usuario && usuario.tipo_usuario === 'empresa') {
-            // Criando botão pra deletar a vaga
-            let botaoDeleteVaga = document.createElement('div');
-            botaoDeleteVaga.className = 'deletar_vaga';
-            botaoDeleteVaga.innerHTML = 'Deletar Vaga';
-            botoesVaga.appendChild(botaoDeleteVaga);
+    const empresaLogada = JSON.parse(localStorage.getItem('user'));
+    if (empresaLogada.origin === 'empresa') {
+        // Criando botão pra deletar a vaga
+        let botaoDeleteVaga = document.createElement('div');
+        botaoDeleteVaga.className = 'deletar_vaga';
+        botaoDeleteVaga.innerHTML = 'Deletar Vaga';
+        botoesVaga.appendChild(botaoDeleteVaga);
 
-            // Adicionando evento para deletar a vaga
-            botaoDeleteVaga.addEventListener('click', async function () {
-                const deleteResponse = await fetch(`http://localhost:3001/api/vaga/${vaga.id}`, {
-                    method: 'DELETE',
-                    headers: { 'Content-type': 'application/json;charset=UTF-8' }
-                });
-
-                if (deleteResponse.ok) {
-                    alert('Vaga deletada com sucesso!');
-                    cardVaga.remove();
-                } else {
-                    alert('Erro ao deletar a vaga, tente novamente.');
-                }
+        // Adicionando evento para deletar a vaga
+        botaoDeleteVaga.addEventListener('click', async function () {
+            const deleteResponse = await fetch(`http://localhost:3001/api/vaga/${vaga.id}`, {
+                method: 'DELETE',
+                headers: { 'Content-type': 'application/json;charset=UTF-8' }
             });
-        }
+
+            if (deleteResponse.ok) {
+                alert('Vaga deletada com sucesso!');
+                cardVaga.remove();
+            } else {
+                alert('Erro ao deletar a vaga, tente novamente.');
+            }
+        });
     }
 
     // adicionando as colunas ao card
@@ -181,6 +150,7 @@ publicarVaga.onclick = async function () {
                 cidade: cidade,
                 estado: estado,
                 qtd_vagas: qtd_vagas
+
             });
 
             // Ocultando o formulário e resetando os campos

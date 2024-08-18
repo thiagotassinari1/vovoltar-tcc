@@ -10,9 +10,10 @@ logarButton.onclick = async function (e) {
         alert('Preencha todos os campos!')
         return false
     } else {
+
         let data = { email, senha };
 
-        const response = await fetch('http://localhost:3001/api/post/login', {
+        const response = await fetch('http://localhost:3001/api/login', {
             method: "POST",
             headers: { "Content-type": "application/json;charset=UTF-8" },
             body: JSON.stringify(data)
@@ -22,15 +23,13 @@ logarButton.onclick = async function (e) {
         console.log(content);
 
         if (content.success) {
-            let tipo_usuario = 'pessoa';
-            let id = content.data[0].id;
 
-            // Salvar o usuário no local storage para ir pra home
-            let usuario = JSON.stringify({ id, tipo_usuario  });
-            localStorage.setItem('usuario', usuario);
-
-            // Testar se está puxando o usuário corretamente
-            console.log('Usuário armazenado no local storage:', usuario);
+            localStorage.setItem('user', JSON.stringify(content.data[0]))
+            if (content.data[0].origin === 'usuariopf') {
+                console.log('Usuário do tipo pessoa')
+            } else {
+                console.log('Usuário do tipo empresa')
+            }
 
             Swal.fire({
                 icon: "success",

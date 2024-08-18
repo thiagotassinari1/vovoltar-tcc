@@ -30,32 +30,7 @@ async function storeUsuario(request, response) {
     });
 }
 
-async function Login(request, response) {
-    const params = [
-        request.body.email,
-        request.body.senha
-    ];
-    
-    const query = "SELECT * FROM usuariospf WHERE email = ? AND senha = ?";
-
-    connection.query(query, params, (err, results) => {
-        if (results && results.length > 0) {
-            response.status(200).json({
-                success: true,
-                message: "Sucesso no Login!",
-                data: results
-            });
-        } else {
-            response.status(400).json({
-                success: false,
-                message: "Problema no Login!",
-                data: err
-            });
-        }
-    });
-}
-
-async function Infos(request, response) {
+async function InfosPessoa(request, response) {
     const params = [
         request.params.id
     ];
@@ -79,8 +54,8 @@ async function Infos(request, response) {
     });
 }
 
+
 module.exports = {
     storeUsuario,
-    Login,
-    Infos
+    InfosPessoa
 };

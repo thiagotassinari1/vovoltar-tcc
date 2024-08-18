@@ -78,10 +78,10 @@ aside {
     width: 50%;
 }
 
-/* #email-usuario {
+#email-usuario {
     font-size: 7pt;
     font-weight: 600;
-} */
+}
 
 #botao-logout {
     background-color: #bde3f468;
@@ -96,6 +96,7 @@ aside {
     background-color: #6cb1df;
     transition-duration: 0.3s;
 }
+
 main {
     width: 90%;
     background-color: #F6F1F1;

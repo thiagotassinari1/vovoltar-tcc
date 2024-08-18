@@ -1,44 +1,8 @@
-// home.js
+// transforma em objeto para conseguir buscar/manipular os dados do local storage
+usuarioLogado = JSON.parse(localStorage.getItem('user'));
+console.log(usuarioLogado);
 
-// Verificar se o usuário está logado
-function verificarLogin() {
-  const usuarioLogado = localStorage.getItem('usuario');
-  console.log('Usuário recuperado do local storage:', usuarioLogado);
+console.log(usuarioLogado.id, usuarioLogado.email, usuarioLogado.senha, usuarioLogado.origin);
 
-  if (usuarioLogado !== null && usuarioLogado !== '') {
-    try {
-      const usuario = JSON.parse(usuarioLogado);
-      console.log(usuario);
-
-      if (usuario && usuario.id && usuario.tipo_usuario) {
-
-        // Desabilitar botão de login e habilitar botão de logout
-        document.getElementById('botao-logout').style.display = 'block';
-        
-      } else {
-        console.error('Usuário não tem as propriedades esperadas');
-        localStorage.removeItem('usuario');
-        window.location.href = '../login/login.html';
-      }
-    } catch (error) {
-      console.error('Erro ao parsear o usuário:', error);
-      localStorage.removeItem('usuario');
-      window.location.href = '../login/login.html';
-    }
-  } else {
-    // Redirecionar para a página de login se o usuário não estiver logado
-    window.location.href = '../login/login.html';
-  }
-}
-
-// Logout do usuário
-function logout() {
-  localStorage.removeItem('usuario');
-  window.location.href = '../login/login.html';
-}
-
-// Chamada inicial
-verificarLogin();
-
-// Evento de logout
-document.getElementById('botao-logout').addEventListener('click', logout);
+// puxar o email para aparecer no front
+let emailUser = document.getElementById('email-usuario').innerHTML = usuarioLogado.email;
