@@ -32,13 +32,17 @@ button.onclick = async function() {
         let content = await response.json();
     
         if(content.success) {
-            alert('Sucesso!');
+            Swal.fire({
+                icon: "success",
+                title: "Sucesso no cadastro!",
+                showConfirmButton: false,
+                timer: 1300
+            }).then(() => {
+                window.location.href = '../login/login.html';
+            });
         } else {
             alert('Algo deu errado, tente novamente!');
         }
-    
-        let reload = await content;
-        reload = location.reload()
     }
 
 }
