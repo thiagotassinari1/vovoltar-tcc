@@ -78,10 +78,10 @@ aside {
     width: 50%;
 }
 
-/* #email-usuario {
+#email-usuario {
     font-size: 7pt;
     font-weight: 600;
-} */
+}
 
 #botao-logout {
     background-color: #bde3f468;
@@ -273,10 +273,14 @@ main {
     border: 1px solid red;
     height: 100%;
     width: 50%;
+    display: flex;
+    justify-content: center;
 }
 
 .redes_sociais {
     border: 1px solid green;
     height: 100%;
     width: 50%;
+    display: flex;
+    justify-content: center;
 }

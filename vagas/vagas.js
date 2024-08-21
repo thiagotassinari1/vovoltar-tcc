@@ -5,7 +5,8 @@ let botaoDeletarVaga = document.querySelector('.deletar_vaga');
 
 // recuperar usuario do local storage
 const usuarioLogado = JSON.parse(localStorage.getItem('user'));
-console.log(usuarioLogado)
+console.log(usuarioLogado);
+
 
 // conferir de é empresa ou pessoa para permitir criar vagas ou nao
 if (usuarioLogado.origin === 'usuariopf') {
