@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +11,13 @@
     <!-- fonte -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
-    <aside>   
+    <aside>
         <a href="../home/home.html" class="link_aside">Home</a>
         <a href="../navegar/navegar.html" class="link_aside">Navegar</a>
         <a href="../vagas/vagas.html" class="link_aside">Vagas</a>
@@ -75,13 +79,25 @@
                 <section class="sobre">
                     <h1 class="titulo_sobre">Sobre</h1>
                     <p class="texto_sobre_usuario">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus autem placeat fugit dolorem provident quasi itaque! Dolores nisi magnam soluta! Fugiat natus recusandae, nihil provident suscipit dolorem numquam explicabo saepe. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae laudantium asperiores id totam quas, laborum repellat, hic obcaecati quisquam ipsum quidem corrupti. Quasi, praesentium fugit. Minima illo fugiat pariatur veritatis. 
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Necessitatibus autem placeat fugit
+                        dolorem provident quasi itaque! Dolores nisi magnam soluta! Fugiat natus recusandae, nihil
+                        provident suscipit dolorem numquam explicabo saepe. Lorem ipsum dolor sit, amet consectetur
+                        adipisicing elit. Vitae laudantium asperiores id totam quas, laborum repellat, hic obcaecati
+                        quisquam ipsum quidem corrupti. Quasi, praesentium fugit. Minima illo fugiat pariatur veritatis.
                     </p>
                 </section>
 
-                <section class="anexos_perfil"> 
+                <section class="anexos_perfil">
                     <div class="anexos_direita">
                         <h3>Anexos</h3>
+                        <div class="curriculo">
+                            <form action="#" enctype="multipart/form-data" id="form_curriculo">
+                                <label for="" class="label_curriculo">Anexar currículo</label>
+                                <input type="file" id="input_curriculo" name="curriculo">
+
+                                <button id="enviar_curriculo">Enviar curriculo</button>
+                            </form>
+                        </div>
                     </div>
                     <div class="redes_sociais">
                         <h3>Redes Sociais</h3>
@@ -93,4 +109,5 @@
 
     <script src="perfil.js"></script>
 </body>
+
 </html>

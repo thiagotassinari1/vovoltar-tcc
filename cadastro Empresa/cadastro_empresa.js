@@ -31,7 +31,7 @@ button.onclick = async function() {
     
         let content = await response.json();
     
-        if(content.success) {
+        if (content.success) {
             Swal.fire({
                 icon: "success",
                 title: "Sucesso no cadastro!",

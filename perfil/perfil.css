@@ -274,7 +274,45 @@ main {
     height: 100%;
     width: 50%;
     display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.curriculo {
+    border: 1px solid black;
+    width: 100%;
+    height: 90%;
+    display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4%;
+}
+
+#arquivo_anexado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+
+}
+
+#baixar_curriculo {
+    background-color: #9CCDDB;
+    width: 50%;
+    height: 17%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+}
+
+#baixar_curriculo:hover {
+    background: #6cb1df;
+    cursor: pointer;
+    transition-duration: 0.3s;
 }
 
 .redes_sociais {
