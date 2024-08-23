@@ -289,30 +289,19 @@ main {
     gap: 4%;
 }
 
-#arquivo_anexado {
+#form_curriculo {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 90%;
-
+    flex-direction: column;
+    gap: 10%;
+    border: 1px solid black;
+    width: 80%;
+    height: 100%;
 }
 
-#baixar_curriculo {
-    background-color: #9CCDDB;
-    width: 50%;
-    height: 17%;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    color: black;
-}
-
-#baixar_curriculo:hover {
-    background: #6cb1df;
-    cursor: pointer;
-    transition-duration: 0.3s;
+#input_curriculo {
+    width: 100%;
 }
 
 .redes_sociais {

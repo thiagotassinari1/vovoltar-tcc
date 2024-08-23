@@ -7,105 +7,105 @@ const path = require('path');
 
 const caminhoCurriculo = path.join(__dirname, '..', 'uploads');
 
-if(!fs.existsSync(caminhoCurriculo)) {
-    fs.mkdirSync(caminhoCurriculo);
+if (!fs.existsSync(caminhoCurriculo)) {
+  fs.mkdirSync(caminhoCurriculo);
 };
 
 async function storeUsuario(request, response) {
-    const params = [
-        request.body.nome,
-        request.body.email,
-        request.body.telefone,
-        request.body.nascimento,
-        request.body.senha,
-        request.body.ft_perfil
-    ];
+  const params = [
+    request.body.nome,
+    request.body.email,
+    request.body.telefone,
+    request.body.nascimento,
+    request.body.senha,
+    request.body.ft_perfil
+  ];
 
-    const query = 'INSERT INTO usuariospf(nome,email,telefone,nascimento,senha,ft_perfil) VALUES(?,?,?,?,?,?)';
+  const query = 'INSERT INTO usuariospf(nome,email,telefone,nascimento,senha,ft_perfil) VALUES(?,?,?,?,?,?)';
 
-    connection.query(query, params, (err, results) => {
-        if (results) {
-            response.status(201).json({
-                success: true,
-                message: "Sucesso no cadastro!",
-                data: results
-            });
-        } else {
-            response.status(400).json({
-                success: false,
-                message: "Problema no cadastro!",
-                data: err
-            });
-        }
-    });
+  connection.query(query, params, (err, results) => {
+    if (results) {
+      response.status(201).json({
+        success: true,
+        message: "Sucesso no cadastro!",
+        data: results
+      });
+    } else {
+      response.status(400).json({
+        success: false,
+        message: "Problema no cadastro!",
+        data: err
+      });
+    }
+  });
 }
 
 async function InfosPessoa(request, response) {
-    const params = [
-        request.params.id
-    ];
-    
-    const query = "SELECT * FROM usuariospf WHERE id = ?";
+  const params = [
+    request.params.id
+  ];
 
-    connection.query(query, params, (err, results) => {
-        if (results) {
-            response.status(200).json({
-                success: true,
-                message: "Sucesso no Get!",
-                data: results
-            });
-        } else {
-            response.status(400).json({
-                success: false,
-                message: "Problema no Get!",
-                data: err
-            });
-        }
-    });
+  const query = "SELECT * FROM usuariospf WHERE id = ?";
+
+  connection.query(query, params, (err, results) => {
+    if (results) {
+      response.status(200).json({
+        success: true,
+        message: "Sucesso no Get!",
+        data: results
+      });
+    } else {
+      response.status(400).json({
+        success: false,
+        message: "Problema no Get!",
+        data: err
+      });
+    }
+  });
 }
 
 async function updateCurriculo(request, response) {
-    const id = request.body.id;
-    const curriculo = request.files.curriculo;
-    const curriculoNome = Date.now() + path.extname(curriculo.name);
-  
-    curriculo.mv(path.join(caminhoCurriculo, curriculoNome), (erro) => {
-      if (erro) {
-        return response.status(400).json({
+  const id = request.body.id;
+  const curriculo = request.files.curriculo;
+  const curriculoNome = Date.now() + path.extname(curriculo.name);
+
+  curriculo.mv(path.join(caminhoCurriculo, curriculoNome), (erro) => {
+    if (erro) {
+      return response.status(400).json({
+        success: false,
+        message: "Erro ao mover o arquivo",
+      });
+    }
+
+    const params = [
+      curriculoNome,
+      id
+    ];
+
+    const query = "UPDATE usuariospf SET curriculo = ? WHERE id = ?";
+
+    connection.query(query, params, (err, results) => {
+      if (results) {
+        response.status(200).json({
+          success: true,
+          message: "Sucesso no Get!",
+          params: params,
+          data: results
+        });
+      } else {
+        response.status(400).json({
           success: false,
-          message: "Erro ao mover o arquivo",
+          message: "Problema no Get!",
+          data: err
         });
       }
-  
-      const params = [
-        curriculoNome,
-        id
-      ];
-  
-      const query = "UPDATE usuariospf SET curriculo = ? WHERE id = ?";
-  
-      connection.query(query, params, (err, results) => {
-        if (results) {
-          response.status(200).json({
-            success: true,
-            message: "Sucesso no Get!",
-            params: params,
-            data: results
-          });
-        } else {
-          response.status(400).json({
-            success: false,
-            message: "Problema no Get!",
-            data: err
-          });
-        }
-      });
     });
-  }
+  });
+}
 
 
 module.exports = {
-    storeUsuario,
-    InfosPessoa,
-    updateCurriculo
+  storeUsuario,
+  InfosPessoa,
+  updateCurriculo
 };

@@ -1,6 +1,8 @@
 let enviarCurriculo = document.getElementById('enviar_curriculo');
 
-enviarCurriculo.onclick = async function () {
+enviarCurriculo.onclick = async function (event) {
+  event.preventDefault();
+
   const usuarioLogado = JSON.parse(localStorage.getItem('user'));
   const id = usuarioLogado.id;
 
@@ -61,11 +63,13 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       const email = content.data[0].email;
       const telefone = content.data[0].telefone;
       const nascimento = content.data[0].nascimento;
+      const curriculo = content.data[0].curriculo;
 
       let nomeAtual = document.getElementById('nome_usuario');
       let emailAtual = document.getElementById('email_usuario');
       let telefoneAtual = document.getElementById('telefone_usuario');
       let nascimentoAtual = document.getElementById('nascimento_usuario');
+      let curriculoAtual = document.getElementById()
 
       nomeAtual.textContent = nome;
       emailAtual.textContent = email;
