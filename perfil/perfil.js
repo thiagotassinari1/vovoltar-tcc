@@ -32,10 +32,10 @@ console.log(usuarioLogado);
 console.log(usuarioLogado.id, usuarioLogado.email, usuarioLogado.senha, usuarioLogado.origin);
 
 // puxar o email para aparecer no front
-let emailUser = document.getElementById('email-usuario').innerHTML = usuarioLogado.email;
+const emailUser = document.getElementById('email-usuario').innerHTML = usuarioLogado.email;
 
 // criar função para deslogar do site e voltar para o login
-let logout = document.getElementById('botao-logout').addEventListener('click', function () {
+const logout = document.getElementById('botao-logout').addEventListener('click', function () {
   localStorage.removeItem('user');
   window.location.href = '../login/login.html'
 });

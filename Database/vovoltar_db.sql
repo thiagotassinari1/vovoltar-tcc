@@ -9,7 +9,8 @@ CREATE TABLE usuariospf (
     telefone VARCHAR(255) NOT NULL,
     nascimento varchar(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
-    ft_perfil VARCHAR(255)
+    ft_perfil VARCHAR(255),
+    curriculo varchar(255)
 );
 
 CREATE TABLE empresas (

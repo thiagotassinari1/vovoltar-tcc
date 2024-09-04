@@ -1,12 +1,19 @@
 // definir variáveis uteis para as funções
-let formularioVaga = document.getElementById('formulario_vagas');
-let botaoCriarVaga = document.getElementById('criar_vaga');
-let botaoDeletarVaga = document.querySelector('.deletar_vaga');
+const formularioVaga = document.getElementById('formulario_vagas');
+
+// definir campos do formulario
+const areaAtuacao = document.getElementById('area_atuacao');
+const emailContato = document.getElementById('email');
+const cidadeForm = document.getElementById('cidade');
+const estadoForm = document.getElementById('estado');
+const qtd_vagasForm = document.getElementById('qtd_vagas');
+
+const botaoCriarVaga = document.getElementById('criar_vaga');
+const botaoDeletarVaga = document.querySelector('.deletar_vaga');
 
 // recuperar usuario do local storage
 const usuarioLogado = JSON.parse(localStorage.getItem('user'));
 console.log(usuarioLogado);
-
 
 // conferir de é empresa ou pessoa para permitir criar vagas ou nao
 if (usuarioLogado.origin === 'usuariopf') {
@@ -16,17 +23,17 @@ if (usuarioLogado.origin === 'usuariopf') {
     botaoCriarVaga.style.display = 'flex';
 }
 
-
 // puxar campos para mostrar infos do usuário no front
-let emailUser = document.getElementById('email-usuario').innerHTML = usuarioLogado.email;
+const emailUser = document.getElementById('email-usuario').innerHTML = usuarioLogado.email;
 
+// definir o email da empresa que ta logada quando abre o formulário
+emailContato.value = emailUser;
 
 // criar função para deslogar do site e voltar para o login
-let logout = document.getElementById('botao-logout').addEventListener('click', function (){
+const logout = document.getElementById('botao-logout').addEventListener('click', function (){
     localStorage.removeItem('user');
     window.location.href = '../login/login.html'
 });
-
 
 // Função para criar um card de vaga
 function criarCardVaga(vaga) {
@@ -116,7 +123,10 @@ let criarVaga = document.getElementById('criar_vaga').addEventListener('click', 
 // fechar formulário
 let cancelarVaga = document.getElementById('cancelar_vaga').addEventListener('click', function (event) {
     formularioVaga.style.display = 'none';
-    formularioVaga.reset();
+    areaAtuacao.value = '';
+    cidadeForm.value = '';
+    estadoForm.value = '';
+    qtd_vagasForm.value = '';
 });
 
 // publicar vaga
@@ -156,7 +166,10 @@ publicarVaga.onclick = async function () {
 
             // Ocultando o formulário e resetando os campos
             formularioVaga.style.display = 'none';
-            formularioVaga.reset();
+            areaAtuacao.value = '';
+            cidadeForm.value = '';
+            estadoForm.value = '';
+            qtd_vagasForm.value = '';
         } else {
             alert('Algo deu errado, tente novamente!');
         }

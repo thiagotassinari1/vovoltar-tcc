@@ -1,12 +1,12 @@
-let button = document.getElementById('enviar');
+const button = document.getElementById('enviar');
 
 button.onclick = async function() {
-    let nome = document.getElementById('nome').value;
-    let email = document.getElementById('email').value;
-    let cnpj = document.getElementById('cnpj').value;
-    let endereco = document.getElementById('endereco').value;
-    let senha = document.getElementById('input_senha').value;
-    let ConfirmarSenha = document.getElementById('input_confirmar_senha').value;
+    const nome = document.getElementById('nome').value;
+    const email = document.getElementById('email').value;
+    const cnpj = document.getElementById('cnpj').value;
+    const endereco = document.getElementById('endereco').value;
+    const senha = document.getElementById('input_senha').value;
+    const ConfirmarSenha = document.getElementById('input_confirmar_senha').value;
 
     if (!nome || !email || !cnpj || !endereco || !senha || !ConfirmarSenha) {
         alert('Preencha todos os campos!');

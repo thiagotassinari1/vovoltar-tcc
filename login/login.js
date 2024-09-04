@@ -1,4 +1,4 @@
-let logarButton = document.getElementById('entrar_login');
+const logarButton = document.getElementById('entrar_login');
 
 logarButton.onclick = async function (e) {
     e.preventDefault();
