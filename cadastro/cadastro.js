@@ -5,10 +5,11 @@ button.onclick = async function() {
     const email = document.getElementById('email').value;
     const telefone = document.getElementById('telefone').value;
     const nascimento = document.getElementById('nascimento').value;
+    const areaAtuacao = document.getElementById('area_atuacao').value;
     const senha = document.getElementById('input_senha').value;
     const ConfirmarSenha = document.getElementById('input_confirmar_senha').value;
 
-    if (!nome || !email || !telefone || !nascimento || !senha || !ConfirmarSenha) {
+    if (!nome || !email || !telefone || !nascimento || !areaAtuacao || !senha || !ConfirmarSenha) {
         alert('Preencha todos os campos!');
         return false
     } else if (!email.includes('@')) {
@@ -21,7 +22,7 @@ button.onclick = async function() {
         alert('Indique uma senha com no mínimo 8 caracteres!')
         return false
     } else {
-        let data = {nome,email,telefone,nascimento,senha}
+        let data = {nome,email,telefone,nascimento,areaAtuacao,senha}
 
         const response = await fetch('http://localhost:3001/api/store/usuario', {
             method: 'POST',

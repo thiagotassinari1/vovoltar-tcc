@@ -63,18 +63,20 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       const email = content.data[0].email;
       const telefone = content.data[0].telefone;
       const nascimento = content.data[0].nascimento;
+      const areaAtuacao = content.data[0].area_atuacao;
       const curriculo = content.data[0].curriculo;
 
       let nomeAtual = document.getElementById('nome_usuario');
       let emailAtual = document.getElementById('email_usuario');
       let telefoneAtual = document.getElementById('telefone_usuario');
       let nascimentoAtual = document.getElementById('nascimento_usuario');
-      let curriculoAtual = document.getElementById()
+      let areaAtuacaoAtual = document.getElementById('area_atuacao');
 
       nomeAtual.textContent = nome;
       emailAtual.textContent = email;
       telefoneAtual.textContent = telefone;
       nascimentoAtual.textContent = nascimento;
+      areaAtuacaoAtual.textContent = areaAtuacao;
     } else {
       alert('Erro para puxar os dados!');
     }
@@ -95,6 +97,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
 
       const mudarTelparaCnpj = document.getElementById('mudar_titulo_info_tel').innerHTML = 'CNPJ'
       const mudarNascparaEndereco = document.getElementById('mudar_titulo_info_nasc').innerHTML = 'Endereço'
+      const ocultarAreaAtuacao = document.getElementById('ocultar_area_atuacao').style = 'display: none;'
 
       let nomeAtual = document.getElementById('nome_usuario');
       let emailAtual = document.getElementById('email_usuario');

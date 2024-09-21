@@ -18,10 +18,11 @@ async function storeUsuario(request, response) {
     request.body.telefone,
     request.body.nascimento,
     request.body.senha,
-    request.body.ft_perfil
+    request.body.ft_perfil,
+    request.body.areaAtuacao
   ];
 
-  const query = 'INSERT INTO usuariospf(nome,email,telefone,nascimento,senha,ft_perfil) VALUES(?,?,?,?,?,?)';
+  const query = 'INSERT INTO usuariospf(nome,email,telefone,nascimento,senha,ft_perfil,area_atuacao) VALUES(?,?,?,?,?,?,?)';
 
   connection.query(query, params, (err, results) => {
     if (results) {
