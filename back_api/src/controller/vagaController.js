@@ -8,9 +8,10 @@ async function storeVaga(request, response) {
         request.body.cidade,
         request.body.estado,
         request.body.qtd_vagas,
+        request.body.empresa_id, // empresa_id será enviado no request
     ];
 
-    const query = 'INSERT INTO vagas(area,email_empresa,cidade,estado,qtd_vagas) VALUES(?,?,?,?,?)';
+    const query = 'INSERT INTO vagas(area,email_empresa,cidade,estado,qtd_vagas,empresa_id) VALUES(?,?,?,?,?,?)';
 
     connection.query(query, params, (err, results) => {
         if (results) {

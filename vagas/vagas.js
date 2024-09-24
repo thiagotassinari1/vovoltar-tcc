@@ -30,7 +30,7 @@ const emailUser = document.getElementById('email-usuario').innerHTML = usuarioLo
 emailContato.value = emailUser;
 
 // criar função para deslogar do site e voltar para o login
-const logout = document.getElementById('botao-logout').addEventListener('click', function (){
+const logout = document.getElementById('botao-logout').addEventListener('click', function () {
     localStorage.removeItem('user');
     window.location.href = '../login/login.html'
 });
@@ -139,10 +139,14 @@ publicarVaga.onclick = async function () {
     let estado = document.getElementById('estado').value;
     let qtd_vagas = document.getElementById('qtd_vagas').value;
 
-    if (!area || !email_empresa || !cidade || !estado || !qtd_vagas) {
+    // Recupera o ID da empresa logada
+    const empresaLogada = JSON.parse(localStorage.getItem('user'));
+    let empresa_id = empresaLogada.id;
+
+    if (!area || !email_empresa || !cidade || !estado || !qtd_vagas || !empresa_id) {
         alert('Preencha todos os campos para publicar sua vaga!');
     } else {
-        let data = { area, email_empresa, cidade, estado, qtd_vagas };
+        let data = { area, email_empresa, cidade, estado, qtd_vagas, empresa_id };
 
         const response = await fetch('http://localhost:3001/api/store/vaga', {
             method: 'POST',
@@ -160,7 +164,8 @@ publicarVaga.onclick = async function () {
                 email_empresa: email_empresa,
                 cidade: cidade,
                 estado: estado,
-                qtd_vagas: qtd_vagas
+                qtd_vagas: qtd_vagas,
+                empresa_id: empresa_id
 
             });
 
