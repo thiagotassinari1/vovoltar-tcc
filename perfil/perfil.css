@@ -138,12 +138,11 @@ main {
     /* border: 1px solid black; */
     width: 50%;
     height: 100%;
-
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 10vh;
+    gap: 4%;
     position: relative;
 
 }
@@ -208,20 +207,24 @@ main {
     border-radius: 10px;
 }
 
-.infos_usuario_cima {
+.infos_usuario {
+    width: 90%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10vw;
-    width: 80%;
+    flex-direction: column;
+    gap: 2vh;
 }
 
-.infos_usuario_baixo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10vw;
-    width: 80%;
+.info_campo > h3 {
+    font-size: 12pt;
+} 
+
+.info_campo > p {
+    font-size: 11pt;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.274);
+} 
+
+.input_editar {
+    width: 99%;
 }
 
 .direita {

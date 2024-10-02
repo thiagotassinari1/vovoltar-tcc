@@ -49,43 +49,43 @@
                     </div>
                 </div>
 
-                <div class="infos_usuario_cima">
+                <div class="infos_usuario">
                     <div class="info_campo">
                         <h3>Nome</h3>
                         <p id="nome_usuario"></p>
-                        <input type="text" id="input_nome_usuario" style="display: none;">
+                        <input type="text" class="input_editar" id="input_nome_usuario" style="display: none;">
                     </div>
-                
+
                     <div class="info_campo">
                         <h3>Email</h3>
                         <p id="email_usuario"></p>
-                        <input type="text" id="input_email_usuario" style="display: none;">
+                        <input type="text" class="input_editar" id="input_email_usuario" style="display: none;">
                     </div>
-                </div>
-                
-                <div class="infos_usuario_baixo">
+
                     <div class="info_campo">
                         <h3 id="mudar_titulo_info_tel">Telefone</h3>
                         <p id="telefone_usuario"></p>
-                        <input type="text" id="input_telefone_usuario" style="display: none;">
+                        <input type="text" class="input_editar" id="input_telefone_usuario" style="display: none;">
                     </div>
-                
+
                     <div class="info_campo">
                         <h3 id="mudar_titulo_info_nasc">Nascimento</h3>
                         <p id="nascimento_usuario"></p>
-                        <input type="text" id="input_nascimento_usuario" style="display: none;">
+                        <input type="text" class="input_editar" id="input_nascimento_usuario" style="display: none;">
                     </div>
-                
+
                     <div class="info_campo" id="ocultar_area_atuacao">
                         <h3>Área de atuação</h3>
                         <p id="area_atuacao"></p>
-                        <input type="text" id="input_area_atuacao" style="display: none;">
+                        <input type="text" class="input_editar" id="input_area_atuacao" style="display: none;">
                     </div>
+
+                    <!-- Botões de editar e salvar -->
+                    <button id="editar_perfil">Editar Perfil</button>
+                    <button id="salvar_perfil" style="display: none;">Salvar Alterações</button>
                 </div>
-                
-                <!-- Botões de editar e salvar -->
-                <button id="editar_perfil">Editar Perfil</button>
-                <button id="salvar_perfil" style="display: none;">Salvar Alterações</button>                
+
+
             </div>
 
             <div class="direita">
@@ -95,7 +95,7 @@
                         Lorem ipsum dolor sit amet consectetur adipisicing elit...
                     </p>
                     <textarea id="input_texto_sobre_usuario" style="display: none;"></textarea>
-                </section>                
+                </section>
 
                 <section class="anexos_perfil">
                     <div class="anexos_direita">
