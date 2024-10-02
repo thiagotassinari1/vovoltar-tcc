@@ -240,9 +240,17 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 50%;
     gap: 20%;
+}
+
+#input_texto_sobre_usuario {
+    width: 90%;
+    height: 50%;
+    background-color: #F6F1F1;
+    border-radius: 10px;
+    padding: 2%;
 }
 
 .titulo_sobre {
@@ -264,13 +272,13 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     width: 100%;
     height: 50%;
 }
 
 .anexos_direita {
-    border: 1px solid red;
+    /* border: 1px solid red; */
     height: 100%;
     width: 50%;
     display: flex;
@@ -279,7 +287,7 @@ main {
 }
 
 .curriculo {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 100%;
     height: 90%;
     display: flex;
@@ -295,7 +303,7 @@ main {
     align-items: center;
     flex-direction: column;
     gap: 10%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 80%;
     height: 100%;
 }
@@ -305,7 +313,7 @@ main {
 }
 
 .redes_sociais {
-    border: 1px solid green;
+    /* border: 1px solid green; */
     height: 100%;
     width: 50%;
     display: flex;
