@@ -105,8 +105,39 @@ async function updateCurriculo(request, response) {
 }
 
 
+// Função para atualizar dados do cliente
+async function updateUsuario(request, response) {
+  const id = request.body.id; // O ID do usuário vindo do body
+  const { nome, email, telefone, nascimento, area_atuacao, sobre } = request.body; // Dados a serem atualizados
+
+  const params = [nome, email, telefone, nascimento, area_atuacao, sobre, id];
+  
+  const query = `
+    UPDATE usuariospf 
+    SET nome = ?, email = ?, telefone = ?, nascimento = ?, area_atuacao = ?, sobre = ?
+    WHERE id = ?
+  `;
+
+  connection.query(query, params, (err, results) => {
+    if (results) {
+      response.status(200).json({
+        success: true,
+        message: "Dados do cliente atualizados com sucesso!",
+        data: results
+      });
+    } else {
+      response.status(400).json({
+        success: false,
+        message: "Erro ao atualizar os dados do cliente!",
+        data: err
+      });
+    }
+  });
+}
+
 module.exports = {
   storeUsuario,
   InfosPessoa,
-  updateCurriculo
+  updateCurriculo,
+  updateUsuario // Exporte a função para atualizar o usuário
 };
