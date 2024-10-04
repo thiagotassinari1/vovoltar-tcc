@@ -7,6 +7,7 @@ const emailContato = document.getElementById('email');
 const cidadeForm = document.getElementById('cidade');
 const estadoForm = document.getElementById('estado');
 const qtd_vagasForm = document.getElementById('qtd_vagas');
+const descricao = document.getElementById('descricao');
 
 const botaoCriarVaga = document.getElementById('criar_vaga');
 const botaoDeletarVaga = document.querySelector('.deletar_vaga');
@@ -138,15 +139,16 @@ publicarVaga.onclick = async function () {
     let cidade = document.getElementById('cidade').value;
     let estado = document.getElementById('estado').value;
     let qtd_vagas = document.getElementById('qtd_vagas').value;
+    let descricao = document.getElementById('descricao').value;
 
     // Recupera o ID da empresa logada
     const empresaLogada = JSON.parse(localStorage.getItem('user'));
     let empresa_id = empresaLogada.id;
 
-    if (!area || !email_empresa || !cidade || !estado || !qtd_vagas || !empresa_id) {
+    if (!area || !email_empresa || !cidade || !estado || !qtd_vagas || !descricao || !empresa_id) {
         alert('Preencha todos os campos para publicar sua vaga!');
     } else {
-        let data = { area, email_empresa, cidade, estado, qtd_vagas, empresa_id };
+        let data = { area, email_empresa, cidade, estado, qtd_vagas, descricao, empresa_id };
 
         const response = await fetch('http://localhost:3001/api/store/vaga', {
             method: 'POST',

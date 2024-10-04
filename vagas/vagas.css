@@ -177,10 +177,10 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 3vh;
+    gap: 2%;
     background-color: #F6F1F1;
     width: 30vw;
-    height: 80vh;
+    height: 90vh;
     border-radius: 15px;
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.212);
     border: 0.1px solid black;
@@ -199,6 +199,14 @@ main {
     height: 4.5vh;
     border-radius: 20px;
     padding-left: 1vw;
+    padding-right: 0.5vw;
+}
+
+#descricao {
+    border: 1px solid black;
+    width: 17vw;
+    height: 10vh;
+    border-radius: 10px;
     padding-right: 0.5vw;
 }
 

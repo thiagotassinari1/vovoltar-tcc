@@ -14,6 +14,7 @@ CREATE TABLE usuariospf (
     senha VARCHAR(255) NOT NULL,
     ft_perfil VARCHAR(255),
 	area_atuacao VARCHAR(255),
+    sobre longtext,
     curriculo VARCHAR(255)
 );
 
@@ -36,6 +37,7 @@ create table vagas (
     cidade varchar(255) not null,
     estado varchar(255) not null,
     qtd_vagas varchar(100) not null,
+    descricao longtext,
 	empresa_id INT,
     CONSTRAINT fk_empresa_vaga FOREIGN KEY (empresa_id) REFERENCES empresas(id)
 );
