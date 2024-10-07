@@ -205,8 +205,9 @@ main {
 #descricao {
     border: 1px solid black;
     width: 17vw;
-    height: 10vh;
+    height: 18vh;
     border-radius: 10px;
+    padding: 1.75%;
     padding-right: 0.5vw;
 }
 
@@ -283,6 +284,12 @@ main {
     justify-content: center;
     gap: 0.5vh;
 }
+
+/* .descricao_vaga {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+} */
 
 .botoes_vaga {
     /* border: 1px solid blue;     */

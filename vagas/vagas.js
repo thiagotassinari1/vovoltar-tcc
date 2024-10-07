@@ -61,11 +61,31 @@ function criarCardVaga(vaga) {
     let botoesVaga = document.createElement('div');
     botoesVaga.className = 'botoes_vaga';
 
-    // Criando botão pra config do card da vaga
+    // Criando botão para mostrar mais informações
     let botaoCardVaga = document.createElement('div');
     botaoCardVaga.className = 'info_vaga';
     botaoCardVaga.innerHTML = 'Mais informações';
     botoesVaga.appendChild(botaoCardVaga);
+
+   // Evento de clique para mostrar ou ocultar descrição da vaga
+   botaoCardVaga.addEventListener('click', function () {
+    // Verificar se a descrição já está visível
+    let descricaoVaga = cardVaga.querySelector('.descricao_vaga');
+    if (descricaoVaga) {
+        // Se a descrição já estiver visível, ocultar e restaurar o botão
+        descricaoVaga.remove();
+        this.innerHTML = 'Mais informações';
+    } else {
+        // Se a descrição não estiver visível, criar o elemento e mostrar
+        descricaoVaga = document.createElement('p');
+        descricaoVaga.className = 'descricao_vaga';
+        descricaoVaga.innerHTML = `<b>Descrição:</b> ${vaga.descricao}`;
+        infosVaga.appendChild(descricaoVaga);
+        
+        // Atualizar o texto do botão
+        this.innerHTML = 'Ocultar informações';
+    }
+});
 
     // Verificar se o usuário logado é uma empresa
     const empresaLogada = JSON.parse(localStorage.getItem('user'));
