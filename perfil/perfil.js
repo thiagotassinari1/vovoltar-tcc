@@ -148,67 +148,105 @@ editarPerfilBtn.onclick = function () {
     salvarPerfilBtn.style.display = 'block';
 };
 
-// Função para salvar as alterações
+// Função para salvar as alterações do perfil (pessoa ou empresa)
 salvarPerfilBtn.onclick = async function () {
   const usuarioLogado = JSON.parse(localStorage.getItem('user'));
   const id = usuarioLogado.id;
 
-  // Pegando os novos valores dos inputs
-  const nome = document.getElementById('input_nome_usuario').value;
-  const email = document.getElementById('input_email_usuario').value;
-  const telefone = document.getElementById('input_telefone_usuario').value;
-  const nascimento = document.getElementById('input_nascimento_usuario').value;
-  const areaAtuacao = document.getElementById('input_area_atuacao').value;
-  const textoSobre = document.getElementById('input_texto_sobre_usuario').value; // Novo campo "Sobre"
+  if (usuarioLogado.origin === 'usuariopf') {
+      // Atualizando perfil de PESSOA FÍSICA
+      const nome = document.getElementById('input_nome_usuario').value;
+      const email = document.getElementById('input_email_usuario').value;
+      const telefone = document.getElementById('input_telefone_usuario').value;
+      const nascimento = document.getElementById('input_nascimento_usuario').value;
+      const areaAtuacao = document.getElementById('input_area_atuacao').value;
+      const sobre = document.getElementById('input_texto_sobre_usuario').value;
 
-  const userData = {
-      id: id,
-      nome: nome,
-      email: email,
-      telefone: telefone,
-      nascimento: nascimento,
-      area_atuacao: areaAtuacao,
-      sobre: textoSobre, // Novo campo "Sobre"
-  };
+      const userData = {
+          id: id,
+          nome: nome,
+          email: email,
+          telefone: telefone,
+          nascimento: nascimento,
+          area_atuacao: areaAtuacao,
+          sobre: sobre,
+      };
 
-  // Fazendo requisição PUT para atualizar as informações do usuário
-  const response = await fetch('http://localhost:3001/api/update/infosUser', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userData),
-  });
+      // Requisição PUT para atualizar o perfil de pessoa
+      const response = await fetch('http://localhost:3001/api/update/infosUser', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(userData),
+      });
 
-  let content = await response.json();
+      let content = await response.json();
+      if (content.success) {
+          alert('Perfil atualizado com sucesso!');
+          // Atualizar a interface com os novos dados da pessoa
+          document.getElementById('nome_usuario').textContent = nome;
+          document.getElementById('email_usuario').textContent = email;
+          document.getElementById('telefone_usuario').textContent = telefone;
+          document.getElementById('nascimento_usuario').textContent = nascimento;
+          document.getElementById('area_atuacao').textContent = areaAtuacao;
+          document.getElementById('texto_sobre_usuario').textContent = sobre;
 
-  if (content.success) {
-      alert('Perfil atualizado com sucesso!');
+          // Voltar ao modo de exibição (esconder inputs)
+          toggleDisplayInputs(false);
+      } else {
+          alert('Erro ao atualizar o perfil!');
+          console.log(content.sql);
+      }
+  } else if (usuarioLogado.origin === 'empresa') {
+      // Atualizando perfil de EMPRESA
+      const nome = document.getElementById('input_nome_usuario').value;
+      const email = document.getElementById('input_email_usuario').value;
+      const cnpj = document.getElementById('input_telefone_usuario').value; // CNPJ
+      const endereco = document.getElementById('input_nascimento_usuario').value; // Endereço
+      const sobre = document.getElementById('input_texto_sobre_usuario').value;
 
-      // Atualizar os dados na tela
-      document.getElementById('nome_usuario').textContent = nome;
-      document.getElementById('email_usuario').textContent = email;
-      document.getElementById('telefone_usuario').textContent = telefone;
-      document.getElementById('nascimento_usuario').textContent = nascimento;
-      document.getElementById('area_atuacao').textContent = areaAtuacao;
-      document.getElementById('texto_sobre_usuario').textContent = textoSobre; // Atualizar o texto sobre
+      const empresaData = {
+          id: id,
+          nome: nome,
+          email: email,
+          cnpj: cnpj,
+          endereco: endereco,
+          sobre: sobre
+      };
 
-      // Voltar ao modo de exibição
-      document.getElementById('nome_usuario').style.display = 'block';
-      document.getElementById('input_nome_usuario').style.display = 'none';
-      document.getElementById('email_usuario').style.display = 'block';
-      document.getElementById('input_email_usuario').style.display = 'none';
-      document.getElementById('telefone_usuario').style.display = 'block';
-      document.getElementById('input_telefone_usuario').style.display = 'none';
-      document.getElementById('nascimento_usuario').style.display = 'block';
-      document.getElementById('input_nascimento_usuario').style.display = 'none';
-      document.getElementById('area_atuacao').style.display = 'block';
-      document.getElementById('input_area_atuacao').style.display = 'none';
-      document.getElementById('texto_sobre_usuario').style.display = 'block';
-      document.getElementById('input_texto_sobre_usuario').style.display = 'none';
+      // Requisição PUT para atualizar o perfil da empresa
+      const response = await fetch('http://localhost:3001/api/update/infosEmpresa', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(empresaData),
+      });
 
-      editarPerfilBtn.style.display = 'block';
-      salvarPerfilBtn.style.display = 'none';
-  } else {
-      alert('Erro ao atualizar perfil!');
-      console.log(content.sql);
+      let content = await response.json();
+      if (content.success) {
+          alert('Perfil da empresa atualizado com sucesso!');
+          // Atualizar a interface com os novos dados da empresa
+          document.getElementById('nome_usuario').textContent = nome;
+          document.getElementById('email_usuario').textContent = email;
+          document.getElementById('telefone_usuario').textContent = cnpj;
+          document.getElementById('nascimento_usuario').textContent = endereco;
+          document.getElementById('texto_sobre_usuario').textContent = sobre;
+
+          // Voltar ao modo de exibição (esconder inputs)
+          toggleDisplayInputs(false);
+      } else {
+          alert('Erro ao atualizar o perfil da empresa!');
+          console.log(content.sql);
+      }
   }
 };
+
+// Função auxiliar para alternar a exibição dos inputs e textos
+function toggleDisplayInputs(editMode) {
+  const inputs = document.querySelectorAll('.input_editar');
+  const texts = document.querySelectorAll('.info_campo p');
+  
+  inputs.forEach(input => input.style.display = editMode ? 'block' : 'none');
+  texts.forEach(text => text.style.display = editMode ? 'none' : 'block');
+  
+  document.getElementById('salvar_perfil').style.display = editMode ? 'block' : 'none';
+  document.getElementById('editar_perfil').style.display = editMode ? 'none' : 'block';
+}
