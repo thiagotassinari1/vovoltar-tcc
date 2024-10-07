@@ -285,11 +285,53 @@ main {
     gap: 0.5vh;
 }
 
-/* .descricao_vaga {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #333;
-} */
+.mais_info_vaga {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10%;
+    background-color: #F6F1F1;
+    width: 26vw;
+    height: 46vh;
+    border-radius: 15px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.212);
+    border: 0.1px solid black;
+    transition: 0.5s;
+}
+
+.titulo_detalhes {
+    font-weight: 500;
+}
+
+.detalhes_vaga {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+    width: 80%;
+}
+
+.fechar_detalhes {
+    background-color: #9CCDDB;
+    border-radius: 13px;
+    width: 40%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+.fechar_detalhes:hover {
+    background-color: #6cb1df;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
 
 .botoes_vaga {
     /* border: 1px solid blue;     */
