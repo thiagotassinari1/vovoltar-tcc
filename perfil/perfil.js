@@ -190,6 +190,10 @@ salvarPerfilBtn.onclick = async function () {
           document.getElementById('area_atuacao').textContent = areaAtuacao;
           document.getElementById('texto_sobre_usuario').textContent = sobre;
 
+          // Esconder o campo de input "Sobre" e mostrar o texto
+          document.getElementById('input_texto_sobre_usuario').style.display = 'none';
+          document.getElementById('texto_sobre_usuario').style.display = 'block';
+
           // Voltar ao modo de exibição (esconder inputs)
           toggleDisplayInputs(false);
       } else {
@@ -229,6 +233,10 @@ salvarPerfilBtn.onclick = async function () {
           document.getElementById('telefone_usuario').textContent = cnpj;
           document.getElementById('nascimento_usuario').textContent = endereco;
           document.getElementById('texto_sobre_usuario').textContent = sobre;
+
+          // Esconder o campo de input "Sobre" e mostrar o texto
+          document.getElementById('input_texto_sobre_usuario').style.display = 'none';
+          document.getElementById('texto_sobre_usuario').style.display = 'block';
 
           // Voltar ao modo de exibição (esconder inputs)
           toggleDisplayInputs(false);

@@ -65,6 +65,31 @@ async function InfosPessoa(request, response) {
   });
 }
 
+
+async function infosUsuarioNavegar(request, response) {
+  const params = [
+    request.params.id
+  ];
+
+  const query = "SELECT * FROM usuariospf WHERE id = ?";
+
+  connection.query(query, params, (err, results) => {
+    if (results) {
+      response.status(200).json({
+        success: true,
+        message: "Sucesso no Get!",
+        data: results
+      });
+    } else {
+      response.status(400).json({
+        success: false,
+        message: "Problema no Get!",
+        data: err
+      });
+    }
+  });
+}
+
 async function updateCurriculo(request, response) {
   const id = request.body.id;
   const curriculo = request.files.curriculo;
@@ -137,6 +162,7 @@ async function updateUsuario(request, response) {
 module.exports = {
   storeUsuario,
   InfosPessoa,
+  infosUsuarioNavegar,
   updateCurriculo,
   updateUsuario // Exporte a função para atualizar o usuário
 };

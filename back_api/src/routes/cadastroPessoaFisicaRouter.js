@@ -5,6 +5,7 @@ const router = Router();
 
 router.post('/store/usuario', storeUsuario);
 router.get('/get/infosUser/:id', InfosPessoa);
+router.get('/get/infosUsuarioNavegar', InfosPessoa);
 router.put('/update/curriculo', updateCurriculo);
 router.put('/update/infosUser', updateUsuario);
 
