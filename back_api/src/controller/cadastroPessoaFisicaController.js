@@ -65,15 +65,11 @@ async function InfosPessoa(request, response) {
   });
 }
 
-
 async function infosUsuarioNavegar(request, response) {
-  const params = [
-    request.params.id
-  ];
 
-  const query = "SELECT * FROM usuariospf WHERE id = ?";
+  const query = "SELECT * FROM usuariospf";
 
-  connection.query(query, params, (err, results) => {
+  connection.query(query, (err, results) => {
     if (results) {
       response.status(200).json({
         success: true,

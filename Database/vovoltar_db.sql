@@ -18,7 +18,7 @@ CREATE TABLE usuariospf (
     curriculo VARCHAR(255)
 );
 
-drop table vagas;
+drop table empresas;
 	
 CREATE TABLE empresas (
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -27,8 +27,11 @@ CREATE TABLE empresas (
     cnpj VARCHAR(255) UNIQUE NOT NULL,
     endereco VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
+    sobre longtext,
     ft_perfil VARCHAR(255)
 );
+
+drop table empresas;
 
 create table vagas (
 	id int primary key auto_increment,
