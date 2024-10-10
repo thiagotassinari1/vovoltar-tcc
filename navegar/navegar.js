@@ -23,16 +23,16 @@ document.addEventListener('DOMContentLoaded', async function (event) {
 
             listagemUsuarios.innerHTML += `
                 <div class="card_usuario">
-                    <img class="img_usuario" src="../assets/check.png" alt="Imagem de perfil do usuário">
+                    <img class="img_usuario" src="../back_api/src/uploads/${usuariospf.ft_perfil}" alt="Imagem de perfil do usuário">
 
                     <div class="infos_usuario">
                         <div class="nome">
                             <h3 class="txt_info_usuario">Nome:</h3>
-                            <p class="recebe_nome" id="recebe_nome">${content.data[0].nome}</p>
+                            <p class="recebe_nome" id="recebe_nome">${usuariospf.nome}</p>
                         </div>
                         <div class="area_atuacao">
                             <h3 class="txt_info_usuario">Área de atuação:</h3>
-                            <p class="recebe_area" id="recebe_area">${content.data[0].area_atuacao}</p>
+                            <p class="recebe_area" id="recebe_area">${usuariospf.area_atuacao}</p>
                         </div>
                     </div>
 
