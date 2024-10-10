@@ -7,10 +7,10 @@
 
 body {
     display: flex;
+    height: 100vh; /* Garante que o body ocupe a altura total da tela */
 }
 
 aside {
-    /* height: 100vh; */
     width: 10%;
     background-color: #146C94;
 
@@ -21,6 +21,7 @@ aside {
     font-size: 15pt;
     gap: 4vh;
     padding-top: 7vh;
+    /* height: 100%; */
 }
 
 .link_aside {
@@ -50,7 +51,6 @@ aside {
 }
 
 .perfil {
-    /* border: 1px solid white; */
     width: 90%;
     display: flex;
     justify-content: center;
@@ -59,7 +59,6 @@ aside {
 }
 
 .link_img_perfil {
-    /* border: 1px solid black; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -88,7 +87,6 @@ aside {
     border: none;
     width: 90%;
     border-radius: 10px;
-    width: 100%;
 }
 
 #botao-logout:hover {
@@ -99,13 +97,12 @@ aside {
 
 main {
     width: 90%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    display: flex; /* Altera para flex */
+    flex-direction: column; /* Para que a div de usuários seja uma coluna */
+    align-items: center; /* Centraliza horizontalmente */
     background-color: #F6F1F1;
-    /* gap: 2%; */
+    padding-bottom: 2rem;
+    overflow-y: auto;
 }
 
 .titulo_navegar {
@@ -113,8 +110,8 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
     border: 1px solid red;
+    margin-bottom: 2%;
 }
 
 .titulo {
@@ -129,26 +126,23 @@ main {
 }
 
 .usuarios {
-    /* border: 1px solid green; */
-    width: 100%;
-    height: 80vh;
-    gap: 2%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 85%;
+    height: 80vh; /* Pode ajustar se necessário */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
 
 .card_usuario {
     box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.295);
-    width: 14%;
-    min-height: 10%;
+    width: 12vw;
+    height: 28vh;
     border-radius: 5%;
     padding: 5px;
 }
 
 .img_usuario {
     width: 100%;
-    /* border-bottom: 1px solid red; */
 }
 
 .txt_info_usuario {
@@ -162,7 +156,6 @@ main {
     flex-direction: column;
     padding-left: 2%;
     padding-right: 2%;
-    /* border: 1px solid red; */
 }
 
 .nome, .area_atuacao {
@@ -176,7 +169,6 @@ main {
 }
 
 .mais_info_usuario {
-    /* border: 1px solid black; */
     display: flex;
     justify-content: center;
     align-items: center;
