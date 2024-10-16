@@ -1,0 +1,215 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+}
+
+body {
+    display: flex;
+    height: 100vh; /* Garante que o body ocupe a altura total da tela */
+}
+
+aside {
+    width: 10%;
+    background-color: #146C94;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    font-size: 15pt;
+    gap: 4vh;
+    padding-top: 7vh;
+    /* height: 100%; */
+}
+
+.link_aside {
+    text-decoration: none;
+    color: white;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+}
+
+.link_aside:hover {
+    background-color: #bde3f468;
+}
+
+.link_aside_selecionado {
+    text-decoration: none;
+    color: white;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background-color: #bde3f468;
+}
+
+.perfil {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5vw;
+}
+
+.link_img_perfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img_perfil {
+    width: 100%;
+}
+
+.opções_usuario {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5vh;
+    width: 50%;
+}
+
+#email-usuario {
+    font-size: 7pt;
+    font-weight: 600;
+}
+
+#botao-logout {
+    background-color: #bde3f468;
+    border: none;
+    width: 90%;
+    border-radius: 10px;
+}
+
+#botao-logout:hover {
+    cursor: pointer;
+    background-color: #6cb1df;
+    transition-duration: 0.3s;
+}
+
+main {
+    width: 90%;
+    display: flex; /* Altera para flex */
+    flex-direction: column; /* Para que a div de usuários seja uma coluna */
+    align-items: center; /* Centraliza horizontalmente */
+    background-color: #F6F1F1;
+    padding-bottom: 2rem;
+    overflow-y: auto;
+}
+
+.titulo_navegar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid red;
+    margin-bottom: 2%;
+}
+
+.titulo {
+    color: black;
+    font-weight: 500;
+    font-size: 40pt;
+}
+
+.descricao_titulo {
+    color: black;
+    font-size: 15pt;
+}
+
+.usuarios {
+    width: 85%;
+    height: 80vh; /* Pode ajustar se necessário */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.card_usuario {
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.295);
+    width: 12vw;
+    height: 28vh;
+    border-radius: 5%;
+    padding: 5px;
+}
+
+.img_usuario {
+    width: 100%;
+}
+
+.txt_info_usuario {
+    font-weight: 600;
+    font-size: 11pt;
+}
+
+.infos_usuario {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
+.nome, .area_atuacao {
+    display: flex;
+    align-items: center;
+    gap: 2%;
+}
+
+.recebe_area, .recebe_nome {
+    font-size: 10pt;
+}
+
+.mais_info_usuario {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 6%;
+    height: 3vh;
+}
+
+.btn_mais_info {
+    background: #9CCDDB;
+    border: none;
+    width: 60%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.btn_mais_info:hover {
+    background: #6cb1df;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+/* ----------------------------------------------------- */
+/*  Modal de informações do usuário  */
+/* ----------------------------------------------------- */
+.card_infos_usuario {
+    display: block; /* Escondido inicialmente */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: white;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.295);
+    border-radius: 15px;
+    padding: 5%;
+    gap: 5%;
+}
+
+.card_infos_usuario .close-button {
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    align-self: flex-end;
+}
