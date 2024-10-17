@@ -47,8 +47,16 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         alert('Erro para puxar os dados ou usuário não encontrado!');
     }
 
+    const card_infos_usuario = document.getElementById('card_infos_usuario');
+    const fechar_info = document.getElementById('fechar_info');
+
     let btnMaisInfo = document.getElementById('btn_mais_info');
     btnMaisInfo.addEventListener('click', async function (event) {
-        alert('clicou');
+        card_infos_usuario.style.display = 'block';
+        listagemUsuarios.innerHTML += card_infos_usuario;
+    });
+
+    fechar_info.addEventListener('click', function() {
+        card_infos_usuario.style.display = 'none'
     });
 });
