@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
 
         const listagemUsuarios = document.getElementById('usuarios');
         listagemUsuarios.innerHTML = '';
-        
+
         content.data.forEach(usuariospf => {
 
             listagemUsuarios.innerHTML += `
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
                     </div>
 
                     <div class="mais_info_usuario">
-                        <button type="button" class="btn_mais_info"> Mais informações </button>
+                        <button type="button" class="btn_mais_info" id="btn_mais_info"> Mais informações </button>
                     </div>
                 </div>
             `;
@@ -46,4 +46,9 @@ document.addEventListener('DOMContentLoaded', async function (event) {
     } else {
         alert('Erro para puxar os dados ou usuário não encontrado!');
     }
+
+    let btnMaisInfo = document.getElementById('btn_mais_info');
+    btnMaisInfo.addEventListener('click', async function (event) {
+        alert('clicou');
+    });
 });

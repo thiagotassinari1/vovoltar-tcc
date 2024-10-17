@@ -189,3 +189,24 @@ main {
     cursor: pointer;
     transition-duration: 0.3s;
 }
+
+.card_infos_usuario {
+    display: block; /* Escondido inicialmente */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    background-color: white;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.295);
+    border-radius: 15px;
+    padding: 5%;
+    gap: 5%;
+}
+
+.card_infos_usuario .close-button {
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    align-self: flex-end;
+}
