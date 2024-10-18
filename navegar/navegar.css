@@ -198,15 +198,30 @@ main {
     transform: translate(-50%, -50%);
     z-index: 9999;
     background-color: white;
-    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.295);
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.404);
     border-radius: 15px;
-    padding: 5%;
-    gap: 5%;
+    padding: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.404);
+    
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20vw;
+    gap: 4vh;
+
 }
 
 .card_infos_usuario .close-button {
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
-    align-self: flex-end;
+}
+
+#campoInfo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 4%;
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.404);
 }

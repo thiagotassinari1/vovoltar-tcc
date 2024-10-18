@@ -15,48 +15,69 @@ document.addEventListener('DOMContentLoaded', async function (event) {
     console.log(content);
 
     if (content.success && content.data && content.data.length > 0) {
-
         const listagemUsuarios = document.getElementById('usuarios');
         listagemUsuarios.innerHTML = '';
 
         content.data.forEach(usuariospf => {
-
             listagemUsuarios.innerHTML += `
                 <div class="card_usuario">
+                    <p class="id_usuario" style="display: none">${usuariospf.id}</p>
                     <img class="img_usuario" src="../back_api/src/uploads/${usuariospf.ft_perfil}" alt="Imagem de perfil do usuário">
-
                     <div class="infos_usuario">
                         <div class="nome">
                             <h3 class="txt_info_usuario">Nome:</h3>
-                            <p class="recebe_nome" id="recebe_nome">${usuariospf.nome}</p>
+                            <p class="recebe_nome">${usuariospf.nome}</p>
                         </div>
                         <div class="area_atuacao">
                             <h3 class="txt_info_usuario">Área de atuação:</h3>
-                            <p class="recebe_area" id="recebe_area">${usuariospf.area_atuacao}</p>
+                            <p class="recebe_area">${usuariospf.area_atuacao}</p>
                         </div>
                     </div>
-
                     <div class="mais_info_usuario">
-                        <button type="button" class="btn_mais_info" id="btn_mais_info"> Mais informações </button>
+                        <button type="button" class="btn_mais_info" data-id="${usuariospf.id}">Mais informações</button>
                     </div>
                 </div>
             `;
         });
 
+        const cardInfosUsuario = document.getElementById('card_infos_usuario');
+        const fecharInfo = document.getElementById('fechar_info');
+
+        document.querySelectorAll('.btn_mais_info').forEach(button => {
+            button.addEventListener('click', async function () {
+                const id = button.getAttribute('data-id');
+
+                const responseInfo = await fetch(`http://localhost:3001/api/get/infosUser/${id}`, {
+                    method: "GET",
+                    headers: { "Content-type": "application/json;charset=UTF-8" },
+                });
+
+                let contentInfo = await responseInfo.json();
+                console.log(contentInfo);
+
+                if (contentInfo.success) {
+                    const { nome, email, telefone, nascimento, area_atuacao, curriculo } = contentInfo.data[0];
+
+                    cardInfosUsuario.querySelector('.nome_info p').textContent = nome;
+                    cardInfosUsuario.querySelector('.email_info p').textContent = email;
+                    cardInfosUsuario.querySelector('.telefone_info p').textContent = telefone;
+                    cardInfosUsuario.querySelector('.nascimento_info p').textContent = nascimento;
+                    cardInfosUsuario.querySelector('.area_info p').textContent = area_atuacao;
+                    cardInfosUsuario.querySelector('.curriculo_info p').textContent = curriculo;
+
+                    // Exibe o card de informações do usuário
+                    cardInfosUsuario.style.display = 'flex';
+                } else {
+                    alert('Erro ao puxar os dados!');
+                }
+            });
+        });
+
+        fecharInfo.addEventListener('click', function () {
+            // Oculta o card de informações
+            cardInfosUsuario.style.display = 'none';
+        });
     } else {
         alert('Erro para puxar os dados ou usuário não encontrado!');
     }
-
-    const card_infos_usuario = document.getElementById('card_infos_usuario');
-    const fechar_info = document.getElementById('fechar_info');
-
-    let btnMaisInfo = document.getElementById('btn_mais_info');
-    btnMaisInfo.addEventListener('click', async function (event) {
-        card_infos_usuario.style.display = 'block';
-        listagemUsuarios.innerHTML += card_infos_usuario;
-    });
-
-    fechar_info.addEventListener('click', function() {
-        card_infos_usuario.style.display = 'none'
-    });
 });
