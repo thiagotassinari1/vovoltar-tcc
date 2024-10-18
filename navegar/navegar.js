@@ -1,7 +1,14 @@
-// const usuarioLogado = JSON.parse(localStorage.getItem('user'));
-// const id = usuarioLogado.id;
-// console.log(id);
-// console.log(usuarioLogado.origin);
+const usuarioLogado = JSON.parse(localStorage.getItem('user'));
+const idUsuarioLogado = usuarioLogado.id;
+console.log(idUsuarioLogado);
+console.log(usuarioLogado.origin);
+
+const emailLogado = document.getElementById('email-usuario').textContent = usuarioLogado.email;
+
+const logout = document.getElementById('botao-logout').addEventListener('click', function () {
+    localStorage.removeItem('user');
+    window.location.href = '../login/login.html'
+  });
 
 document.addEventListener('DOMContentLoaded', async function (event) {
     event.preventDefault();
@@ -56,7 +63,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
                 console.log(contentInfo);
 
                 if (contentInfo.success) {
-                    const { nome, email, telefone, nascimento, area_atuacao, curriculo } = contentInfo.data[0];
+                    const { nome, email, telefone, nascimento, area_atuacao, curriculo, sobre } = contentInfo.data[0];
 
                     cardInfosUsuario.querySelector('.nome_info p').textContent = nome;
                     cardInfosUsuario.querySelector('.email_info p').textContent = email;
@@ -64,6 +71,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
                     cardInfosUsuario.querySelector('.nascimento_info p').textContent = nascimento;
                     cardInfosUsuario.querySelector('.area_info p').textContent = area_atuacao;
                     cardInfosUsuario.querySelector('.curriculo_info p').textContent = curriculo;
+                    cardInfosUsuario.querySelector('.sobre_info p').textContent = sobre;
 
                     // Exibe o card de informações do usuário
                     cardInfosUsuario.style.display = 'flex';

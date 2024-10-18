@@ -127,7 +127,7 @@ main {
 
 .usuarios {
     width: 85%;
-    height: 80vh; /* Pode ajustar se necessário */
+    height: 80vh;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
@@ -222,6 +222,17 @@ main {
     display: flex;
     align-items: center;
     gap: 4%;
-
     border-bottom: 1px solid rgba(0, 0, 0, 0.404);
+}
+
+.topicos_infos {
+    font-size: 12pt;
+}
+
+.recebe_infos {
+    font-size: 9.6pt;
+}
+
+#recebe_info_sobre {
+    text-align: justify;
 }

@@ -188,7 +188,7 @@ main {
     background: #6cb1df;
     cursor: pointer;
     transition-duration: 0.3s;
-} 
+}
 
 #remover_ft {
     background-color: #f08989;
@@ -214,14 +214,14 @@ main {
     gap: 2vh;
 }
 
-.info_campo > h3 {
+.info_campo>h3 {
     font-size: 12pt;
-} 
+}
 
-.info_campo > p {
+.info_campo>p {
     font-size: 11pt;
     border-bottom: 1px solid rgba(0, 0, 0, 0.274);
-} 
+}
 
 .input_editar {
     width: 99%;
@@ -254,6 +254,7 @@ main {
     background-color: #F6F1F1;
     border-radius: 10px;
     padding: 2%;
+    border: 1px solid #ccc;
 }
 
 .titulo_sobre {
@@ -269,6 +270,8 @@ main {
 .texto_sobre_usuario {
     text-align: justify;
     width: 90%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .anexos_perfil {

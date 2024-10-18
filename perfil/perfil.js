@@ -40,7 +40,6 @@ const logout = document.getElementById('botao-logout').addEventListener('click',
   window.location.href = '../login/login.html'
 });
 
-
 document.addEventListener('DOMContentLoaded', async function (event) {
   event.preventDefault();
 
@@ -65,18 +64,21 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       const nascimento = content.data[0].nascimento;
       const areaAtuacao = content.data[0].area_atuacao;
       const curriculo = content.data[0].curriculo;
+      const sobre = content.data[0].sobre;
 
       let nomeAtual = document.getElementById('nome_usuario');
       let emailAtual = document.getElementById('email_usuario');
       let telefoneAtual = document.getElementById('telefone_usuario');
       let nascimentoAtual = document.getElementById('nascimento_usuario');
       let areaAtuacaoAtual = document.getElementById('area_atuacao');
+      let sobreAtual = document.getElementById('texto_sobre_usuario');
 
       nomeAtual.textContent = nome;
       emailAtual.textContent = email;
       telefoneAtual.textContent = telefone;
       nascimentoAtual.textContent = nascimento;
       areaAtuacaoAtual.textContent = areaAtuacao;
+      sobreAtual.textContent = sobre;
     } else {
       alert('Erro para puxar os dados!');
     }
