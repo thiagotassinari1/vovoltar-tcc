@@ -8,7 +8,7 @@ const emailLogado = document.getElementById('email-usuario').textContent = usuar
 const logout = document.getElementById('botao-logout').addEventListener('click', function () {
     localStorage.removeItem('user');
     window.location.href = '../login/login.html'
-  });
+});
 
 document.addEventListener('DOMContentLoaded', async function (event) {
     event.preventDefault();
@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
                     </div>
                     <div class="mais_info_usuario">
                         <button type="button" class="btn_mais_info" data-id="${usuariospf.id}">Mais informações</button>
+                        <button type="button" class="btn_interesse" data-email="${usuariospf.email}" data-nome="${usuariospf.nome}">Demonstrar Interesse</button>
                     </div>
                 </div>
             `;
@@ -50,6 +51,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         const cardInfosUsuario = document.getElementById('card_infos_usuario');
         const fecharInfo = document.getElementById('fechar_info');
 
+        // Lida com o clique no botão "Mais Informações"
         document.querySelectorAll('.btn_mais_info').forEach(button => {
             button.addEventListener('click', async function () {
                 const id = button.getAttribute('data-id');
@@ -77,6 +79,29 @@ document.addEventListener('DOMContentLoaded', async function (event) {
                     cardInfosUsuario.style.display = 'flex';
                 } else {
                     alert('Erro ao puxar os dados!');
+                }
+            });
+        });
+
+        // Lida com o clique no botão "Demonstrar Interesse"
+        document.querySelectorAll('.btn_interesse').forEach(button => {
+            button.addEventListener('click', async function () {
+                const email = button.getAttribute('data-email');
+                const userName = button.getAttribute('data-nome');
+
+                const response = await fetch('http://localhost:3001/api/email/sendInterestEmail', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, userName }),
+                });
+
+                const result = await response.json();
+                if (result.success) {
+                    alert('Email enviado com sucesso para ' + userName + '!');
+                } else {
+                    alert('Erro ao enviar email: ' + result.message);
                 }
             });
         });
