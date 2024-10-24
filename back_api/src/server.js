@@ -8,9 +8,9 @@ const swaggerOptions = {
   swaggerDefinition: {
     openapi: "3.0.0",
     info: {
-      title: "API de Tarefas",
+      title: "API de Rotas",
       version: "1.0.0",
-      description: "API CRUD para gerenciar tarefas",
+      description: "API CRUD para gerenciar rotas",
     },
     servers: [{ url: "http://localhost:3001" }],
   },
