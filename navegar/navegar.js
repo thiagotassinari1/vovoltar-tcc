@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({ email, userName }),
+                    body: JSON.stringify({ email, userName }),  // Aqui o JSON deve estar correto
                 });
 
                 const result = await response.json();
