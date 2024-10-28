@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { storeUsuario, InfosPessoa, infosUsuarioNavegar, updateCurriculo, updateUsuario } = require('../controller/cadastroPessoaFisicaController');
+const { storeUsuario, InfosPessoa, infosUsuarioNavegar, updateCurriculo, updateUsuario, updateFotoPerfil } = require('../controller/cadastroPessoaFisicaController');
 
 const router = Router();
 
@@ -71,6 +71,21 @@ router.get('/get/infosUsuarioNavegar', infosUsuarioNavegar);
  *               type: object
  */
 router.put('/update/curriculo', updateCurriculo);
+
+/**
+ * @swagger
+ * /update/fotoPerfil:
+ *   put:
+ *     summary: Atualiza a foto de perfil do usuário
+ *     responses:
+ *       200:
+ *         description: Foto de perfil atualizada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ */
+router.put('/update/fotoPerfil', updateFotoPerfil); // Nova rota para atualizar a foto de perfil
 
 /**
  * @swagger

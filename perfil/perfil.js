@@ -260,3 +260,33 @@ function toggleDisplayInputs(editMode) {
   document.getElementById('salvar_perfil').style.display = editMode ? 'block' : 'none';
   document.getElementById('editar_perfil').style.display = editMode ? 'none' : 'block';
 }
+
+// enviar foto de perfil
+let enviarFoto = document.getElementById('enviar_foto');
+
+enviarFoto.onclick = async function (event) {
+    event.preventDefault();
+
+    const usuarioLogado = JSON.parse(localStorage.getItem('user'));
+    const id = usuarioLogado.id;
+
+    let form = document.getElementById('form_foto');
+    let formData = new FormData(form);
+    formData.append('id', id);
+
+    const response = await fetch('http://localhost:3001/api/update/fotoPerfil', {
+        method: 'PUT',
+        body: formData
+    });
+
+    let content = await response.json();
+
+    if (content.success) {
+        alert('Foto de perfil enviada com sucesso!');
+        // Atualizar a foto no frontend
+        document.getElementById('foto-usuario').src = `../back_api/src/uploads/${content.ft_perfil}`;
+    } else {
+        alert('Erro ao enviar a foto!');
+        console.log(content.sql);
+    }
+};

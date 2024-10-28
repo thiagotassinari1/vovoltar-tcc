@@ -42,12 +42,15 @@
             <div class="esquerda">
                 <div class="foto_perfil">
                     <img class="foto_usuario" src="../assets/user2.png" alt="Foto usuário" id="foto-usuario">
-
                     <div class="botoes_edicao_foto">
-                        <button class="botao_ft" id="editar_ft" type="button">Editar foto</button>
+                        <form id="form_foto" enctype="multipart/form-data">
+                            <input type="file" name="ft_perfil" required />
+                            <button id="enviar_foto" type="submit">Enviar Foto</button>
+                        </form>                        
                         <button class="botao_ft" id="remover_ft" type="button">Remover foto</button>
                     </div>
                 </div>
+                
 
                 <div class="infos_usuario">
                     <div class="info_campo">

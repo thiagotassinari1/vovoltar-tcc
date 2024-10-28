@@ -110,7 +110,6 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    border: 1px solid red;
     margin-bottom: 2%;
 }
 
@@ -235,4 +234,36 @@ main {
 
 #recebe_info_sobre {
     text-align: justify;
+}
+
+.botao_interesse {
+    background: #9CCDDB;
+    border: none;
+    width: 60%;
+    height: 3vh;
+    border-radius: 10px;
+    font-size: 12pt;
+    transition: background-color 0.3s ease;
+}
+
+.botao_interesse:hover {
+    background: #6cb1df;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+.botao_fechar {
+    background: #9CCDDB;
+    border: none;
+    width: 60%;
+    height: 3vh;
+    border-radius: 10px;
+    font-size: 12pt;
+    transition: background-color 0.3s ease;
+}
+
+.botao_fechar:hover {
+    background: #6cb1df;
+    cursor: pointer;
+    transition-duration: 0.3s;
 }

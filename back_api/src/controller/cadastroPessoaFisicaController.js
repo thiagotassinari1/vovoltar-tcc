@@ -1,15 +1,19 @@
 const fileUpload = require('express-fileupload');
 const connection = require('../config/db');
 const dotenv = require('dotenv').config();
-
 const fs = require('fs');
 const path = require('path');
 
-const caminhoCurriculo = path.join(__dirname, '..', 'uploads');
+const caminhoCurriculo = path.join(__dirname, '..', 'uploads/curriculos');
+const caminhoFotoPerfil = path.join(__dirname, '..', 'uploads/fotos');
 
 if (!fs.existsSync(caminhoCurriculo)) {
   fs.mkdirSync(caminhoCurriculo);
-};
+}
+
+if (!fs.existsSync(caminhoFotoPerfil)) {
+  fs.mkdirSync(caminhoFotoPerfil);
+}
 
 async function storeUsuario(request, response) {
   const params = [
@@ -18,11 +22,10 @@ async function storeUsuario(request, response) {
     request.body.telefone,
     request.body.nascimento,
     request.body.senha,
-    request.body.ft_perfil,
     request.body.areaAtuacao
   ];
 
-  const query = 'INSERT INTO usuariospf(nome,email,telefone,nascimento,senha,ft_perfil,area_atuacao) VALUES(?,?,?,?,?,?,?)';
+  const query = 'INSERT INTO usuariospf(nome,email,telefone,nascimento,senha,area_atuacao) VALUES(?,?,?,?,?,?)';
 
   connection.query(query, params, (err, results) => {
     if (results) {
@@ -66,7 +69,6 @@ async function InfosPessoa(request, response) {
 }
 
 async function infosUsuarioNavegar(request, response) {
-
   const query = "SELECT * FROM usuariospf";
 
   connection.query(query, (err, results) => {
@@ -95,7 +97,7 @@ async function updateCurriculo(request, response) {
     if (erro) {
       return response.status(400).json({
         success: false,
-        message: "Erro ao mover o arquivo",
+        message: "Erro ao mover o arquivo do currículo",
       });
     }
 
@@ -110,14 +112,59 @@ async function updateCurriculo(request, response) {
       if (results) {
         response.status(200).json({
           success: true,
-          message: "Sucesso no Get!",
-          params: params,
+          message: "Currículo atualizado com sucesso!",
           data: results
         });
       } else {
         response.status(400).json({
           success: false,
-          message: "Problema no Get!",
+          message: "Problema ao atualizar o currículo!",
+          data: err
+        });
+      }
+    });
+  });
+}
+
+async function updateFotoPerfil(request, response) {
+  const id = request.body.id;
+
+  if (!request.files || !request.files.ft_perfil) {
+    return response.status(400).json({
+      success: false,
+      message: "Nenhum arquivo foi enviado."
+    });
+  }
+
+  const fotoPerfil = request.files.ft_perfil;
+  const fotoNome = Date.now() + path.extname(fotoPerfil.name);
+
+  fotoPerfil.mv(path.join(caminhoFotoPerfil, fotoNome), (erro) => {
+    if (erro) {
+      return response.status(400).json({
+        success: false,
+        message: "Erro ao mover o arquivo da foto de perfil: " + erro.message,
+      });
+    }
+
+    const params = [
+      fotoNome,
+      id
+    ];
+
+    const query = "UPDATE usuariospf SET ft_perfil = ? WHERE id = ?";
+
+    connection.query(query, params, (err, results) => {
+      if (results) {
+        response.status(200).json({
+          success: true,
+          message: "Foto de perfil atualizada com sucesso!",
+          data: results
+        });
+      } else {
+        response.status(400).json({
+          success: false,
+          message: "Problema ao atualizar a foto de perfil!",
           data: err
         });
       }
@@ -154,11 +201,11 @@ async function updateUsuario(request, response) {
   });
 }
 
-
 module.exports = {
   storeUsuario,
   InfosPessoa,
   infosUsuarioNavegar,
   updateCurriculo,
-  updateUsuario // Exporte a função para atualizar o usuário
+  updateFotoPerfil, // Nova função para atualizar a foto de perfil
+  updateUsuario
 };

@@ -41,8 +41,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
                         </div>
                     </div>
                     <div class="mais_info_usuario">
-                        <button type="button" class="btn_mais_info" data-id="${usuariospf.id}">Mais informações</button>
-                        <button type="button" class="btn_interesse" data-email="${usuariospf.email}" data-nome="${usuariospf.nome}">Demonstrar Interesse</button>
+                        <button type="button" class="btn_mais_info" data-id="${usuariospf.id}" data-email="${usuariospf.email}" data-nome="${usuariospf.nome}">Mais informações</button>
                     </div>
                 </div>
             `;
@@ -50,11 +49,14 @@ document.addEventListener('DOMContentLoaded', async function (event) {
 
         const cardInfosUsuario = document.getElementById('card_infos_usuario');
         const fecharInfo = document.getElementById('fechar_info');
+        const btnInteresseCard = document.getElementById('btn_interesse_card');
 
         // Lida com o clique no botão "Mais Informações"
         document.querySelectorAll('.btn_mais_info').forEach(button => {
             button.addEventListener('click', async function () {
                 const id = button.getAttribute('data-id');
+                const email = button.getAttribute('data-email');
+                const userName = button.getAttribute('data-nome');
 
                 const responseInfo = await fetch(`http://localhost:3001/api/get/infosUser/${id}`, {
                     method: "GET",
@@ -77,31 +79,26 @@ document.addEventListener('DOMContentLoaded', async function (event) {
 
                     // Exibe o card de informações do usuário
                     cardInfosUsuario.style.display = 'flex';
+
+                    // Atualiza a função do botão "Demonstrar Interesse" dentro do card
+                    btnInteresseCard.onclick = async function () {
+                        const response = await fetch('http://localhost:3001/api/email/sendInterestEmail', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ email, userName }),
+                        });
+
+                        const result = await response.json();
+                        if (result.success) {
+                            alert('Email enviado com sucesso para ' + userName + '!');
+                        } else {
+                            alert('Erro ao enviar email: ' + result.message);
+                        }
+                    };
                 } else {
                     alert('Erro ao puxar os dados!');
-                }
-            });
-        });
-
-        // Lida com o clique no botão "Demonstrar Interesse"
-        document.querySelectorAll('.btn_interesse').forEach(button => {
-            button.addEventListener('click', async function () {
-                const email = button.getAttribute('data-email');
-                const userName = button.getAttribute('data-nome');
-
-                const response = await fetch('http://localhost:3001/api/email/sendInterestEmail', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email, userName }),  // Aqui o JSON deve estar correto
-                });
-
-                const result = await response.json();
-                if (result.success) {
-                    alert('Email enviado com sucesso para ' + userName + '!');
-                } else {
-                    alert('Erro ao enviar email: ' + result.message);
                 }
             });
         });
