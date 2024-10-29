@@ -376,3 +376,121 @@ main {
     cursor: pointer;
     transition-duration: 0.3s;
 }
+
+@media (max-width: 1366px) {
+    aside {
+        font-size: 13pt;
+        padding-top: 5vh;
+        gap: 3vh;
+        width: 12%;
+    }
+
+    .perfil {
+        gap: 1vw;
+    }
+
+    #email-usuario {
+        font-size: 6pt;
+    }
+
+    main {
+        width: 88%;
+        padding: 1rem;
+    }
+
+    .titulo_vaga {
+        font-size: 30pt;
+    }
+
+    .botoes {
+        width: 92%;
+        height: 5%;
+    }
+
+    .botao_vaga {
+        width: 10vw;
+        height: 8vh;
+        font-size: 12pt;
+    }
+
+    .vagas {
+        width: 92%;
+        min-height: 80%;
+        padding-top: 1vh;
+        gap: 2vh;
+    }
+
+    .formulario_vagas {
+        width: 28vw;
+        height: 80vh;
+    }
+
+    .input_campo {
+        width: 16vw;
+        height: 4vh;
+    }
+
+    #descricao {
+        width: 16vw;
+        height: 15vh;
+    }
+
+    .publicar_cancelar_vaga {
+        gap: 3vw;
+        margin-top: 1.5vh;
+    }
+
+    .cancelar_vaga,
+    .publicar_vaga {
+        width: 8vw;
+        height: 5.5vh;
+    }
+
+    .card_vaga {
+        background-color: white;
+        box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.212);
+        width: 90%;
+        width: 400px;
+        height: 20vh;
+        margin: 10px auto;
+        padding: 15px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 1vh;
+    }
+
+    .colunasCard_vaga {
+        gap: 2.5vw;
+    }
+
+    .mais_info_vaga {
+        width: 24vw;
+        height: 42vh;
+        gap: 8%;
+    }
+
+    .detalhes_vaga {
+        width: 78%;
+    }
+
+    .fechar_detalhes {
+        width: 35%;
+        height: 9%;
+    }
+
+    .botoes_vaga {
+        width: 10vw;
+        height: 11vh;
+        gap: 2vh;
+    }
+
+    .info_vaga,
+    .deletar_vaga {
+        height: 3.5vh;
+        font-size: 10pt;
+        width: 100%;
+    }
+}

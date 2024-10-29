@@ -268,3 +268,70 @@ main {
     cursor: pointer;
     transition-duration: 0.3s;
 }
+
+/* Responsividade para telas de 1366x768 */
+@media (max-width: 1366px) {
+    aside {
+        width: 15%; /* Aumenta a largura para compensar tela menor */
+        font-size: 14pt; /* Reduz um pouco o tamanho da fonte */
+        gap: 3vh;
+    }
+
+    .perfil {
+        width: 100%; /* Largura total para centralizar bem */
+        gap: 1vw;
+    }
+
+    #email-usuario {
+        font-size: 6pt; /* Ajusta a fonte para menor resolução */
+    }
+
+    main {
+        width: 85%; /* Reduz a largura do main */
+        padding-bottom: 1.5rem;
+    }
+
+    .titulo {
+        font-size: 35pt; /* Reduz título para se adequar melhor */
+    }
+
+    .descricao_titulo {
+        font-size: 13pt; /* Ajuste para manter legibilidade */
+    }
+
+    .usuarios {
+        grid-template-columns: repeat(3, 1fr); /* Reduz número de colunas */
+        gap: 15px; /* Diminui o espaçamento */
+    }
+
+    .card_usuario {
+        width: 15vw; /* Ajusta largura dos cartões */
+        padding: 4px;
+    }
+
+    .txt_info_usuario {
+        font-size: 10pt; /* Menor tamanho de texto */
+    }
+
+    .recebe_area, .recebe_nome {
+        font-size: 9pt; /* Ajuste do tamanho de fonte */
+    }
+
+    .card_infos_usuario {
+        width: 30vw; /* Expande para facilitar leitura */
+        gap: 3vh;
+    }
+
+    .topicos_infos {
+        font-size: 10pt;
+    }
+
+    .recebe_infos {
+        font-size: 8.6pt;
+    }
+
+    .botao_interesse, .botao_fechar {
+        font-size: 10pt; /* Ajusta fonte dos botões */
+        width: 70%; /* Um pouco mais largo */
+    }
+}
