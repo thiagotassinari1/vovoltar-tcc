@@ -135,13 +135,14 @@ main {
 .card_usuario {
     box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.295);
     width: 12vw;
-    height: 28vh;
+    /* min-height: 28vh; */
     border-radius: 5%;
     padding: 5px;
 }
 
 .img_usuario {
     width: 100%;
+    border-radius: 50%;
 }
 
 .txt_info_usuario {

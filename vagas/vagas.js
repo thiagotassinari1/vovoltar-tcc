@@ -85,7 +85,7 @@ function criarCardVaga(vaga) {
 
     // Verificar se o usuário logado é uma empresa
     const empresaLogada = JSON.parse(localStorage.getItem('user'));
-    if (empresaLogada.origin === 'empresa') {
+    if (vaga.empresa_id === empresaLogada.id) {
         // Criando botão pra deletar a vaga
         let botaoDeleteVaga = document.createElement('div');
         botaoDeleteVaga.className = 'deletar_vaga';
@@ -96,16 +96,18 @@ function criarCardVaga(vaga) {
         botaoDeleteVaga.addEventListener('click', async function () {
             const deleteResponse = await fetch(`http://localhost:3001/api/vaga/${vaga.id}`, {
                 method: 'DELETE',
-                headers: { 'Content-type': 'application/json;charset=UTF-8' }
+                headers: { 'Content-type': 'application/json;charset=UTF-8' },
+                body: JSON.stringify({ empresa_id: empresaLogada.id }) // Envia o id da empresa logada
             });
-
+        
             if (deleteResponse.ok) {
                 alert('Vaga deletada com sucesso!');
                 cardVaga.remove();
             } else {
-                alert('Erro ao deletar a vaga, tente novamente.');
+                const errorResponse = await deleteResponse.json();
+                alert(errorResponse.message);
             }
-        });
+        });        
     }
 
     // adicionando as colunas ao card

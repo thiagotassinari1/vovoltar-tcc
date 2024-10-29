@@ -26,10 +26,12 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         listagemUsuarios.innerHTML = '';
 
         content.data.forEach(usuariospf => {
+            const fotoPerfil = usuariospf.ft_perfil ? `../back_api/src/uploads/fotos/${usuariospf.ft_perfil}` : '../assets/user.png';
+        
             listagemUsuarios.innerHTML += `
                 <div class="card_usuario">
                     <p class="id_usuario" style="display: none">${usuariospf.id}</p>
-                    <img class="img_usuario" src="../back_api/src/uploads/${usuariospf.ft_perfil}" alt="Imagem de perfil do usuário">
+                    <img class="img_usuario" src="${fotoPerfil}" alt="Imagem de perfil do usuário">
                     <div class="infos_usuario">
                         <div class="nome">
                             <h3 class="txt_info_usuario">Nome:</h3>
@@ -45,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
                     </div>
                 </div>
             `;
-        });
+        });        
 
         const cardInfosUsuario = document.getElementById('card_infos_usuario');
         const fecharInfo = document.getElementById('fechar_info');

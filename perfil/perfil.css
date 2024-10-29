@@ -166,7 +166,10 @@ main {
 }
 
 .foto_usuario {
-    width: 30%;
+    /* width: 30%; */
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
 }
 
 .botoes_edicao_foto {

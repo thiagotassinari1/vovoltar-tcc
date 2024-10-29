@@ -65,20 +65,26 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       const areaAtuacao = content.data[0].area_atuacao;
       const curriculo = content.data[0].curriculo;
       const sobre = content.data[0].sobre;
+      const ft_perfil = content.data[0].ft_perfil;
 
       let nomeAtual = document.getElementById('nome_usuario');
       let emailAtual = document.getElementById('email_usuario');
       let telefoneAtual = document.getElementById('telefone_usuario');
       let nascimentoAtual = document.getElementById('nascimento_usuario');
       let areaAtuacaoAtual = document.getElementById('area_atuacao');
+      let curriculoAtual = document.getElementById('curriculoAtual');
       let sobreAtual = document.getElementById('texto_sobre_usuario');
+      let ftPerfilAtual = document.getElementById('foto-usuario');
 
       nomeAtual.textContent = nome;
       emailAtual.textContent = email;
       telefoneAtual.textContent = telefone;
       nascimentoAtual.textContent = nascimento;
       areaAtuacaoAtual.textContent = areaAtuacao;
+      ftPerfilAtual.src = `../back_api/src/uploads/curriculos/${curriculo}`;
       sobreAtual.textContent = sobre;
+      ftPerfilAtual.src = `../back_api/src/uploads/fotos/${ft_perfil}`;
+      console.log(curriculo)
     } else {
       alert('Erro para puxar os dados!');
     }
