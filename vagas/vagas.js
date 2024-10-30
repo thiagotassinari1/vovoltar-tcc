@@ -195,6 +195,8 @@ publicarVaga.onclick = async function () {
             cidadeForm.value = '';
             estadoForm.value = '';
             qtd_vagasForm.value = '';
+
+            window.location.reload()
         } else {
             alert('Algo deu errado, tente novamente!');
         }
