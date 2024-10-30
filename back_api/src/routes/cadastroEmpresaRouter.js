@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { storeUsuarioEmpresa, InfosEmpresa, updateEmpresa } = require('../controller/cadastroEmpresaController');
+const { storeUsuarioEmpresa, InfosEmpresa, updateEmpresa, updateFotoPerfilEmpresa } = require('../controller/cadastroEmpresaController');
 
 const router = Router();
 
@@ -16,7 +16,7 @@ const router = Router();
  *           schema:
  *             type: object
  *             properties:
- *               nomeEmpresa:
+ *               nome:
  *                 type: string
  *                 description: Nome da empresa
  *               email:
@@ -25,6 +25,15 @@ const router = Router();
  *               cnpj:
  *                 type: string
  *                 description: CNPJ da empresa
+ *               endereco:
+ *                 type: string
+ *                 description: Endereço da empresa
+ *               senha:
+ *                 type: string
+ *                 description: Senha para login da empresa
+ *               ft_perfil:
+ *                 type: string
+ *                 description: URL da foto de perfil
  *     responses:
  *       201:
  *         description: Empresa cadastrada com sucesso
@@ -53,15 +62,14 @@ router.post('/store/UsuarioEmpresa', storeUsuarioEmpresa);
  *             schema:
  *               type: object
  *               properties:
- *                 nomeEmpresa:
+ *                 nome:
  *                   type: string
- *                   description: Nome da empresa
  *                 email:
  *                   type: string
- *                   description: E-mail da empresa
  *                 cnpj:
  *                   type: string
- *                   description: CNPJ da empresa
+ *                 endereco:
+ *                   type: string
  *       404:
  *         description: Empresa não encontrada
  */
@@ -80,15 +88,16 @@ router.get('/get/infosUserEmpresa/:id', InfosEmpresa);
  *           schema:
  *             type: object
  *             properties:
- *               nomeEmpresa:
+ *               nome:
  *                 type: string
- *                 description: Nome da empresa
  *               email:
  *                 type: string
- *                 description: E-mail da empresa
  *               cnpj:
  *                 type: string
- *                 description: CNPJ da empresa
+ *               endereco:
+ *                 type: string
+ *               sobre:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Informações atualizadas com sucesso
@@ -96,5 +105,33 @@ router.get('/get/infosUserEmpresa/:id', InfosEmpresa);
  *         description: Erro na atualização
  */
 router.put('/update/infosEmpresa', updateEmpresa);
+
+/**
+ * @swagger
+ * /update/logoEmpresa:
+ *   put:
+ *     summary: Atualiza o logo da empresa
+ *     requestBody:
+ *       description: Arquivo de imagem do logo a ser atualizado
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: string
+ *                 description: ID da empresa
+ *               logo:
+ *                 type: string
+ *                 format: binary
+ *                 description: Arquivo de imagem do logo
+ *     responses:
+ *       200:
+ *         description: Logo atualizado com sucesso
+ *       400:
+ *         description: Erro ao atualizar o logo
+ */
+router.put('/update/logoEmpresa', updateFotoPerfilEmpresa);
 
 module.exports = router;

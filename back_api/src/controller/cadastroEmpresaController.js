@@ -1,5 +1,14 @@
 const connection = require('../config/db');
 const dotenv = require('dotenv').config();
+const path = require('path');
+const fs = require('fs');
+
+const caminhoFotoPerfil = path.join(__dirname, '..', 'uploads/fotos');
+
+// Verifica se o diretório de logos existe; caso contrário, cria
+if (!fs.existsSync(caminhoFotoPerfil)) {
+  fs.mkdirSync(caminhoFotoPerfil);
+}
 
 async function storeUsuarioEmpresa(request, response) {
     const params = [
@@ -83,9 +92,55 @@ async function updateEmpresa(request, response) {
     });
 }
 
+async function updateFotoPerfilEmpresa(request, response) {
+    const id = request.body.id;
+  
+    if (!request.files || !request.files.ft_perfil) {
+      return response.status(400).json({
+        success: false,
+        message: "Nenhum arquivo foi enviado."
+      });
+    }
+  
+    const fotoPerfil = request.files.ft_perfil;
+    const fotoNome = Date.now() + path.extname(fotoPerfil.name);
+  
+    fotoPerfil.mv(path.join(caminhoFotoPerfil, fotoNome), (erro) => {
+      if (erro) {
+        return response.status(400).json({
+          success: false,
+          message: "Erro ao mover o arquivo da foto de perfil: " + erro.message,
+        });
+      }
+  
+      const params = [
+        fotoNome,
+        id
+      ];
+  
+      const query = "UPDATE empresas SET ft_perfil = ? WHERE id = ?";
+  
+      connection.query(query, params, (err, results) => {
+        if (results) {
+          response.status(200).json({
+            success: true,
+            message: "Foto de perfil atualizada com sucesso!",
+            data: results
+          });
+        } else {
+          response.status(400).json({
+            success: false,
+            message: "Problema ao atualizar a foto de perfil!",
+            data: err
+          });
+        }
+      });
+    });
+  }
 
 module.exports = {
     storeUsuarioEmpresa,
     InfosEmpresa,
-    updateEmpresa // Exporte a função para atualizar os dados da empresa
+    updateEmpresa,
+    updateFotoPerfilEmpresa
 };
