@@ -1,3 +1,11 @@
 node_modules
 .env
-uploads
+
+uploads/*
+!uploads/
+
+curriculos/*
+!curriculos/
+
+fotos/*
+!fotos/

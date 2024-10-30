@@ -293,6 +293,7 @@ if (usuarioLogado.origin === 'usuariopf') {
       alert('Foto de perfil enviada com sucesso!');
       // Atualizar a foto no frontend
       document.getElementById('foto-usuario').src = `../back_api/src/uploads/fotos/${content.ft_perfil}`;
+      window.location.reload()
     } else {
       alert('Erro ao enviar a foto!');
       console.log(content.sql);
@@ -322,6 +323,7 @@ if (usuarioLogado.origin === 'usuariopf') {
       alert('Foto de perfil enviada com sucesso!');
       // Atualizar a foto no frontend
       document.getElementById('foto-usuario').src = `../back_api/src/uploads/fotos/${content.ft_perfil}`;
+      window.location.reload()
     } else {
       alert('Erro ao enviar a foto!');
       console.log(content.sql);
