@@ -181,16 +181,26 @@ main {
     align-items: center;
     flex-direction: column;
     /* border: 1px solid green; */
-    width: 15vw;
+    width: 25vw;
     height: 10vw;
     gap: 3vh;
 }
 
-#editar_ft {
+#form_foto {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2vh;
+
+    /* border: 1px solid red; */
+}
+
+#enviar_foto {
     background: #9CCDDB;
 }
 
-#editar_ft:hover {
+#enviar_foto:hover {
     background: #6cb1df;
     cursor: pointer;
     transition-duration: 0.3s;
@@ -231,6 +241,45 @@ main {
 
 .input_editar {
     width: 99%;
+}
+
+#editar_perfil {
+    background-color: #9CCDDB;
+    border: none;
+    height: 4vh;
+    border-radius: 10px;
+}
+
+#editar_perfil:hover {
+    cursor: pointer;
+    background-color: #6cb1df;
+    transition-duration: 0.3s;
+}
+
+#salvar_perfil {
+    background-color: #9CCDDB;
+    border: none;
+    height: 4vh;
+    border-radius: 10px;
+}
+
+#salvar_perfil:hover {
+    cursor: pointer;
+    background-color: #85D1B5;
+    transition-duration: 0.3s;
+}
+
+#cancelar_perfil {
+    background-color: #f08989;
+    border: none;
+    border-radius: 10px;
+    height: 4vh;
+}
+
+#cancelar_perfil:hover {
+    background-color: #f86c6c;
+    cursor: pointer;
+    transition-duration: 0.3s;
 }
 
 .direita {
