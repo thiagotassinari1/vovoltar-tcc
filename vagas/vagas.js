@@ -1,7 +1,7 @@
 // definir variáveis uteis para as funções
 const formularioVaga = document.getElementById('formulario_vagas');
 
-// definir campos do formulario
+// Definir campos do formulário
 const areaAtuacao = document.getElementById('area_atuacao');
 const emailContato = document.getElementById('email');
 const cidadeForm = document.getElementById('cidade');
@@ -12,25 +12,24 @@ const descricao = document.getElementById('descricao');
 const botaoCriarVaga = document.getElementById('criar_vaga');
 const botaoDeletarVaga = document.querySelector('.deletar_vaga');
 
-// recuperar usuario do local storage
+// Recuperar usuário do local storage
 const usuarioLogado = JSON.parse(localStorage.getItem('user'));
 console.log(usuarioLogado);
 
-// conferir de é empresa ou pessoa para permitir criar vagas ou nao
+// Conferir se é empresa ou pessoa para permitir criar vagas ou não
 if (usuarioLogado.origin === 'usuariopf') {
     botaoCriarVaga.style.display = 'none';
-
 } else if (usuarioLogado.origin === 'empresa') {
     botaoCriarVaga.style.display = 'flex';
 }
 
-// puxar campos para mostrar infos do usuário no front
+// Puxar campos para mostrar infos do usuário no front
 const emailUser = document.getElementById('email-usuario').innerHTML = usuarioLogado.email;
 
-// definir o email da empresa que ta logada quando abre o formulário
+// Definir o email da empresa que está logada quando abre o formulário
 emailContato.value = emailUser;
 
-// criar função para deslogar do site e voltar para o login
+// Função para deslogar do site e voltar para o login
 const logout = document.getElementById('botao-logout').addEventListener('click', function () {
     localStorage.removeItem('user');
     window.location.href = '../login/login.html'
@@ -40,7 +39,7 @@ const logout = document.getElementById('botao-logout').addEventListener('click',
 function criarCardVaga(vaga) {
     let cardVaga = document.createElement('div');
     cardVaga.className = 'card_vaga';
-    cardVaga.dataset.id = vaga.id; // Armazenar o ID único no card
+    cardVaga.dataset.id = vaga.id;
 
     let colunasCard = document.createElement('div');
     colunasCard.className = 'colunasCard_vaga';
@@ -48,7 +47,6 @@ function criarCardVaga(vaga) {
     let infosVaga = document.createElement('div');
     infosVaga.className = 'infos_vaga';
 
-    // Adicionando conteúdo ao card
     infosVaga.innerHTML = `
         <h3>${vaga.area}</h3>
         <p><b>Email:</b> ${vaga.email_empresa}</p>
@@ -57,22 +55,21 @@ function criarCardVaga(vaga) {
         <p><b>Quantidade de Vagas:</b> ${vaga.qtd_vagas}</p>
     `;
 
-    // criando coluna para os botoes
     let botoesVaga = document.createElement('div');
     botoesVaga.className = 'botoes_vaga';
 
-    // Criando botão para mostrar mais informações
-    let botaoCardVaga = document.createElement('div');
-    botaoCardVaga.className = 'info_vaga';
-    botaoCardVaga.innerHTML = 'Mais informações';
-    botoesVaga.appendChild(botaoCardVaga);
+    // Botão para mais informações
+    let botaoMaisInfo = document.createElement('div');
+    botaoMaisInfo.className = 'info_vaga';
+    botaoMaisInfo.innerHTML = 'Mais informações';
+    botoesVaga.appendChild(botaoMaisInfo);
 
-    // Evento de clique para mostrar ou ocultar descrição da vaga
-    botaoCardVaga.addEventListener('click', function () {
-
+    // Evento para mostrar mais informações
+    botaoMaisInfo.addEventListener('click', function () {
         let maisInfoVaga = document.getElementById("mais_info_vaga");
         let txt_detalhe_vaga = document.getElementById('detalhes_vaga');
         let fecharDetalhes = document.getElementById('fechar_detalhes');
+        let botaoCandidatar = document.getElementById('botao_candidatar')
 
         fecharDetalhes.addEventListener('click', function () {
             maisInfoVaga.style.display = 'none';
@@ -81,46 +78,42 @@ function criarCardVaga(vaga) {
         maisInfoVaga.style.display = 'flex';
         txt_detalhe_vaga.innerHTML = vaga.descricao;
 
+        // Evento para enviar o e-mail de candidatura ao clicar em "Candidatar-se"
+        botaoCandidatar.addEventListener('click', async function () {
+            const usuarioLogado = JSON.parse(localStorage.getItem('user'));
+            const candidaturaData = {
+                emailEnvio: vaga.email_empresa,
+                emailCandidato: usuarioLogado.email,
+                userName: usuarioLogado.nome,
+                foneUser: usuarioLogado.contato,
+                nomeVaga: vaga.area,
+                nomeEmpresa: vaga.nomeEmpresa
+            };
+
+            // Envia requisição para o back-end para enviar o e-mail
+            const response = await fetch('http://localhost:3001/api/email/candidatarVaga', {
+                method: 'POST',
+                headers: { 'Content-type': 'application/json;charset=UTF-8' },
+                body: JSON.stringify(candidaturaData)
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                alert(`Candidatura enviada com sucesso para a vaga de ${vaga.area}!`);
+            } else {
+                alert('Erro ao enviar candidatura. Tente novamente.');
+            }
+        });
     });
 
-    // Verificar se o usuário logado é uma empresa
-    const empresaLogada = JSON.parse(localStorage.getItem('user'));
-    if (vaga.empresa_id === empresaLogada.id) {
-        // Criando botão pra deletar a vaga
-        let botaoDeleteVaga = document.createElement('div');
-        botaoDeleteVaga.className = 'deletar_vaga';
-        botaoDeleteVaga.innerHTML = 'Deletar Vaga';
-        botoesVaga.appendChild(botaoDeleteVaga);
-
-        // Adicionando evento para deletar a vaga
-        botaoDeleteVaga.addEventListener('click', async function () {
-            const deleteResponse = await fetch(`http://localhost:3001/api/vaga/${vaga.id}`, {
-                method: 'DELETE',
-                headers: { 'Content-type': 'application/json;charset=UTF-8' },
-                body: JSON.stringify({ empresa_id: empresaLogada.id }) // Envia o id da empresa logada
-            });
-        
-            if (deleteResponse.ok) {
-                alert('Vaga deletada com sucesso!');
-                cardVaga.remove();
-            } else {
-                const errorResponse = await deleteResponse.json();
-                alert(errorResponse.message);
-            }
-        });        
-    }
-
-    // adicionando as colunas ao card
     colunasCard.appendChild(infosVaga);
     colunasCard.appendChild(botoesVaga);
     cardVaga.appendChild(colunasCard);
 
-    // adicionando o card na section de vagas
     document.querySelector('.vagas').appendChild(cardVaga);
 }
 
 // Função para carregar vagas do servidor
-// Fazer isso com base no video do sor vitor de puxar coisas do banco de dados
 async function carregarVagas() {
     const response = await fetch('http://localhost:3001/api/vagas');
     const content = await response.json();
@@ -134,12 +127,12 @@ async function carregarVagas() {
     }
 }
 
-// abrir formulário
+// Abrir formulário
 let criarVaga = document.getElementById('criar_vaga').addEventListener('click', function (event) {
     formularioVaga.style.display = 'flex';
 });
 
-// fechar formulário
+// Fechar formulário
 let cancelarVaga = document.getElementById('cancelar_vaga').addEventListener('click', function (event) {
     formularioVaga.style.display = 'none';
     areaAtuacao.value = '';
@@ -148,7 +141,7 @@ let cancelarVaga = document.getElementById('cancelar_vaga').addEventListener('cl
     qtd_vagasForm.value = '';
 });
 
-// publicar vaga
+// Publicar vaga
 let publicarVaga = document.getElementById('publicar_vaga');
 
 publicarVaga.onclick = async function () {
@@ -159,14 +152,15 @@ publicarVaga.onclick = async function () {
     let qtd_vagas = document.getElementById('qtd_vagas').value;
     let descricao = document.getElementById('descricao').value;
 
-    // Recupera o ID da empresa logada
+    // Recupera o ID e o nome da empresa logada
     const empresaLogada = JSON.parse(localStorage.getItem('user'));
     let empresa_id = empresaLogada.id;
+    let nomeEmpresa = empresaLogada.nome; // Captura o nome da empresa
 
-    if (!area || !email_empresa || !cidade || !estado || !qtd_vagas || !descricao || !empresa_id) {
+    if (!area || !email_empresa || !cidade || !estado || !qtd_vagas || !descricao || !empresa_id || !nomeEmpresa) {
         alert('Preencha todos os campos para publicar sua vaga!');
     } else {
-        let data = { area, email_empresa, cidade, estado, qtd_vagas, descricao, empresa_id };
+        let data = { area, email_empresa, cidade, estado, qtd_vagas, descricao, empresa_id, nomeEmpresa };
 
         const response = await fetch('http://localhost:3001/api/store/vaga', {
             method: 'POST',
@@ -185,8 +179,8 @@ publicarVaga.onclick = async function () {
                 cidade: cidade,
                 estado: estado,
                 qtd_vagas: qtd_vagas,
-                empresa_id: empresa_id
-
+                empresa_id: empresa_id,
+                nomeEmpresa: nomeEmpresa  // Inclui o nome da empresa no card
             });
 
             // Ocultando o formulário e resetando os campos

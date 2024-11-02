@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { sendInterestEmail } = require('../controller/enviarEmailController');
+const { sendInterestEmail, candidatarVaga } = require('../controller/enviarEmailController');
 
 const router = Router();
 
@@ -37,5 +37,7 @@ const router = Router();
  *         description: Requisição inválida
  */
 router.post('/email/sendInterestEmail', sendInterestEmail);
+
+router.post('/email/candidatarVaga', candidatarVaga);
 
 module.exports = router;

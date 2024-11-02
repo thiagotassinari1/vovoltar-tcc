@@ -52,7 +52,7 @@ async function deleteVaga(request, response) {
 }
 
 async function getVagas(request, response) {
-    const query = 'SELECT * FROM vagas';
+    const query = 'SELECT v.*, e.nome AS nomeEmpresa FROM vagas v JOIN empresas e ON v.empresa_id = e.id;';
 
     connection.query(query, (err, results) => {
         if (results) {
