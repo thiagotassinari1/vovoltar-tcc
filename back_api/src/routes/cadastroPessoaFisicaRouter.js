@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { storeUsuario, InfosPessoa, infosUsuarioNavegar, updateCurriculo, updateUsuario, updateFotoPerfil } = require('../controller/cadastroPessoaFisicaController');
+const { storeUsuario, InfosPessoa, infosUsuarioNavegar, updateCurriculo, updateUsuario, updateFotoPerfil, removeFotoPerfil } = require('../controller/cadastroPessoaFisicaController');
 
 const router = Router();
 
@@ -101,5 +101,21 @@ router.put('/update/fotoPerfil', updateFotoPerfil); // Nova rota para atualizar 
  *               type: object
  */
 router.put('/update/infosUser', updateUsuario);
+
+/**
+ * @swagger
+ * /remove/fotoPerfil:
+ *   delete:
+ *     summary: Remove a foto de perfil do usuário
+ *     responses:
+ *       200:
+ *         description: Foto de perfil removida com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ */
+router.delete('/remove/fotoPerfil', removeFotoPerfil);
+
 
 module.exports = router;

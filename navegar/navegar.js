@@ -53,6 +53,12 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         const fecharInfo = document.getElementById('fechar_info');
         const btnInteresseCard = document.getElementById('btn_interesse_card');
 
+        if (usuarioLogado.origin === 'empresa') {
+            btnInteresseCard.style.display = 'block'
+        } else {
+            btnInteresseCard.style.display = 'none'
+        }
+
         // Lida com o clique no botão "Mais Informações"
         document.querySelectorAll('.btn_mais_info').forEach(button => {
             button.addEventListener('click', async function () {

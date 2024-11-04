@@ -1,4 +1,4 @@
-// definir variáveis uteis para as funções
+// Definir variáveis úteis para as funções
 const formularioVaga = document.getElementById('formulario_vagas');
 
 // Definir campos do formulário
@@ -32,7 +32,7 @@ emailContato.value = emailUser;
 // Função para deslogar do site e voltar para o login
 const logout = document.getElementById('botao-logout').addEventListener('click', function () {
     localStorage.removeItem('user');
-    window.location.href = '../login/login.html'
+    window.location.href = '../login/login.html';
 });
 
 // Função para criar um card de vaga
@@ -69,7 +69,7 @@ function criarCardVaga(vaga) {
         let maisInfoVaga = document.getElementById("mais_info_vaga");
         let txt_detalhe_vaga = document.getElementById('detalhes_vaga');
         let fecharDetalhes = document.getElementById('fechar_detalhes');
-        let botaoCandidatar = document.getElementById('botao_candidatar')
+        let botaoCandidatar = document.getElementById('botao_candidatar');
 
         fecharDetalhes.addEventListener('click', function () {
             maisInfoVaga.style.display = 'none';
@@ -105,6 +105,34 @@ function criarCardVaga(vaga) {
             }
         });
     });
+
+    // Verificar se o usuário logado é uma empresa
+    const empresaLogada = JSON.parse(localStorage.getItem('user'));
+    console.log(empresaLogada.id)
+    if (vaga.empresa_id === empresaLogada.id) {
+        // Criando botão pra deletar a vaga
+        let botaoDeleteVaga = document.createElement('div');
+        botaoDeleteVaga.className = 'deletar_vaga';
+        botaoDeleteVaga.innerHTML = 'Deletar Vaga';
+        botoesVaga.appendChild(botaoDeleteVaga);
+
+        // Adicionando evento para deletar a vaga
+        botaoDeleteVaga.addEventListener('click', async function () {
+            const deleteResponse = await fetch(`http://localhost:3001/api/vaga/${vaga.id}`, {
+                method: 'DELETE',
+                headers: { 'Content-type': 'application/json;charset=UTF-8' },
+                body: JSON.stringify({ empresa_id: empresaLogada.id }) // Envia o id da empresa logada
+            });
+
+            if (deleteResponse.ok) {
+                alert('Vaga deletada com sucesso!');
+                cardVaga.remove();
+            } else {
+                const errorResponse = await deleteResponse.json();
+                alert(errorResponse.message);
+            }
+        });
+    }
 
     colunasCard.appendChild(infosVaga);
     colunasCard.appendChild(botoesVaga);
@@ -190,12 +218,14 @@ publicarVaga.onclick = async function () {
             estadoForm.value = '';
             qtd_vagasForm.value = '';
 
-            window.location.reload()
+            window.location.reload();
         } else {
-            alert('Algo deu errado, tente novamente!');
+            alert(content.message);
         }
     }
 };
 
 // Carregar vagas ao carregar a página
-window.onload = carregarVagas;
+window.onload = function () {
+    carregarVagas();
+};

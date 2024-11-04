@@ -127,7 +127,59 @@ let editarPerfilBtn = document.getElementById('editar_perfil');
 let salvarPerfilBtn = document.getElementById('salvar_perfil');
 let enviarFotoBtn = document.getElementById('enviar_foto');
 let removerFotoBtn = document.getElementById('remover_ft');
-let formFotoPerfil = document.getElementById('form_foto')
+let formFotoPerfil = document.getElementById('form_foto');
+
+if (usuarioLogado.origin === 'usuariospf') {
+  // Função para remover a foto de perfil
+  removerFotoBtn.onclick = async function () {
+    const usuarioLogado = JSON.parse(localStorage.getItem('user'));
+    const id = usuarioLogado.id;
+
+    const response = await fetch('http://localhost:3001/api/remove/fotoPerfil', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id: id })
+    });
+
+    let content = await response.json();
+
+    if (content.success) {
+      alert('Foto de perfil removida com sucesso!');
+      document.getElementById('foto-usuario').src = '../assets/user.png'; // Exibe uma imagem padrão
+    } else {
+      alert('Erro ao remover a foto de perfil!');
+      console.log(content.sql);
+    }
+  };
+} else if (usuarioLogado.origin === 'empresa') {
+  // Função para remover a foto de perfil
+  removerFotoBtn.onclick = async function () {
+    const usuarioLogado = JSON.parse(localStorage.getItem('user'));
+    const id = usuarioLogado.id;
+
+    const response = await fetch('http://localhost:3001/api/remove/fotoPerfilEmpresa', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id: id })
+    });
+
+    let content = await response.json();
+
+    if (content.success) {
+      alert('Foto de perfil removida com sucesso!');
+      document.getElementById('foto-usuario').src = '../assets/user.png'; // Exibe uma imagem padrão
+    } else {
+      alert('Erro ao remover a foto de perfil!');
+      console.log(content.sql);
+    }
+  };
+}
+
+
 
 // Cria o botão "Cancelar" e insere após o botão "Salvar"
 let cancelarPerfilBtn = document.createElement('button');

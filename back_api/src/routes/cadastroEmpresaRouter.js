@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { storeUsuarioEmpresa, InfosEmpresa, updateEmpresa, updateFotoPerfilEmpresa } = require('../controller/cadastroEmpresaController');
+const { storeUsuarioEmpresa, InfosEmpresa, updateEmpresa, updateFotoPerfilEmpresa, removeFotoPerfilEmpresa } = require('../controller/cadastroEmpresaController');
 
 const router = Router();
 
@@ -133,5 +133,20 @@ router.put('/update/infosEmpresa', updateEmpresa);
  *         description: Erro ao atualizar o logo
  */
 router.put('/update/logoEmpresa', updateFotoPerfilEmpresa);
+
+/**
+ * @swagger
+ * /remove/fotoPerfil:
+ *   delete:
+ *     summary: Remove a foto de perfil do usuário
+ *     responses:
+ *       200:
+ *         description: Foto de perfil removida com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ */
+router.delete('/remove/fotoPerfilEmpresa', removeFotoPerfilEmpresa);
 
 module.exports = router;
