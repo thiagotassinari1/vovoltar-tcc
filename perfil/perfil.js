@@ -179,8 +179,6 @@ if (usuarioLogado.origin === 'usuariospf') {
   };
 }
 
-
-
 // Cria o botão "Cancelar" e insere após o botão "Salvar"
 let cancelarPerfilBtn = document.createElement('button');
 cancelarPerfilBtn.id = 'cancelar_perfil';
@@ -221,17 +219,6 @@ editarPerfilBtn.onclick = function () {
   editarPerfilBtn.style.display = 'none';
   salvarPerfilBtn.style.display = 'block';
   cancelarPerfilBtn.style.display = 'block';
-};
-
-// Função para salvar as alterações do perfil
-salvarPerfilBtn.onclick = async function () {
-  // Aqui irá o código para salvar as alterações
-  // Após salvar, restaura a visibilidade original
-
-  cancelarPerfilBtn.style.display = 'none';
-  editarPerfilBtn.style.display = 'block';
-  salvarPerfilBtn.style.display = 'none';
-  formFotoPerfil.style.display = 'none';
 };
 
 // Função para cancelar a edição do perfil e restaurar a visibilidade original
@@ -377,6 +364,11 @@ salvarPerfilBtn.onclick = async function () {
       console.log(content.sql);
     }
   }
+
+  cancelarPerfilBtn.style.display = 'none';
+  editarPerfilBtn.style.display = 'block';
+  salvarPerfilBtn.style.display = 'none';
+  formFotoPerfil.style.display = 'none';
 };
 
 // Função auxiliar para alternar a exibição dos inputs e textos

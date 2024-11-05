@@ -173,6 +173,7 @@ main {
     border-radius: 50%;
     object-fit: cover;
     overflow: hidden;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.212);
 }
 
 .botoes_edicao_foto {

@@ -141,7 +141,7 @@ async function updateFotoPerfilEmpresa(request, response) {
 async function removeFotoPerfilEmpresa(request, response) {
   const id = request.body.id;
 
-  const query = "SELECT ft_perfil FROM usuariospf WHERE id = ?";
+  const query = "SELECT ft_perfil FROM empresas WHERE id = ?";
   connection.query(query, [id], (err, results) => {
     if (err || results.length === 0) {
       return response.status(400).json({
