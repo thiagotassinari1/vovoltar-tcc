@@ -3,8 +3,6 @@ const idUsuarioLogado = usuarioLogado.id;
 console.log(idUsuarioLogado);
 console.log(usuarioLogado.origin);
 
-const emailLogado = document.getElementById('email-usuario').textContent = usuarioLogado.email;
-
 const logout = document.getElementById('botao-logout').addEventListener('click', function () {
     localStorage.removeItem('user');
     window.location.href = '../login/login.html'

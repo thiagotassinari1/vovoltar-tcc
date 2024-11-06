@@ -23,12 +23,6 @@ if (usuarioLogado.origin === 'usuariopf') {
     botaoCriarVaga.style.display = 'flex';
 }
 
-// Puxar campos para mostrar infos do usuário no front
-const emailUser = document.getElementById('email-usuario').innerHTML = usuarioLogado.email;
-
-// Definir o email da empresa que está logada quando abre o formulário
-emailContato.value = emailUser;
-
 // Função para deslogar do site e voltar para o login
 const logout = document.getElementById('botao-logout').addEventListener('click', function () {
     localStorage.removeItem('user');

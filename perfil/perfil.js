@@ -31,9 +31,6 @@ console.log(usuarioLogado);
 
 console.log(usuarioLogado.id, usuarioLogado.email, usuarioLogado.senha, usuarioLogado.origin);
 
-// puxar o email para aparecer no front
-const emailUser = document.getElementById('email-usuario').innerHTML = usuarioLogado.email;
-
 // criar função para deslogar do site e voltar para o login
 const logout = document.getElementById('botao-logout').addEventListener('click', function () {
   localStorage.removeItem('user');
@@ -297,6 +294,7 @@ salvarPerfilBtn.onclick = async function () {
       usuarioLogado.area_atuacao = areaAtuacao;
       usuarioLogado.sobre = sobre;
       localStorage.setItem('user', JSON.stringify(usuarioLogado));
+      console.log(localStorage.setItem('user', JSON.stringify(usuarioLogado)));
 
       // Esconder o campo de input "Sobre" e mostrar o texto
       document.getElementById('input_texto_sobre_usuario').style.display = 'none';
@@ -347,8 +345,12 @@ salvarPerfilBtn.onclick = async function () {
       document.getElementById('texto_sobre_usuario').textContent = sobre;
 
       // Atualizar o Local Storage
+      usuarioLogado.nome = nome;
       usuarioLogado.email = email;
-      localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado));
+      usuarioLogado.cnpj = cnpj;
+      usuarioLogado.endereco = endereco;
+      localStorage.setItem('user', JSON.stringify(usuarioLogado));
+      console.log(localStorage.setItem('user', JSON.stringify(usuarioLogado)));
 
       // Esconder o campo de input "Sobre" e mostrar o texto
       document.getElementById('input_texto_sobre_usuario').style.display = 'none';
