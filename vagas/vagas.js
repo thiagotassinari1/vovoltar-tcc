@@ -149,6 +149,9 @@ async function carregarVagas() {
     }
 }
 
+// definir email no formulário
+let email = document.getElementById('email').value = usuarioLogado.email
+
 // Abrir formulário
 let criarVaga = document.getElementById('criar_vaga').addEventListener('click', function (event) {
     formularioVaga.style.display = 'flex';
