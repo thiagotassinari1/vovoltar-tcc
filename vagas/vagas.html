@@ -30,9 +30,18 @@
         </section>
         <section class="post_vagas">
             <div class="botoes">
-                <div class="botao_vaga" id="filtrar"> Filtrar </div>
-                <div class="botao_vaga" id="criar_vaga"> Criar vaga </div>
+                <div class="botao_vaga" id="filtrar">Filtrar</div>
+                <div class="botao_vaga" id="criar_vaga">Criar vaga</div>
             </div>
+            
+            <!-- Campo de filtro (inicialmente oculto) -->
+            <div id="campo_filtrar" style="display: none;">
+                <input type="text" id="titulo_filtro" placeholder="Filtrar por título (cargo)...">
+                <button id="confirmar_filtro">Confirmar filtro</button>
+                <button id="cancelar_filtro">Cancelar filtro</button>
+            </div>
+            
+            
             <div class="vagas">
                 <form class="formulario_vagas" id="formulario_vagas">
 
