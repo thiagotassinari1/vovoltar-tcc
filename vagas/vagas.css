@@ -156,6 +156,55 @@ main {
     transition-duration: 0.3s;
 }
 
+#filtrar:hover {
+    background-color: #9CCDDB;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+#campo_filtrar {
+    /* border: 1px solid black; */
+    width: 50%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4vw;
+}
+
+.opcao_filtro {
+    width: 20%;
+    height: 3.5vh;
+    border-radius: 10px;
+}
+
+#titulo_filtro {
+    padding-left: 0.3vw;
+    padding-right: 0.3vw;
+    border: 1px solid black;
+}
+
+#confirmar_filtro {
+    background-color: #9CCDDB;
+    border: none;
+}
+
+#confirmar_filtro:hover {
+    background-color: #6cb1df;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
+#cancelar_filtro {
+    background-color: #f08989;
+    border: none;
+}
+
+#cancelar_filtro:hover {
+    background-color: #f86c6c;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}
+
 .vagas {
     background-color: #D9D9D9;
     width: 90%;

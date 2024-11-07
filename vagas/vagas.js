@@ -222,51 +222,39 @@ publicarVaga.onclick = async function () {
     }
 };
 
-// Função para exibir o campo de filtro e os botões
-const mostrarFiltros = () => {
+const filtrar = document.getElementById('filtrar').addEventListener('click', function() {
     const campoFiltro = document.getElementById('campo_filtrar');
-    campoFiltro.style.display = 'block';  // Exibe o campo de filtro e os botões
-};
+    campoFiltro.style.display = 'flex';
+    filtrar.style = 'background-color: #9CCDDB;'
+});
 
-// Função para filtrar as vagas com base no título
-const confirmarFiltro = () => {
+const confirmarFiltro = document.getElementById('confirmar_filtro').addEventListener('click', function() {
     const tituloFiltro = document.getElementById('titulo_filtro').value.toLowerCase();
     const vagas = document.querySelectorAll('.card_vaga');  // Seleciona todos os cards de vagas
 
-    // Aplica o filtro nas vagas
     vagas.forEach(vaga => {
         const tituloVaga = vaga.querySelector('.infos_vaga h3').textContent.toLowerCase();
 
         if (tituloVaga.includes(tituloFiltro)) {
-            vaga.style.display = 'flex';  // Exibe as vagas que correspondem ao filtro
+            vaga.style.display = 'flex';
         } else {
-            vaga.style.display = 'none';  // Esconde as vagas que não correspondem
+            vaga.style.display = 'none';
         }
     });
-};
+});
 
-// Função para cancelar o filtro e voltar à exibição normal
-const cancelarFiltro = () => {
+const cancelarFiltro = document.getElementById('cancelar_filtro').addEventListener('click', function() {
     const campoFiltro = document.getElementById('campo_filtrar');
-    const vagas = document.querySelectorAll('.card_vaga');  // Seleciona todos os cards de vagas
+    const vagas = document.querySelectorAll('.card_vaga');
+    const tituloFiltro = document.getElementById('titulo_filtro');
 
-    // Esconde o campo de filtro e os botões
     campoFiltro.style.display = 'none';
+    tituloFiltro.value = '';
 
-    // Exibe todas as vagas novamente
     vagas.forEach(vaga => {
-        vaga.style.display = 'flex';  // Exibe todas as vagas
+        vaga.style.display = 'flex';
     });
-};
-
-// Adicionar evento ao botão "Filtrar"
-document.getElementById('filtrar').addEventListener('click', mostrarFiltros);
-
-// Adicionar evento ao botão "Confirmar filtro"
-document.getElementById('confirmar_filtro').addEventListener('click', confirmarFiltro);
-
-// Adicionar evento ao botão "Cancelar filtro"
-document.getElementById('cancelar_filtro').addEventListener('click', cancelarFiltro);
+});
 
 // Carregar vagas ao carregar a página
 window.onload = function () {
