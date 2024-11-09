@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       const areaAtuacao = content.data[0].area_atuacao;
       const sobre = content.data[0].sobre;
       const ft_perfil = content.data[0].ft_perfil;
+      const instagram = content.data[0].instagram;
+      const facebook = content.data[0].facebook;
 
       let nomeAtual = document.getElementById('nome_usuario');
       let emailAtual = document.getElementById('email_usuario');
@@ -29,6 +31,8 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       let areaAtuacaoAtual = document.getElementById('area_atuacao');
       let sobreAtual = document.getElementById('texto_sobre_usuario');
       let ftPerfilAtual = document.getElementById('foto-usuario');
+      let instaAtual = document.getElementById('link_insta');
+      let faceAtual = document.getElementById('link_face');
 
       nomeAtual.textContent = nome;
       emailAtual.textContent = email;
@@ -37,14 +41,13 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       areaAtuacaoAtual.textContent = areaAtuacao;
       sobreAtual.textContent = sobre;
       ftPerfilAtual.src = `../back_api/src/uploads/fotos/${ft_perfil}`;
-      console.log(curriculo)
+      instaAtual.textContent = instagram;
+      faceAtual.textContent = facebook
     } else {
       alert('Erro para puxar os dados!');
     }
   } else {
-
     const ocultarAnexos = document.getElementById('anexos_direita').style.display = 'none';
-
 
     const response = await fetch(`http://localhost:3001/api/get/infosUserEmpresa/${id}`, {
       method: "GET",
@@ -61,6 +64,8 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       const endereco = content.data[0].endereco;
       const fotoEmpresa = content.data[0].ft_perfil;
       const sobre = content.data[0].sobre;
+      const instagram = content.data[0].instagram;
+      const facebook = content.data[0].facebook;
 
       const mudarTelparaCnpj = document.getElementById('mudar_titulo_info_tel').innerHTML = 'CNPJ'
       const mudarNascparaEndereco = document.getElementById('mudar_titulo_info_nasc').innerHTML = 'Endereço'
@@ -72,6 +77,8 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       let enderecoAtual = document.getElementById('nascimento_usuario');
       let fotoEmpresaAtual = document.getElementById('foto-usuario');
       let sobreAtual = document.getElementById('texto_sobre_usuario');
+      let instaAtual = document.getElementById('link_insta');
+      let faceAtual = document.getElementById('link_face');
 
       nomeAtual.textContent = nome;
       emailAtual.textContent = email;
@@ -79,6 +86,8 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       enderecoAtual.textContent = endereco;
       fotoEmpresaAtual.src = `../back_api/src/uploads/fotos/${fotoEmpresa}`;
       sobreAtual.textContent = sobre;
+      instaAtual.textContent = instagram;
+      faceAtual.textContent = facebook
     }
   }
 });
@@ -195,6 +204,8 @@ editarPerfilBtn.onclick = function () {
   document.getElementById('input_nascimento_usuario').value = document.getElementById('nascimento_usuario').textContent;
   document.getElementById('input_area_atuacao').value = document.getElementById('area_atuacao').textContent;
   document.getElementById('input_texto_sobre_usuario').value = document.getElementById('texto_sobre_usuario').textContent;
+  document.getElementById('input_instagram').value = document.getElementById('link_insta').textContent;
+  document.getElementById('input_facebook').value = document.getElementById('link_face').textContent;
 
   // Exibe campos de edição e os botões "Salvar", "Cancelar", e o campo de upload de foto
   document.getElementById('input_nome_usuario').style.display = 'block';
@@ -203,6 +214,8 @@ editarPerfilBtn.onclick = function () {
   document.getElementById('input_nascimento_usuario').style.display = 'block';
   document.getElementById('input_area_atuacao').style.display = 'block';
   document.getElementById('input_texto_sobre_usuario').style.display = 'block';
+  document.getElementById('input_instagram').style.display = 'block';
+  document.getElementById('input_facebook').style.display = 'block';
 
   // Esconde os textos originais
   document.getElementById('nome_usuario').style.display = 'none';
@@ -211,6 +224,8 @@ editarPerfilBtn.onclick = function () {
   document.getElementById('nascimento_usuario').style.display = 'none';
   document.getElementById('area_atuacao').style.display = 'none';
   document.getElementById('texto_sobre_usuario').style.display = 'none';
+  document.getElementById('link_insta').style.display = 'none';
+  document.getElementById('link_face').style.display = 'none';
 
   // Exibe o campo de upload de foto e botões de edição
   formFotoPerfil.style.display = 'flex';
@@ -230,6 +245,8 @@ cancelarPerfilBtn.onclick = function () {
   document.getElementById('input_nascimento_usuario').style.display = 'none';
   document.getElementById('input_area_atuacao').style.display = 'none';
   document.getElementById('input_texto_sobre_usuario').style.display = 'none';
+  document.getElementById('input_instagram').style.display = 'none';
+  document.getElementById('input_facebook').style.display = 'none';
 
   // Restaura a visibilidade dos textos
   document.getElementById('nome_usuario').style.display = 'block';
@@ -238,6 +255,8 @@ cancelarPerfilBtn.onclick = function () {
   document.getElementById('nascimento_usuario').style.display = 'block';
   document.getElementById('area_atuacao').style.display = 'block';
   document.getElementById('texto_sobre_usuario').style.display = 'block';
+  document.getElementById('link_insta').style.display = 'block';
+  document.getElementById('link_face').style.display = 'block';
 
   // Oculta os botões de edição
   salvarPerfilBtn.style.display = 'none';
@@ -259,6 +278,8 @@ salvarPerfilBtn.onclick = async function () {
     const nascimento = document.getElementById('input_nascimento_usuario').value;
     const areaAtuacao = document.getElementById('input_area_atuacao').value;
     const sobre = document.getElementById('input_texto_sobre_usuario').value;
+    const instagram = document.getElementById('input_instagram').value;
+    const facebook = document.getElementById('input_facebook').value;
 
     const userData = {
       id: id,
@@ -268,6 +289,8 @@ salvarPerfilBtn.onclick = async function () {
       nascimento: nascimento,
       area_atuacao: areaAtuacao,
       sobre: sobre,
+      instagram: instagram,
+      facebook: facebook
     };
 
     // Requisição PUT para atualizar o perfil de pessoa
@@ -287,6 +310,8 @@ salvarPerfilBtn.onclick = async function () {
       document.getElementById('nascimento_usuario').textContent = nascimento;
       document.getElementById('area_atuacao').textContent = areaAtuacao;
       document.getElementById('texto_sobre_usuario').textContent = sobre;
+      document.getElementById('link_insta').textContent = instagram;
+      document.getElementById('link_face').textContent = facebook;
 
       // Atualizar o Local Storage
       usuarioLogado.nome = nome;
@@ -319,6 +344,8 @@ salvarPerfilBtn.onclick = async function () {
     const cnpj = document.getElementById('input_telefone_usuario').value; // CNPJ
     const endereco = document.getElementById('input_nascimento_usuario').value; // Endereço
     const sobre = document.getElementById('input_texto_sobre_usuario').value;
+    const instagram = document.getElementById('input_instagram').value;
+    const facebook = document.getElementById('input_facebook').value;
 
     const empresaData = {
       id: id,
@@ -326,7 +353,9 @@ salvarPerfilBtn.onclick = async function () {
       email: email,
       cnpj: cnpj,
       endereco: endereco,
-      sobre: sobre
+      sobre: sobre,
+      instagram: instagram,
+      facebook: facebook
     };
 
     // Requisição PUT para atualizar o perfil da empresa
@@ -345,6 +374,8 @@ salvarPerfilBtn.onclick = async function () {
       document.getElementById('telefone_usuario').textContent = cnpj;
       document.getElementById('nascimento_usuario').textContent = endereco;
       document.getElementById('texto_sobre_usuario').textContent = sobre;
+      document.getElementById('link_insta').textContent = instagram;
+      document.getElementById('link_face').textContent = facebook;
 
       // Atualizar o Local Storage
       usuarioLogado.nome = nome;

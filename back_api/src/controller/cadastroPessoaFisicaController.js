@@ -174,13 +174,13 @@ async function updateFotoPerfil(request, response) {
 
 async function updateUsuario(request, response) {
   const id = request.body.id;
-  const { nome, email, telefone, nascimento, area_atuacao, sobre } = request.body;
+  const { nome, email, telefone, nascimento, area_atuacao, sobre, instagram, facebook } = request.body;
 
-  const params = [nome, email, telefone, nascimento, area_atuacao, sobre, id];
+  const params = [nome, email, telefone, nascimento, area_atuacao, sobre, instagram, facebook, id];
   
   const query = `
       UPDATE usuariospf 
-      SET nome = ?, email = ?, telefone = ?, nascimento = ?, area_atuacao = ?, sobre = ?
+      SET nome = ?, email = ?, telefone = ?, nascimento = ?, area_atuacao = ?, sobre = ?, instagram = ?, facebook = ?, linkedin = ?
       WHERE id = ?
   `;
 

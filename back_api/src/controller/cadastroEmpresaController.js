@@ -65,13 +65,13 @@ async function InfosEmpresa(request, response) {
 
 async function updateEmpresa(request, response) {
   const id = request.body.id;
-  const { nome, email, cnpj, endereco, sobre } = request.body;
+  const { nome, email, cnpj, endereco, sobre, instagram, facebook } = request.body;
 
-  const params = [nome, email, cnpj, endereco, sobre, id];
+  const params = [nome, email, cnpj, endereco, sobre, instagram, facebook, id];
 
   const query = `
         UPDATE empresas
-        SET nome = ?, email = ?, cnpj = ?, endereco = ?, sobre = ?
+        SET nome = ?, email = ?, cnpj = ?, endereco = ?, sobre = ?, instagram = ?, facebook = ?
         WHERE id = ?
     `;
 

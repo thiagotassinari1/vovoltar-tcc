@@ -379,5 +379,21 @@ main {
     height: 100%;
     width: 50%;
     display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 25%;
+}
+
+.links_redes {
+    display: flex;
     justify-content: center;
+    /* align-items: center; */
+    flex-direction: column;
+    gap: 3vh;
+}
+
+.info_rede {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
 }

@@ -15,10 +15,11 @@ CREATE TABLE usuariospf (
     ft_perfil VARCHAR(255),
 	area_atuacao VARCHAR(255),
     sobre longtext,
-    curriculo VARCHAR(255)
+    curriculo VARCHAR(255),
+    instagram varchar(255),
+	facebook varchar(255),
+	linkedin varchar(255)
 );
-
-drop table empresas;
 	
 CREATE TABLE empresas (
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -28,10 +29,10 @@ CREATE TABLE empresas (
     endereco VARCHAR(255) NOT NULL,
     senha VARCHAR(255) NOT NULL,
     sobre longtext,
-    ft_perfil VARCHAR(255)
+    ft_perfil VARCHAR(255),
+	instagram varchar(255),
+    facebook varchar(255)
 );
-
-drop table empresas;
 
 create table vagas (
 	id int primary key auto_increment,
