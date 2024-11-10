@@ -41,8 +41,22 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       areaAtuacaoAtual.textContent = areaAtuacao;
       sobreAtual.textContent = sobre;
       ftPerfilAtual.src = `../back_api/src/uploads/fotos/${ft_perfil}`;
-      instaAtual.textContent = instagram;
-      faceAtual.textContent = facebook
+
+      if (instagram) {
+        instaAtual.textContent = instagram;
+        instaAtual.href = `https://instagram.com/${instagram}`;
+      } else {
+        instaAtual.textContent = 'Instagram não informado';
+        instaAtual.removeAttribute('href');
+      }
+
+      if (facebook) {
+        faceAtual.textContent = facebook;
+        faceAtual.href = `https://facebook.com/${facebook}`;
+      } else {
+        faceAtual.textContent = 'Facebook não informado';
+        faceAtual.removeAttribute('href');
+      }
     } else {
       alert('Erro para puxar os dados!');
     }
@@ -86,8 +100,22 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       enderecoAtual.textContent = endereco;
       fotoEmpresaAtual.src = `../back_api/src/uploads/fotos/${fotoEmpresa}`;
       sobreAtual.textContent = sobre;
-      instaAtual.textContent = instagram;
-      faceAtual.textContent = facebook
+
+      if (instagram) {
+        instaAtual.textContent = instagram;
+        instaAtual.href = `https://instagram.com/${instagram}`;
+      } else {
+        instaAtual.textContent = 'Instagram não informado';
+        instaAtual.removeAttribute('href');  // Remove o link se vazio
+      }
+
+      if (facebook) {
+        faceAtual.textContent = facebook;
+        faceAtual.href = `https://facebook.com/${facebook}`;
+      } else {
+        faceAtual.textContent = 'Facebook não informado';
+        faceAtual.removeAttribute('href');  // Remove o link se vazio
+      }
     }
   }
 });
