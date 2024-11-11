@@ -180,7 +180,7 @@ async function updateUsuario(request, response) {
   
   const query = `
       UPDATE usuariospf 
-      SET nome = ?, email = ?, telefone = ?, nascimento = ?, area_atuacao = ?, sobre = ?, instagram = ?, facebook = ?, linkedin = ?
+      SET nome = ?, email = ?, telefone = ?, nascimento = ?, area_atuacao = ?, sobre = ?, instagram = ?, facebook = ?
       WHERE id = ?
   `;
 

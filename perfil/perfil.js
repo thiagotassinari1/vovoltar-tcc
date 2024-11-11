@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       }
 
       if (facebook) {
-        faceAtual.textContent = facebook;
+        faceAtual.textContent = 'Link Facebook';
         faceAtual.href = `https://facebook.com/${facebook}`;
       } else {
         faceAtual.textContent = 'Facebook não informado';
