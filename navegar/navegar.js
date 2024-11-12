@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         listagemUsuarios.innerHTML = '';
 
         content.data.forEach(usuariospf => {
-            const fotoPerfil = usuariospf.ft_perfil ? `../back_api/src/uploads/fotos/${usuariospf.ft_perfil}` : '../assets/user.png';
+            const fotoPerfil = usuariospf.ft_perfil ? `../back_api/src/uploads/fotos/${usuariospf.ft_perfil}` : '../assets/user2.png';
         
             listagemUsuarios.innerHTML += `
                 <div class="card_usuario">
@@ -95,14 +95,27 @@ document.addEventListener('DOMContentLoaded', async function (event) {
                             },
                             body: JSON.stringify({ email, userName }),
                         });
-
+                    
                         const result = await response.json();
                         if (result.success) {
-                            alert('Email enviado com sucesso para ' + userName + '!');
+                            cardInfosUsuario.style.display = 'none';
+                            Swal.fire({
+                                icon: "success",
+                                title: "Email enviado com sucesso!",
+                                text: "Enviado para " + userName,
+                                showConfirmButton: false,
+                                timer: 1300
+                            });
                         } else {
-                            alert('Erro ao enviar email: ' + result.message);
+                            // Caso haja erro, mostrando o erro com Swal
+                            Swal.fire({
+                                icon: "error",
+                                title: "Erro ao enviar email",
+                                text: result.message || 'Tente novamente mais tarde.',
+                                showConfirmButton: true
+                            });
                         }
-                    };
+                    };                    
                 } else {
                     alert('Erro ao puxar os dados!');
                 }
