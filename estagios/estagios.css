@@ -1,0 +1,183 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+}
+
+body {
+    display: flex;
+}
+
+aside {
+    /* height: 105vh; */
+    width: 10%;
+    background-color: #146C94;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    font-size: 15pt;
+    gap: 4vh;
+    padding-top: 7vh;
+}
+
+.link_aside {
+    text-decoration: none;
+    color: white;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+}
+
+.link_aside:hover {
+    background-color: #bde3f468;
+}
+
+.link_aside_selecionado {
+    text-decoration: none;
+    color: white;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background-color: #bde3f468;
+}
+
+.perfil {
+    /* border: 1px solid white; */
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5vw;
+}
+
+.opções_usuario {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5vh;
+    width: 50%;
+}
+
+#botao-logout {
+    background-color: #bde3f468;
+    border: none;
+    width: 90%;
+    border-radius: 10px;
+}
+
+#botao-logout:hover {
+    cursor: pointer;
+    background-color: #6cb1df;
+    transition-duration: 0.3s;
+}
+
+main {
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.titulo_navegar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2%;
+}
+
+.titulo {
+    color: black;
+    font-weight: 500;
+    font-size: 40pt;
+}
+
+.descricao_titulo {
+    color: black;
+    font-size: 15pt;
+}
+
+.estagio1 {
+    border: 1px solid black;
+    height: 45vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card_estagio1 {
+    /* border: 1px solid black; */
+    width: 48%;
+    height: 80%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.295);
+}
+
+.esquerda {
+    width: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4vh;
+    padding-right: 2vw; 
+    /* border: 1px solid black; */
+    height: 70%;
+}
+
+.esquerda:after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    height: 100%;
+    border-right: 2px solid #146C94;
+    transform: translateY(-50%);
+}
+
+.direita {
+    width: 35%;
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5vh;
+}
+
+.logo_estagio {
+    width: 45%;
+    border-radius: 50%;
+}
+
+.link_estagio {
+    text-decoration: none;
+    color: black;
+    border-radius: 10px;
+    background-color: #9CCDDB;
+    width: 55%;
+    height: 4vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.link_estagio:hover {
+    background: #6cb1df;
+    cursor: pointer;
+    transition-duration: 0.3s;
+}

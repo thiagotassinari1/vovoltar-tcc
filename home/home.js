@@ -9,3 +9,7 @@ const logout = document.getElementById('botao-logout').addEventListener('click',
     localStorage.removeItem('user');
     window.location.href = '../login/login.html'
 });
+
+const verEstagios = document.getElementById('ver_estagios').addEventListener('click', function() {
+    window.location.href = '../estagios/estagios.html'
+});
