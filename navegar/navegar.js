@@ -75,6 +75,8 @@ document.addEventListener('DOMContentLoaded', async function (event) {
                 if (contentInfo.success) {
                     const { nome, email, telefone, nascimento, area_atuacao, curriculo, sobre } = contentInfo.data[0];
 
+                    console.log(contentInfo[0])
+
                     cardInfosUsuario.querySelector('.nome_info p').textContent = nome;
                     cardInfosUsuario.querySelector('.email_info p').textContent = email;
                     cardInfosUsuario.querySelector('.telefone_info p').textContent = telefone;
@@ -130,3 +132,25 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         alert('Erro para puxar os dados ou usuário não encontrado!');
     }
 });
+
+// cardInfosUsuario.querySelector('.nome_info p').textContent = nome;
+// cardInfosUsuario.querySelector('.email_info p').textContent = email;
+// cardInfosUsuario.querySelector('.telefone_info p').textContent = telefone;
+// cardInfosUsuario.querySelector('.nascimento_info p').textContent = nascimento;
+// cardInfosUsuario.querySelector('.area_info p').textContent = area_atuacao;
+// cardInfosUsuario.querySelector('.curriculo_info p').textContent = curriculo;
+// cardInfosUsuario.querySelector('.sobre_info p').textContent = sobre;
+
+// // Adicionar a funcionalidade de download do currículo
+// const curriculoInfo = cardInfosUsuario.querySelector('.curriculo_info');
+// if (curriculo) {
+//     // Criar um link para download do currículo
+//     const downloadLink = document.createElement('a');
+//     downloadLink.href = curriculo;  // Supondo que o currículo seja uma URL válida
+//     downloadLink.download = `${nome}_curriculo.pdf`;  // O nome do arquivo para download (pode ser qualquer extensão dependendo do formato)
+//     downloadLink.textContent = 'Baixar Currículo';
+//     curriculoInfo.appendChild(downloadLink);
+// }
+
+// // Exibe o card de informações do usuário
+// cardInfosUsuario.style.display = 'flex';

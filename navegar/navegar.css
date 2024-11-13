@@ -246,6 +246,14 @@ main {
     text-align: justify;
 }
 
+.recebe_infos {
+    text-align: justify;
+    width: 90%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    padding-right: 4px;
+}
+
 .botao_interesse {
     background: #9CCDDB;
     border: none;
