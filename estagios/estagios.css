@@ -108,7 +108,7 @@ main {
 }
 
 .estagio1 {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     height: 45vh;
     width: 100%;
     display: flex;
