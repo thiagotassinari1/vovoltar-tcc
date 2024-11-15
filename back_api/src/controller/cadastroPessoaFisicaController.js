@@ -245,6 +245,50 @@ async function removeFotoPerfil(request, response) {
   });
 }
 
+async function removerCurriculo(request, response) {
+  const id = request.body.id;
+
+  const query = "SELECT curriculo FROM usuariospf WHERE id = ?";
+  connection.query(query, [id], (err, results) => {
+    if (err || results.length === 0) {
+      return response.status(400).json({
+        success: false,
+        message: "Erro ao buscar o currículo!",
+        data: err
+      });
+    }
+
+    const curriculoNome = results[0].curriculo;
+    const filePath = path.join(caminhoCurriculo, curriculoNome);
+
+    fs.unlink(filePath, (erro) => {
+      if (erro) {
+        return response.status(400).json({
+          success: false,
+          message: "Erro ao apagar o arquivo do currículo!",
+          data: erro
+        });
+      }
+
+      const deleteQuery = "UPDATE usuariospf SET curriculo = NULL WHERE id = ?";
+      connection.query(deleteQuery, [id], (err, results) => {
+        if (err) {
+          return response.status(400).json({
+            success: false,
+            message: "Erro ao remover o currículo do banco de dados!",
+            data: err
+          });
+        }
+        response.status(200).json({
+          success: true,
+          message: "Currículo removido com sucesso!",
+          data: results
+        });
+      });
+    });
+  });
+}
+
 module.exports = {
   storeUsuario,
   InfosPessoa,
@@ -252,5 +296,6 @@ module.exports = {
   updateCurriculo,
   updateFotoPerfil,
   updateUsuario,
-  removeFotoPerfil // Exporta a nova função
+  removeFotoPerfil,
+  removerCurriculo
 };

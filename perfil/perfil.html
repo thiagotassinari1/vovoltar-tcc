@@ -98,16 +98,16 @@
                     <div class="anexos_direita" id="anexos_direita">
                         <h3>Anexos</h3>
                         <div class="curriculo" id="curriculo">
-                            <form action="#" enctype="multipart/form-data" id="form_curriculo">
+                            <form action="#" enctype="multipart/form-data" id="form_curriculo" style="display: none;">
                                 <label for="" class="label_curriculo">Anexar currículo</label>
                                 <input type="file" id="input_curriculo" name="curriculo">
-
-                                <button id="enviar_curriculo">Enviar curriculo</button>
+                                <button id="enviar_curriculo" type="button">Enviar currículo</button>
+                                <button id="remover_curriculo" type="button" style="display: none;">Apagar currículo</button>
                             </form>
-
-                            <!-- fazer puxar o curriculo anexado no front pra aparecer no perfil do usuario caso ele queira deletar e tudo mais -->
-
+                            <div id="curriculo_usuario">
+                            </div>
                         </div>
+                        
                     </div>
                     <div class="redes_sociais">
                         <h3>Redes Sociais</h3>
@@ -120,7 +120,7 @@
                             </div>
                             <div class="info_rede" id="facebook">
                                 <h3>Facebook:</h3>
-                                <a id="link_face" target="_blank">Adicione o link do seu facebook!</a>
+                                <a id="link_face" target="_blank" >Adicione o link do seu facebook!</a>
                                 <input type="text" class="input_editar" id="input_facebook" style="display: none;">
                             </div>
                             

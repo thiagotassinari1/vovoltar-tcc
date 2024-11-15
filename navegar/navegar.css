@@ -254,6 +254,20 @@ main {
     padding-right: 4px;
 }
 
+.link_dowload_curriculo {
+    color: black;
+    text-decoration: none;
+}
+
+.link_dowload_curriculo:hover {
+    text-decoration: underline;
+    color: #6cb1df;
+}
+
+#area_titulo {
+    width: 11.5vw;
+}
+
 .botao_interesse {
     background: #9CCDDB;
     border: none;

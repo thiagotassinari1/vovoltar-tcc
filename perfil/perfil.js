@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       const ft_perfil = content.data[0].ft_perfil;
       const instagram = content.data[0].instagram;
       const facebook = content.data[0].facebook;
+      const curriculo = content.data[0].curriculo;
 
       let nomeAtual = document.getElementById('nome_usuario');
       let emailAtual = document.getElementById('email_usuario');
@@ -33,6 +34,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       let ftPerfilAtual = document.getElementById('foto-usuario');
       let instaAtual = document.getElementById('link_insta');
       let faceAtual = document.getElementById('link_face');
+      let curriculoAtual = document.getElementById('curriculo_usuario');
 
       nomeAtual.textContent = nome;
       emailAtual.textContent = email;
@@ -41,6 +43,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
       areaAtuacaoAtual.textContent = areaAtuacao;
       sobreAtual.textContent = sobre;
       ftPerfilAtual.src = `../back_api/src/uploads/fotos/${ft_perfil}`;
+      curriculoAtual.textContent = curriculo
 
       if (instagram) {
         instaAtual.textContent = instagram;
@@ -57,6 +60,17 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         faceAtual.textContent = 'Facebook não informado';
         faceAtual.removeAttribute('href');
       }
+
+      if (curriculo) {
+        const curriculoDiv = document.getElementById('curriculo_usuario');
+        const downloadLink = document.createElement('a');
+        downloadLink.href = `../back_api/src/uploads/curriculos/${curriculo}`;
+        downloadLink.download = curriculo; // Define o nome do arquivo para download
+        downloadLink.textContent = 'Baixar currículo';
+        downloadLink.className = 'btn_download_curriculo'; // Adicione estilos se necessário
+        curriculoDiv.appendChild(downloadLink);
+    }
+
     } else {
       alert('Erro para puxar os dados!');
     }
@@ -108,14 +122,6 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         instaAtual.textContent = 'Instagram não informado';
         instaAtual.removeAttribute('href');  // Remove o link se vazio
       }
-
-      if (facebook) {
-        faceAtual.textContent = 'Link Facebook';
-        faceAtual.href = `https://facebook.com/${facebook}`;
-      } else {
-        faceAtual.textContent = 'Facebook não informado';
-        faceAtual.removeAttribute('href');  // Remove o link se vazio
-      }
     }
   }
 });
@@ -125,27 +131,44 @@ let enviarCurriculo = document.getElementById('enviar_curriculo');
 enviarCurriculo.onclick = async function (event) {
   event.preventDefault();
 
-  const usuarioLogado = JSON.parse(localStorage.getItem('user'));
-  const id = usuarioLogado.id;
-
-  let form = document.getElementById('form_curriculo');
-  let formData = new FormData(form);
+  const id = JSON.parse(localStorage.getItem('user')).id;
+  const formData = new FormData(document.getElementById('form_curriculo'));
   formData.append('id', id);
 
   const response = await fetch('http://localhost:3001/api/update/curriculo', {
-    method: 'PUT',
-    body: formData
+      method: 'PUT',
+      body: formData,
   });
 
-  let content = await response.json();
-
-  if (content.success) {
-    alert('Currículo enviado com sucesso!');
+  const result = await response.json();
+  if (result.success) {
+      alert('Currículo enviado com sucesso!');
+      window.location.reload(); // Atualiza a página para refletir as mudanças
   } else {
-    alert('Erro ao enviar currículo!');
-    console.log(content.sql)
+      alert('Erro ao enviar o currículo.');
   }
-}
+};
+
+let apagarCurriculo = document.getElementById('remover_curriculo');
+
+apagarCurriculo.onclick = async function () {
+  const id = JSON.parse(localStorage.getItem('user')).id;
+
+  const response = await fetch('http://localhost:3001/api/remove/curriculo', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+  });
+
+  const result = await response.json();
+  if (result.success) {
+      alert('Currículo removido com sucesso!');
+      document.getElementById('curriculo_usuario').innerHTML = 'Nenhum currículo disponível.';
+      document.getElementById('remover_curriculo').style.display = 'none';
+  } else {
+      alert('Erro ao remover o currículo.');
+  }
+};
 
 // transforma em objeto para conseguir buscar/manipular os dados do local storage
 usuarioLogado = JSON.parse(localStorage.getItem('user'));
@@ -244,6 +267,8 @@ editarPerfilBtn.onclick = function () {
   document.getElementById('input_texto_sobre_usuario').style.display = 'block';
   document.getElementById('input_instagram').style.display = 'block';
   document.getElementById('input_facebook').style.display = 'block';
+  document.getElementById('form_curriculo').style.display = 'block';
+  document.getElementById('remover_curriculo').style.display = 'inline-block';
 
   // Esconde os textos originais
   document.getElementById('nome_usuario').style.display = 'none';
@@ -275,6 +300,8 @@ cancelarPerfilBtn.onclick = function () {
   document.getElementById('input_texto_sobre_usuario').style.display = 'none';
   document.getElementById('input_instagram').style.display = 'none';
   document.getElementById('input_facebook').style.display = 'none';
+  document.getElementById('form_curriculo').style.display = 'none';
+  document.getElementById('remover_curriculo').style.display = 'none';
 
   // Restaura a visibilidade dos textos
   document.getElementById('nome_usuario').style.display = 'block';

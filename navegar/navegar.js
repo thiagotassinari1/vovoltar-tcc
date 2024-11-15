@@ -85,6 +85,20 @@ document.addEventListener('DOMContentLoaded', async function (event) {
                     cardInfosUsuario.querySelector('.curriculo_info p').textContent = curriculo;
                     cardInfosUsuario.querySelector('.sobre_info p').textContent = sobre;
 
+                    const curriculoInfo = cardInfosUsuario.querySelector('.curriculo_info p');
+                    curriculoInfo.innerHTML = '';
+                    
+                    if (curriculo) {
+                        // Cria o link para download do currículo
+                        const downloadLink = document.createElement('a');
+                        downloadLink.className = 'link_dowload_curriculo'
+                        downloadLink.href = `../back_api/src/uploads/curriculos/${curriculo}`;
+                        downloadLink.textContent = 'Baixar Currículo';
+                        curriculoInfo.appendChild(downloadLink);
+                    } else {
+                        curriculoInfo.textContent = 'Nenhum currículo disponível.';
+                    }
+
                     // Exibe o card de informações do usuário
                     cardInfosUsuario.style.display = 'flex';
 

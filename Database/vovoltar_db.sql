@@ -17,10 +17,9 @@ CREATE TABLE usuariospf (
     sobre longtext,
     curriculo VARCHAR(255),
     instagram varchar(255),
-	facebook varchar(255),
-	linkedin varchar(255)
+	facebook varchar(255)
 );
-	
+
 CREATE TABLE empresas (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(255) NOT NULL,
@@ -33,6 +32,8 @@ CREATE TABLE empresas (
 	instagram varchar(255),
     facebook varchar(255)
 );
+
+drop table empresas;
 
 create table vagas (
 	id int primary key auto_increment,

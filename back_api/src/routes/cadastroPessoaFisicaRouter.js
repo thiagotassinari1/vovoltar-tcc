@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { storeUsuario, InfosPessoa, infosUsuarioNavegar, updateCurriculo, updateUsuario, updateFotoPerfil, removeFotoPerfil } = require('../controller/cadastroPessoaFisicaController');
+const { storeUsuario, InfosPessoa, infosUsuarioNavegar, updateCurriculo, updateUsuario, updateFotoPerfil, removeFotoPerfil, removerCurriculo } = require('../controller/cadastroPessoaFisicaController');
 
 const router = Router();
 
@@ -117,5 +117,6 @@ router.put('/update/infosUser', updateUsuario);
  */
 router.delete('/remove/fotoPerfil', removeFotoPerfil);
 
+router.delete('/remove/curriculo', removerCurriculo);
 
 module.exports = router;
