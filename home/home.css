@@ -97,6 +97,38 @@ aside {
     transition-duration: 0.3s;
 }
 
+/* Botão de confirmação (Sim, deslogar) */
+.swal-confirm {
+    background-color: #9CCDDB; /* Cor padrão */
+    color: black; /* Cor do texto */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.swal-confirm:hover {
+    background-color: #6cb1df; /* Cor de hover */
+}
+
+/* Botão de cancelamento (Cancelar) */
+.swal-cancel {
+    background-color: #f08989; /* Cor padrão */
+    color: black; /* Cor do texto */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.swal-cancel:hover {
+    background-color: #f86c6c; /* Cor de hover */
+}
+
 main {
     width: 90%;
     display: flex;

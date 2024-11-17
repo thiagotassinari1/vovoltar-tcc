@@ -25,8 +25,35 @@ if (usuarioLogado.origin === 'usuariopf') {
 
 // Função para deslogar do site e voltar para o login
 const logout = document.getElementById('botao-logout').addEventListener('click', function () {
-    localStorage.removeItem('user');
-    window.location.href = '../login/login.html';
+    Swal.fire({
+        title: 'Tem certeza?',
+        text: "Você será deslogado e redirecionado para a página de login.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sim, deslogar',
+        cancelButtonText: 'Cancelar',
+        customClass: {
+            confirmButton: 'swal-confirm',
+            cancelButton: 'swal-cancel'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            localStorage.removeItem('user');
+            Swal.fire({
+                title: 'Deslogado!',
+                text: 'Você foi deslogado com sucesso.',
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false,
+                timerProgressBar: true,
+                customClass: {
+                    confirmButton: 'swal-confirm'
+                }
+            }).then(() => {
+                window.location.href = '../login/login.html';
+            });
+        }
+    });
 });
 
 // Função para criar um card de vaga
@@ -72,6 +99,13 @@ function criarCardVaga(vaga) {
         maisInfoVaga.style.display = 'flex';
         txt_detalhe_vaga.innerHTML = vaga.descricao;
 
+        const usuarioLogado = JSON.parse(localStorage.getItem('user'));
+        if (usuarioLogado.origin === 'usuariopf') {
+            botaoCandidatar.style.display = 'block'; // Torna o botão visível
+        } else {
+            botaoCandidatar.style.display = 'none'; // Oculta o botão
+        }
+
         // Evento para enviar o e-mail de candidatura ao clicar em "Candidatar-se"
         botaoCandidatar.addEventListener('click', async function () {
             const usuarioLogado = JSON.parse(localStorage.getItem('user'));
@@ -84,7 +118,18 @@ function criarCardVaga(vaga) {
                 nomeEmpresa: vaga.nomeEmpresa
             };
 
-            // Envia requisição para o back-end para enviar o e-mail
+            // Exibe o alerta de carregamento
+            Swal.fire({
+                title: 'Enviando candidatura...',
+                text: 'Aguarde enquanto processamos sua solicitação.',
+                icon: 'info',
+                allowOutsideClick: false,
+                showConfirmButton: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
             const response = await fetch('http://localhost:3001/api/email/candidatarVaga', {
                 method: 'POST',
                 headers: { 'Content-type': 'application/json;charset=UTF-8' },
@@ -92,18 +137,39 @@ function criarCardVaga(vaga) {
             });
 
             const result = await response.json();
-            if (result.success) {
-                alert(`Candidatura enviada com sucesso para a vaga de ${vaga.area}!`);
+
+            if (response.ok && result.success) {
+                Swal.fire({
+                    title: 'Candidatura enviada!',
+                    text: `Você se candidatou com sucesso à vaga de ${vaga.area}.`,
+                    icon: 'success',
+                    timer: 2000,
+                    showConfirmButton: false,
+                    timerProgressBar: true,
+                    customClass: {
+                        confirmButton: 'swal-confirm'
+                    }
+                });
             } else {
-                alert('Erro ao enviar candidatura. Tente novamente.');
+                Swal.fire({
+                    title: 'Erro!',
+                    text: 'Não foi possível enviar sua candidatura. Tente novamente mais tarde.',
+                    icon: 'error',
+                    confirmButtonText: 'Fechar',
+                    customClass: {
+                        confirmButton: 'swal-confirm'
+                    }
+                });
             }
         });
+
     });
 
     // Verificar se o usuário logado é uma empresa
     const empresaLogada = JSON.parse(localStorage.getItem('user'));
-    console.log(empresaLogada.id)
-    if (vaga.empresa_id === empresaLogada.id) {
+
+    // Condição para exibir o botão de deletar apenas para empresas
+    if (vaga.empresa_id === empresaLogada.id && empresaLogada.origin === 'empresa') {
         // Criando botão pra deletar a vaga
         let botaoDeleteVaga = document.createElement('div');
         botaoDeleteVaga.className = 'deletar_vaga';
@@ -119,8 +185,24 @@ function criarCardVaga(vaga) {
             });
 
             if (deleteResponse.ok) {
-                alert('Vaga deletada com sucesso!');
-                cardVaga.remove();
+                let Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 700,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+
+                Toast.fire({
+                    icon: "success",
+                    title: "Vaga removida com sucesso!"
+                }).then(() => {
+                    cardVaga.remove();
+                });
             } else {
                 const errorResponse = await deleteResponse.json();
                 alert(errorResponse.message);
@@ -196,39 +278,58 @@ publicarVaga.onclick = async function () {
         let content = await response.json();
 
         if (content.success) {
-            alert('Sucesso!');
-            criarCardVaga({
-                id: content.vagaId,
-                area: area,
-                email_empresa: email_empresa,
-                cidade: cidade,
-                estado: estado,
-                qtd_vagas: qtd_vagas,
-                empresa_id: empresa_id,
-                nomeEmpresa: nomeEmpresa  // Inclui o nome da empresa no card
+            let Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 700,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
             });
 
-            // Ocultando o formulário e resetando os campos
-            formularioVaga.style.display = 'none';
-            areaAtuacao.value = '';
-            cidadeForm.value = '';
-            estadoForm.value = '';
-            qtd_vagasForm.value = '';
+            Toast.fire({
+                icon: "success",
+                title: "Vaga criada com sucesso!"
+            }).then(() => {
+                // Cria o card após o alerta ser exibido
+                criarCardVaga({
+                    id: content.vagaId,
+                    area: area,
+                    email_empresa: email_empresa,
+                    cidade: cidade,
+                    estado: estado,
+                    qtd_vagas: qtd_vagas,
+                    empresa_id: empresa_id,
+                    nomeEmpresa: nomeEmpresa
+                });
 
-            window.location.reload();
+                // Oculta o formulário e reseta os campos
+                formularioVaga.style.display = 'none';
+                areaAtuacao.value = '';
+                cidadeForm.value = '';
+                estadoForm.value = '';
+                qtd_vagasForm.value = '';
+                descricao.value = '';
+
+                // Recarrega a página
+                location.reload();
+            });
         } else {
             alert(content.message);
         }
     }
 };
 
-const filtrar = document.getElementById('filtrar').addEventListener('click', function() {
+const filtrar = document.getElementById('filtrar').addEventListener('click', function () {
     const campoFiltro = document.getElementById('campo_filtrar');
     campoFiltro.style.display = 'flex';
     filtrar.style = 'background-color: #9CCDDB;'
 });
 
-const confirmarFiltro = document.getElementById('confirmar_filtro').addEventListener('click', function() {
+const confirmarFiltro = document.getElementById('confirmar_filtro').addEventListener('click', function () {
     const tituloFiltro = document.getElementById('titulo_filtro').value.toLowerCase();
     const vagas = document.querySelectorAll('.card_vaga');  // Seleciona todos os cards de vagas
 
@@ -243,7 +344,7 @@ const confirmarFiltro = document.getElementById('confirmar_filtro').addEventList
     });
 });
 
-const cancelarFiltro = document.getElementById('cancelar_filtro').addEventListener('click', function() {
+const cancelarFiltro = document.getElementById('cancelar_filtro').addEventListener('click', function () {
     const campoFiltro = document.getElementById('campo_filtrar');
     const vagas = document.querySelectorAll('.card_vaga');
     const tituloFiltro = document.getElementById('titulo_filtro');

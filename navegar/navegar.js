@@ -4,10 +4,36 @@ console.log(idUsuarioLogado);
 console.log(usuarioLogado.origin);
 
 const logout = document.getElementById('botao-logout').addEventListener('click', function () {
-    localStorage.removeItem('user');
-    window.location.href = '../login/login.html'
+    Swal.fire({
+        title: 'Tem certeza?',
+        text: "Você será deslogado e redirecionado para a página de login.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sim, deslogar',
+        cancelButtonText: 'Cancelar',
+        customClass: {
+            confirmButton: 'swal-confirm',
+            cancelButton: 'swal-cancel'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            localStorage.removeItem('user');
+            Swal.fire({
+                title: 'Deslogado!',
+                text: 'Você foi deslogado com sucesso.',
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false,
+                timerProgressBar: true,
+                customClass: {
+                    confirmButton: 'swal-confirm'
+                }
+            }).then(() => {
+                window.location.href = '../login/login.html';
+            });
+        }
+    });
 });
-
 document.addEventListener('DOMContentLoaded', async function (event) {
     event.preventDefault();
 
@@ -104,15 +130,35 @@ document.addEventListener('DOMContentLoaded', async function (event) {
 
                     // Atualiza a função do botão "Demonstrar Interesse" dentro do card
                     btnInteresseCard.onclick = async function () {
+
+                        cardInfosUsuario.style.display = 'none';
+
+                        const loadingAlert = Swal.fire({
+                            title: "Enviando...",
+                            didOpen: () => {
+                                Swal.showLoading();
+                            },
+                            showConfirmButton: false,
+                            allowOutsideClick: false
+                        });
+
+                        const empresaLogada = JSON.parse(localStorage.getItem('user'));
+                        let empresa_id = empresaLogada.id;
+                        let nomeEmpresa = empresaLogada.nome;
+                    
                         const response = await fetch('http://localhost:3001/api/email/sendInterestEmail', {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
-                            body: JSON.stringify({ email, userName }),
+                            body: JSON.stringify({ email, userName, nomeEmpresa }),
                         });
                     
                         const result = await response.json();
+                        
+                        // Fecha o alerta de carregamento
+                        loadingAlert.close();
+                    
                         if (result.success) {
                             cardInfosUsuario.style.display = 'none';
                             Swal.fire({
@@ -131,7 +177,7 @@ document.addEventListener('DOMContentLoaded', async function (event) {
                                 showConfirmButton: true
                             });
                         }
-                    };                    
+                    };                                    
                 } else {
                     alert('Erro ao puxar os dados!');
                 }
@@ -146,25 +192,3 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         alert('Erro para puxar os dados ou usuário não encontrado!');
     }
 });
-
-// cardInfosUsuario.querySelector('.nome_info p').textContent = nome;
-// cardInfosUsuario.querySelector('.email_info p').textContent = email;
-// cardInfosUsuario.querySelector('.telefone_info p').textContent = telefone;
-// cardInfosUsuario.querySelector('.nascimento_info p').textContent = nascimento;
-// cardInfosUsuario.querySelector('.area_info p').textContent = area_atuacao;
-// cardInfosUsuario.querySelector('.curriculo_info p').textContent = curriculo;
-// cardInfosUsuario.querySelector('.sobre_info p').textContent = sobre;
-
-// // Adicionar a funcionalidade de download do currículo
-// const curriculoInfo = cardInfosUsuario.querySelector('.curriculo_info');
-// if (curriculo) {
-//     // Criar um link para download do currículo
-//     const downloadLink = document.createElement('a');
-//     downloadLink.href = curriculo;  // Supondo que o currículo seja uma URL válida
-//     downloadLink.download = `${nome}_curriculo.pdf`;  // O nome do arquivo para download (pode ser qualquer extensão dependendo do formato)
-//     downloadLink.textContent = 'Baixar Currículo';
-//     curriculoInfo.appendChild(downloadLink);
-// }
-
-// // Exibe o card de informações do usuário
-// cardInfosUsuario.style.display = 'flex';

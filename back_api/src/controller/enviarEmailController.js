@@ -12,13 +12,18 @@ const transporter = nodemailer.createTransport({
 
 // Função para enviar o e-mail de interesse
 function sendInterestEmail(req, res) {
-    const { email, userName } = req.body;
+    const { email, userName, nomeEmpresa } = req.body;
 
     const mailOptions = {
         from: process.env.EMAIL,
         to: email,
         subject: "Interesse no seu perfil - Vovoltar",
-        text: `A empresa demonstrou interesse em seu perfil. Fique atento às próximas etapas.`,
+        text: `Olá, ${userName}!
+
+            A empresa ${nomeEmpresa} demonstrou interesse em seu perfil. Fique atento às próximas etapas do processo seletivo.
+
+            Atenciosamente,
+            Equipe Vovoltar.`,
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -36,6 +41,7 @@ function sendInterestEmail(req, res) {
         });
     });
 }
+
 
 // Função para enviar o e-mail de candidatura para a vaga
 function candidatarVaga(req, res) {

@@ -49,15 +49,16 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         instaAtual.textContent = instagram;
         instaAtual.href = `https://instagram.com/${instagram}`;
       } else {
-        instaAtual.textContent = 'Instagram não informado';
+        instaAtual.textContent = 'Instagram não informado.';
         instaAtual.removeAttribute('href');
       }
 
-      if (facebook) {
-        faceAtual.textContent = facebook;
-        faceAtual.href = `https://facebook.com/${facebook}`;
+      if (facebook && facebook.length > 51) {
+        faceAtual.textContent = `Facebook de ${nome}`;
+        faceAtual.href = facebook.startsWith('http') ? facebook : `https://facebook.com/${facebook}`;
+        faceAtual.target = '_blank';
       } else {
-        faceAtual.textContent = 'Facebook não informado';
+        faceAtual.textContent = 'Facebook não informado.';
         faceAtual.removeAttribute('href');
       }
 
@@ -65,11 +66,11 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         const curriculoDiv = document.getElementById('curriculo_usuario');
         const downloadLink = document.createElement('a');
         downloadLink.href = `../back_api/src/uploads/curriculos/${curriculo}`;
-        downloadLink.download = curriculo; // Define o nome do arquivo para download
+        downloadLink.download = curriculo;
         downloadLink.textContent = 'Baixar currículo';
-        downloadLink.className = 'btn_download_curriculo'; // Adicione estilos se necessário
+        downloadLink.className = 'btn_download_curriculo';
         curriculoDiv.appendChild(downloadLink);
-    }
+      }
 
     } else {
       alert('Erro para puxar os dados!');
@@ -136,16 +137,16 @@ enviarCurriculo.onclick = async function (event) {
   formData.append('id', id);
 
   const response = await fetch('http://localhost:3001/api/update/curriculo', {
-      method: 'PUT',
-      body: formData,
+    method: 'PUT',
+    body: formData,
   });
 
   const result = await response.json();
   if (result.success) {
-      alert('Currículo enviado com sucesso!');
-      window.location.reload(); // Atualiza a página para refletir as mudanças
+    alert('Currículo enviado com sucesso!');
+    window.location.reload(); // Atualiza a página para refletir as mudanças
   } else {
-      alert('Erro ao enviar o currículo.');
+    alert('Erro ao enviar o currículo.');
   }
 };
 
@@ -155,18 +156,18 @@ apagarCurriculo.onclick = async function () {
   const id = JSON.parse(localStorage.getItem('user')).id;
 
   const response = await fetch('http://localhost:3001/api/remove/curriculo', {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id }),
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id }),
   });
 
   const result = await response.json();
   if (result.success) {
-      alert('Currículo removido com sucesso!');
-      document.getElementById('curriculo_usuario').innerHTML = 'Nenhum currículo disponível.';
-      document.getElementById('remover_curriculo').style.display = 'none';
+    alert('Currículo removido com sucesso!');
+    document.getElementById('curriculo_usuario').innerHTML = 'Nenhum currículo disponível.';
+    document.getElementById('remover_curriculo').style.display = 'none';
   } else {
-      alert('Erro ao remover o currículo.');
+    alert('Erro ao remover o currículo.');
   }
 };
 
@@ -178,8 +179,35 @@ console.log(usuarioLogado.id, usuarioLogado.email, usuarioLogado.senha, usuarioL
 
 // criar função para deslogar do site e voltar para o login
 const logout = document.getElementById('botao-logout').addEventListener('click', function () {
-  localStorage.removeItem('user');
-  window.location.href = '../login/login.html'
+  Swal.fire({
+    title: 'Tem certeza?',
+    text: "Você será deslogado e redirecionado para a página de login.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sim, deslogar',
+    cancelButtonText: 'Cancelar',
+    customClass: {
+      confirmButton: 'swal-confirm',
+      cancelButton: 'swal-cancel'
+    }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      localStorage.removeItem('user');
+      Swal.fire({
+        title: 'Deslogado!',
+        text: 'Você foi deslogado com sucesso.',
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false,
+        timerProgressBar: true,
+        customClass: {
+          confirmButton: 'swal-confirm'
+        }
+      }).then(() => {
+        window.location.href = '../login/login.html';
+      });
+    }
+  });
 });
 
 // Botões para edição e cancelamento
@@ -231,7 +259,7 @@ if (usuarioLogado.origin === 'usuariospf') {
 
     if (content.success) {
       alert('Foto de perfil removida com sucesso!');
-      document.getElementById('foto-usuario').src = '../assets/user.png'; // Exibe uma imagem padrão
+      document.getElementById('foto-usuario').src = '../assets/user2.png';
     } else {
       alert('Erro ao remover a foto de perfil!');
       console.log(content.sql);
@@ -267,7 +295,8 @@ editarPerfilBtn.onclick = function () {
   document.getElementById('input_texto_sobre_usuario').style.display = 'block';
   document.getElementById('input_instagram').style.display = 'block';
   document.getElementById('input_facebook').style.display = 'block';
-  document.getElementById('form_curriculo').style.display = 'block';
+  document.getElementById('form_curriculo').style.display = 'flex';
+  document.getElementById('linha_curriculo').style.display = 'block'
   document.getElementById('remover_curriculo').style.display = 'inline-block';
 
   // Esconde os textos originais
@@ -302,6 +331,7 @@ cancelarPerfilBtn.onclick = function () {
   document.getElementById('input_facebook').style.display = 'none';
   document.getElementById('form_curriculo').style.display = 'none';
   document.getElementById('remover_curriculo').style.display = 'none';
+  document.getElementById('linha_curriculo').style.display = 'none';
 
   // Restaura a visibilidade dos textos
   document.getElementById('nome_usuario').style.display = 'block';
@@ -357,7 +387,21 @@ salvarPerfilBtn.onclick = async function () {
 
     let content = await response.json();
     if (content.success) {
-      alert('Perfil atualizado com sucesso!');
+      let Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1100,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "info",
+        title: "Perfil atualizado com sucesso!"
+      });
       // Atualizar a interface com os novos dados da pessoa
       document.getElementById('nome_usuario').textContent = nome;
       document.getElementById('email_usuario').textContent = email;
@@ -382,14 +426,29 @@ salvarPerfilBtn.onclick = async function () {
       document.getElementById('input_texto_sobre_usuario').style.display = 'none';
       document.getElementById('form_foto').style.display = 'none';
       document.getElementById('texto_sobre_usuario').style.display = 'block';
+      document.getElementById('form_curriculo').style.display = 'none';
+      document.getElementById('remover_curriculo').style.display = 'none';
+      document.getElementById('linha_curriculo').style.display = 'none';
       cancelarPerfilBtn.style.display = 'none';
 
       // Voltar ao modo de exibição (esconder inputs)
       toggleDisplayInputs(false);
-
-      window.location.reload();
     } else {
-      alert('Erro ao atualizar o perfil!');
+      let Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1100,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "Erro ao atualizar o perfil!"
+      });
       console.log(content.sql);
     }
   } else if (usuarioLogado.origin === 'empresa') {
@@ -422,7 +481,21 @@ salvarPerfilBtn.onclick = async function () {
 
     let content = await response.json();
     if (content.success) {
-      alert('Perfil da empresa atualizado com sucesso!');
+      let Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1100,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "info",
+        title: "Perfil atualizado com sucesso!"
+      });
       // Atualizar a interface com os novos dados da empresa
       document.getElementById('nome_usuario').textContent = nome;
       document.getElementById('email_usuario').textContent = email;
@@ -447,10 +520,22 @@ salvarPerfilBtn.onclick = async function () {
 
       // Voltar ao modo de exibição (esconder inputs)
       toggleDisplayInputs(false);
-
-      window.location.reload()
     } else {
-      alert('Erro ao atualizar o perfil da empresa!');
+      let Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 1100,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "Erro ao atualizar o perfil!"
+      });
       console.log(content.sql);
     }
   }
@@ -494,12 +579,43 @@ if (usuarioLogado.origin === 'usuariopf') {
     let content = await response.json();
 
     if (content.success) {
-      alert('Foto de perfil enviada com sucesso!');
+      let Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 700,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "info",
+        title: "Foto de perfil atualizada com sucesso!"
+      }).then(() => {
+        location.reload();
+      });
       // Atualizar a foto no frontend
       document.getElementById('foto-usuario').src = `../back_api/src/uploads/fotos/${content.ft_perfil}`;
-      window.location.reload()
     } else {
-      alert('Erro ao enviar a foto!');
+      let Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 700,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "Erro ao enviar a foto de perfil!"
+      }).then(() => {
+        location.reload();
+      });
       console.log(content.sql);
     }
   };
@@ -524,12 +640,43 @@ if (usuarioLogado.origin === 'usuariopf') {
     let content = await response.json();
 
     if (content.success) {
-      alert('Foto de perfil enviada com sucesso!');
+      let Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 700,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "info",
+        title: "Foto de perfil atualizada com sucesso!"
+      }).then(() => {
+        location.reload();
+      });
       // Atualizar a foto no frontend
       document.getElementById('foto-usuario').src = `../back_api/src/uploads/fotos/${content.ft_perfil}`;
-      window.location.reload()
     } else {
-      alert('Erro ao enviar a foto!');
+      let Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 700,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+      Toast.fire({
+        icon: "error",
+        title: "Erro ao enviar a foto de perfil!"
+      }).then(() => {
+        location.reload();
+      });
       console.log(content.sql);
     }
   };
