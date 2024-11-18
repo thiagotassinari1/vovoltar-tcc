@@ -123,6 +123,15 @@ document.addEventListener('DOMContentLoaded', async function (event) {
         instaAtual.textContent = 'Instagram não informado';
         instaAtual.removeAttribute('href');  // Remove o link se vazio
       }
+
+      if (facebook && facebook.length > 51) {
+        faceAtual.textContent = `Facebook de ${nome}`;
+        faceAtual.href = facebook.startsWith('http') ? facebook : `https://facebook.com/${facebook}`;
+        faceAtual.target = '_blank';
+      } else {
+        faceAtual.textContent = 'Facebook não informado.';
+        faceAtual.removeAttribute('href');
+      }
     }
   }
 });
@@ -398,9 +407,12 @@ salvarPerfilBtn.onclick = async function () {
           toast.onmouseleave = Swal.resumeTimer;
         }
       });
+    
       Toast.fire({
         icon: "info",
         title: "Perfil atualizado com sucesso!"
+      }).then(() => {
+        window.location.reload();
       });
       // Atualizar a interface com os novos dados da pessoa
       document.getElementById('nome_usuario').textContent = nome;
@@ -492,9 +504,12 @@ salvarPerfilBtn.onclick = async function () {
           toast.onmouseleave = Swal.resumeTimer;
         }
       });
+    
       Toast.fire({
         icon: "info",
         title: "Perfil atualizado com sucesso!"
+      }).then(() => {
+        window.location.reload();
       });
       // Atualizar a interface com os novos dados da empresa
       document.getElementById('nome_usuario').textContent = nome;
