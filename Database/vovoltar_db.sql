@@ -33,8 +33,6 @@ CREATE TABLE empresas (
     facebook varchar(255)
 );
 
-drop table empresas;
-
 create table vagas (
 	id int primary key auto_increment,
     area varchar(255) not null,
